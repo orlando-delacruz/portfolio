@@ -1,5 +1,6 @@
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import CallToAction from "./components/CallToAction";
 
 const App = () => {
   return (
@@ -21,6 +22,8 @@ const App = () => {
       <section id="blogs">
         <h1>Blogs</h1>
       </section>
+
+      <CallToAction />
 
       <Footer />
     </>
