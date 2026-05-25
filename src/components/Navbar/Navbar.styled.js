@@ -61,7 +61,6 @@ export const LogoTitle = styled.p`
 export const LogoSubTitle = styled.p`
     font-size: ${theme.typography.size.sm};
     font-weight: ${theme.typography.weight.light};
-    opacity: 0.7;
 `
 
 export const Navigation = styled.nav`

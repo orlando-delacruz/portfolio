@@ -1,4 +1,5 @@
-import Navbar from "./components/Navbar/Navbar";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 const App = () => {
   return (
@@ -21,9 +22,7 @@ const App = () => {
         <h1>Blogs</h1>
       </section>
 
-      <section id="contacts">
-        <h1>contact</h1>
-      </section>
+      <Footer />
     </>
   );
 };

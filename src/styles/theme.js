@@ -10,6 +10,8 @@ const theme = {
 
         white: "#FFFFFF",
         black: "#222222",
+
+        overlay: "rgba(0, 0, 0, 0.5)",
     },
 
     typography: {
@@ -22,10 +24,10 @@ const theme = {
         heading: {
             h1: "55px",
             h2: "40px",
-            h3: "35px",
-            h4: "30px",
-            h5: "25px",
-            h6: "20px"
+            h3: "22px",
+            h4: "20px",
+            h5: "18px",
+            h6: "16px"
         },
 
         size: {
