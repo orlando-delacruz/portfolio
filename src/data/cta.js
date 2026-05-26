@@ -4,14 +4,17 @@ const ctaData = {
   title: "Let's Build Something Amazing Together",
   description:
     "I'm currently open to internship opportunities, freelance projects, collaborations, and junior web developer roles.",
+
   primaryButton: {
     href: "#contacts",
     label: "Contact Me",
   },
+
   secondaryButton: {
     href: "/resume.pdf",
     label: "View Resume",
   },
+
   image: {
     img: CtaImage,
     alt: "Developer workspace illustration for the call-to-action section",

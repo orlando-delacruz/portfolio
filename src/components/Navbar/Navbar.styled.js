@@ -87,33 +87,32 @@ export const Overlay = styled.div`
         transition: opacity 0.3s ease;
     }
 `
+export const OffCanvasWrapper = styled.div`
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+`;
 
 export const OffCanvas = styled.aside`
-    display: none;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 300px;
+  z-index: 200;
+  padding: 28px 24px;
+  background-color: ${theme.colors.secondary};
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 8px 0 32px rgba(0, 0, 0, 0.4);
 
-    @media ${theme.media.tablet} {
-        display: flex;
-        flex-direction: column;
-        gap: 32px;
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 100vh;
-        width: 300px;
-        z-index: 200;
-        padding: 28px 24px;
-        background-color: ${theme.colors.secondary};
-        border-right: 1px solid rgba(255, 255, 255, 0.06);
-        box-shadow: 8px 0 32px rgba(0, 0, 0, 0.4);
-        transform: ${({ $isOpen }) => ($isOpen ? "translateX(0)" : "translateX(-100%)")};
-        transition: transform 0.3s ease;
-    }
-
-    @media ${theme.media.mobile} {
-        width: 100%;
-        border-right: none;
-    }
-`
+  @media ${theme.media.mobile} {
+    width: 100%;
+    border-right: none;
+  }
+`;
 
 export const OffCanvasHeader = styled.div`
     display: flex;

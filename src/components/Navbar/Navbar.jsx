@@ -1,7 +1,7 @@
 import { RiMenu3Line, RiCloseLine } from "react-icons/ri";
 import * as S from "./Navbar.styled";
 import useActiveSection from "../../hooks/useActiveSection.js";
-import { useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo, useEffect, useRef } from "react";
 import navbarData from "../../data/navbar.js";
 
 const { logo, title, subtitle, actionButton, navlinks } = navbarData;
@@ -27,26 +27,48 @@ const LogoContent = () => (
 
 const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
+    const offCanvasRef = useRef(null);
+
     const { activeLink, handleNavClick } = useActiveSection();
 
     const toggleMenu = useCallback(() => setMenuOpen((prev) => !prev), []);
     const closeMenu = useCallback(() => setMenuOpen(false), []);
-    const onNavClick = useCallback((href) => {
-        handleNavClick(href);
-        closeMenu();
-    }, [handleNavClick, closeMenu]);
 
-    const NavItems = useMemo(() => navlinks.map(({ label, href, id }) => (
-        <S.NavItem key={id}>
-            <S.NavLink
-                href={href}
-                $isActive={activeLink === href}
-                onClick={() => onNavClick(href)}
-            >
-                {label}
-            </S.NavLink>
-        </S.NavItem>
-    )), [activeLink, onNavClick]);
+    const onNavClick = useCallback(
+        (href) => {
+            handleNavClick(href);
+            closeMenu();
+        },
+        [handleNavClick, closeMenu]
+    );
+
+    // 🔥 FIX: prevent focus leakage when menu is closed
+    useEffect(() => {
+        const el = offCanvasRef.current;
+        if (!el) return;
+
+        const focusable = el.querySelectorAll("a, button");
+
+        focusable.forEach((node) => {
+            node.tabIndex = menuOpen ? 0 : -1;
+        });
+    }, [menuOpen]);
+
+    const NavItems = useMemo(
+        () =>
+            navlinks.map(({ label, href, id }) => (
+                <S.NavItem key={id}>
+                    <S.NavLink
+                        href={href}
+                        $isActive={activeLink === href}
+                        onClick={() => onNavClick(href)}
+                    >
+                        {label}
+                    </S.NavLink>
+                </S.NavItem>
+            )),
+        [activeLink, onNavClick]
+    );
 
     return (
         <>
@@ -57,6 +79,7 @@ const Navbar = () => {
 
                 <S.Navigation $isOpen={menuOpen}>
                     <S.NavLists>{NavItems}</S.NavLists>
+
                     <S.NavButton
                         as="a"
                         href={actionButton.href}
@@ -67,7 +90,11 @@ const Navbar = () => {
                     </S.NavButton>
                 </S.Navigation>
 
-                <S.Overlay aria-hidden="true" $isOpen={menuOpen} onClick={closeMenu} />
+                <S.Overlay
+                    aria-hidden="true"
+                    $isOpen={menuOpen}
+                    onClick={closeMenu}
+                />
 
                 <S.MenuButton
                     onClick={toggleMenu}
@@ -75,41 +102,48 @@ const Navbar = () => {
                     aria-expanded={menuOpen}
                     aria-controls="offcanvas-menu"
                 >
-                    {menuOpen
-                        ? <RiCloseLine aria-hidden="true" />
-                        : <RiMenu3Line aria-hidden="true" />
-                    }
+                    {menuOpen ? (
+                        <RiCloseLine aria-hidden="true" />
+                    ) : (
+                        <RiMenu3Line aria-hidden="true" />
+                    )}
                 </S.MenuButton>
             </S.NavbarWrapper>
 
-            <S.OffCanvas
-                id="offcanvas-menu"
-                $isActiveisOpen={menuOpen}
-                aria-label="Mobile navigation"
-                aria-hidden={!menuOpen}
-            >
-                <S.OffCanvasHeader>
-                    <S.Logo><LogoContent /></S.Logo>
-                    <S.CloseButton
-                        onClick={closeMenu}
-                        aria-label="Close navigation menu"
+            {/* 🔥 FIXED OFFCANVAS */}
+            {menuOpen && (
+                <S.OffCanvasWrapper>
+                    <S.OffCanvas
+                        ref={offCanvasRef}
+                        id="offcanvas-menu"
+                        aria-label="Mobile navigation"
                     >
+                        <S.OffCanvasHeader>
+                            <S.Logo>
+                                <LogoContent />
+                            </S.Logo>
 
-                        <RiCloseLine aria-hidden="true" />
-                    </S.CloseButton>
-                </S.OffCanvasHeader>
+                            <S.CloseButton
+                                onClick={closeMenu}
+                                aria-label="Close navigation menu"
+                            >
+                                <RiCloseLine aria-hidden="true" />
+                            </S.CloseButton>
+                        </S.OffCanvasHeader>
 
-                <S.OffCanvasNavLists>{NavItems}</S.OffCanvasNavLists>
+                        <S.OffCanvasNavLists>{NavItems}</S.OffCanvasNavLists>
 
-                <S.NavButton
-                    onClick={closeMenu}
-                    as="a"
-                    href={actionButton.href}
-                    aria-label={`${actionButton.label} — scroll to contacts`}
-                >
-                    {actionButton.label}
-                </S.NavButton>
-            </S.OffCanvas>
+                        <S.NavButton
+                            onClick={closeMenu}
+                            as="a"
+                            href={actionButton.href}
+                            aria-label={`${actionButton.label} — scroll to contacts`}
+                        >
+                            {actionButton.label}
+                        </S.NavButton>
+                    </S.OffCanvas>
+                </S.OffCanvasWrapper>
+            )}
         </>
     );
 };

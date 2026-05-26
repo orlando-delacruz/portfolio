@@ -1,9 +1,19 @@
+import { useEffect } from "react";
 import * as S from "./CallToAction.styled";
 import ctaData from "../../data/cta";
-import Vector from "../../assets/images/cta-vector.webp";
 
 const CallToAction = () => {
   const { title, description, primaryButton, secondaryButton, image } = ctaData;
+
+  useEffect(() => {
+    const link = document.createElement("link");
+    link.rel = "preload";
+    link.as = "image";
+    link.href = image.img;
+    link.fetchPriority = "high";
+
+    document.head.appendChild(link);
+  }, [image.img]);
 
   return (
     <S.CtaWrapper aria-labelledby="cta-title">
@@ -13,18 +23,14 @@ const CallToAction = () => {
           <S.Description>{description}</S.Description>
 
           <S.ActionButtons>
-            <S.PrimaryButton
-              href={primaryButton.href}
-              aria-label={`${primaryButton.label} — get in touch`}
-            >
+            <S.PrimaryButton href={primaryButton.href}>
               {primaryButton.label}
             </S.PrimaryButton>
 
             <S.SecondaryButton
               href={secondaryButton.href}
-              rel="noopener noreferrer"
               target="_blank"
-              aria-label={`${secondaryButton.label} — opens PDF`}
+              rel="noopener noreferrer"
             >
               {secondaryButton.label}
             </S.SecondaryButton>
@@ -43,14 +49,6 @@ const CallToAction = () => {
               height={392}
             />
           </S.CtaImage>
-          <S.Vector
-            src={Vector}
-            alt=""
-            loading="lazy"
-            aria-hidden="true"
-            width={456}
-            height={327} />
-
         </S.RightColumn>
       </S.CtaContent>
     </S.CtaWrapper>
