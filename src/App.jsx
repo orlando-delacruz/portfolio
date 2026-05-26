@@ -1,15 +1,9 @@
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-import CallToAction from "./components/CallToAction";
+import HomePage from "./pages/HomePage";
 
 const App = () => {
   return (
     <>
-      <Navbar />
-
-      <CallToAction />
-
-      <Footer />
+      <HomePage />
     </>
   );
 };

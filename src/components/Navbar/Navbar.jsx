@@ -20,7 +20,7 @@ const Navbar = () => {
     const LogoContent = (
         <>
             <S.LogoImage>
-                <img src={Logo} alt="Orlando Dela Cruz logo" />
+                <img src={Logo} loading="eager" decoding="async" width={55} height={55} alt="Orlando Dela Cruz logo" />
             </S.LogoImage>
             <S.LogoDetails>
                 <S.LogoTitle>Orlando Dela Cruz</S.LogoTitle>

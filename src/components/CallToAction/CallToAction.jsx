@@ -36,16 +36,20 @@ const CallToAction = () => {
             <img
               src={image.img}
               alt={image.alt}
-              loading="lazy"
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
               width={456}
               height={392}
             />
           </S.CtaImage>
           <S.Vector
             src={Vector}
-            alt="vector shapes" loading="lazy"
+            alt="vector shapes"
+            loading="lazy"
+            aria-hidden="true"
             width={456}
-            height={327.47} />
+            height={327} />
 
         </S.RightColumn>
       </S.CtaContent>

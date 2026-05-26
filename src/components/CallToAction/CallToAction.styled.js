@@ -95,7 +95,6 @@ export const RightColumn = styled.div`
   justify-content: center;
   align-items: center;
   height: 100%;
-  position: relative;
 
   @media ${theme.media.tablet} {
     order: 1;
@@ -103,7 +102,7 @@ export const RightColumn = styled.div`
 `;
 
 export const CtaImage = styled.div`
-  max-width: 392.88px;
+  max-width: 392px;
   max-height: 452px;
   position: absolute;
   top: -80px;
@@ -121,7 +120,6 @@ export const CtaImage = styled.div`
   
   @media ${theme.media.tablet} {
     position: static;
-    max-width: 100%;
   }
 `;
 
