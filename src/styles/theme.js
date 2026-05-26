@@ -1,6 +1,7 @@
 const theme = {
     colors: {
-        primary: "#2562EA",
+        primary: "#2562ea",
+        primaryRgb: "37, 98, 234",
         primaryLight: "#0277BD",
         primaryDark: "#050E22",
         secondary: "#1E293B",
@@ -8,7 +9,7 @@ const theme = {
         background: "#0B1222",
         sectionBackground: "#050E22",
 
-        white: "#FFFFFF",
+        white: "#ffffff",
         black: "#222222",
 
         overlay: "rgba(0, 0, 0, 0.5)",
@@ -35,7 +36,8 @@ const theme = {
             sm: "14px",
             body: "16px",
             md: "18px",
-            lg: "20px"
+            lg: "20px",
+            xl: "30px",
         },
 
         weight: {

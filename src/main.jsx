@@ -1,12 +1,15 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import GlobalStyle from './styles/global.js'
-import "./styles/fonts.css";
+import { BrowserRouter } from 'react-router-dom'
 import App from './App.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <GlobalStyle />
-    <App />
+    <BrowserRouter>
+      <App />
+
+    </BrowserRouter>
   </StrictMode>,
 )
