@@ -4,6 +4,10 @@ import FooterBg from "../../assets/footer.png";
 
 export const FooterWrapper = styled.footer`
   padding-top: 112px;
+
+  @media ${theme.media.tablet} {
+    padding-top: 50px;
+  }
 `;
 
 export const FooterContent = styled.section`

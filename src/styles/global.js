@@ -23,11 +23,6 @@ const GlobalStyle = createGlobalStyle`
     section {
         padding: 112px 65px 80px;
 
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
         @media ${theme.media.tablet} {
         padding: 80px 20px 50px;
 

@@ -1,32 +1,52 @@
 import * as S from "./CallToAction.styled";
 import ctaData from "../../data/cta";
+import Vector from "../../assets/cta-vector.png";
 
 const CallToAction = () => {
-
-  const {
-    title,
-    description,
-    primaryButton,
-    secondaryButton,
-    image,
-  } = ctaData
+  const { title, description, primaryButton, secondaryButton, image } = ctaData;
 
   return (
-    <S.CtaWrapper>
+    <S.CtaWrapper aria-labelledby="cta-section">
       <S.CtaContent>
         <S.CtaDetails>
-          <S.Title>{title}</S.Title>
+          <S.Title id="cta-title">{title}</S.Title>
           <S.Description>{description}</S.Description>
+
           <S.ActionButtons>
-            <S.PrimaryButton href={primaryButton.href}>{primaryButton.label}</S.PrimaryButton>
-            <S.SecondaryButton href={secondaryButton.href}>{secondaryButton.label}</S.SecondaryButton>
+            <S.PrimaryButton
+              href={primaryButton.href}
+              aria-label={`${primaryButton.label} — get in touch`}
+            >
+              {primaryButton.label}
+            </S.PrimaryButton>
+
+            <S.SecondaryButton
+              href={secondaryButton.href}
+              rel="noopener noreferrer"
+              target="_blank"
+              aria-label={`${secondaryButton.label} — opens PDF`}
+            >
+              {secondaryButton.label}
+            </S.SecondaryButton>
           </S.ActionButtons>
         </S.CtaDetails>
 
         <S.RightColumn>
           <S.CtaImage>
-            <img src={image.img} alt={image.alt} />
+            <img
+              src={image.img}
+              alt={image.alt}
+              loading="lazy"
+              width={456}
+              height={392}
+            />
           </S.CtaImage>
+          <S.Vector
+            src={Vector}
+            alt="vector shapes" loading="lazy"
+            width={456}
+            height={327.47} />
+
         </S.RightColumn>
       </S.CtaContent>
     </S.CtaWrapper>

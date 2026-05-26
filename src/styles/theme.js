@@ -22,12 +22,12 @@ const theme = {
 
 
         heading: {
-            h1: "55px",
-            h2: "40px",
-            h3: "22px",
-            h4: "20px",
-            h5: "18px",
-            h6: "16px"
+            h1: "clamp(36px, 6vw, 55px)",
+            h2: "clamp(26px, 5vw, 40px)",
+            h3: "clamp(20px, 4vw, 30px)",
+            h4: "clamp(16px, 3vw, 24px)",
+            h5: "20px",
+            h6: "18px"
         },
 
         size: {
