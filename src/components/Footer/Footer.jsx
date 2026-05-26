@@ -27,8 +27,8 @@ const Footer = () => {
                         <S.FooterDescription>{description}</S.FooterDescription>
 
                         <S.FooterSocials aria-label="Social Media Links">
-                            {socialLinks.map(({ id, href, icon: Icon }) => (
-                                <S.SocialLink key={id} href={href} target="_blank" rel="noopener noreferrer" aria-label={id}>
+                            {socialLinks.map(({ id, href, icon: Icon, label }) => (
+                                <S.SocialLink key={id} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}>
                                     <Icon aria-hidden="true" />
                                 </S.SocialLink>
                             ))}
@@ -50,7 +50,7 @@ const Footer = () => {
                     </S.Column2>
 
                     {/* Page Links Column */}
-                    <S.Column3 as="" nav aria-labelledby="page-links-heading">
+                    <S.Column3 as="nav" aria-labelledby="page-links-heading">
                         <S.FooterTitle id="page-links-heading">{pageLinksTitle}</S.FooterTitle>
                         <S.FooterLinks as="ul">
                             {pageLinks.map(({ id, href, label }) => (

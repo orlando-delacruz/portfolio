@@ -7,6 +7,12 @@ const GlobalStyle = createGlobalStyle`
         margin: 0;
         padding: 0;
         box-sizing: border-box;
+
+        &:focus-visible {
+        outline: 2px solid ${theme.colors.primary};
+        outline-offset: 4px;
+        border-radius: 4px;
+  }
     }
     
     body, html {
@@ -15,9 +21,13 @@ const GlobalStyle = createGlobalStyle`
     color: ${theme.colors.white};
     line-height: 1.5;
     scroll-behavior: smooth;
+    font-synthesis: none;
+    font-display: swap;
+    }
 
-    max-width: 1440px;
-    margin: 0 auto;
+    body {
+        max-width: 1440px;
+        margin: 0 auto;
     }
 
     section {

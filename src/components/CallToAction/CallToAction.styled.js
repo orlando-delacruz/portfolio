@@ -2,16 +2,18 @@ import styled from "styled-components";
 import theme from "../../styles/theme";
 
 export const CtaWrapper = styled.section`
+  min-height: 564px;
 `;
 
 export const CtaContent = styled.div`
   background: linear-gradient(to right, #001d5e 41%, #0b1222 100%);
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   padding: 50px;
   border-radius: 30px;
   overflow: visible;
   position: relative;
+  min-height: 372px;
 
   @media ${theme.media.tablet} {
     grid-template-columns: 1fr;
@@ -25,8 +27,8 @@ export const CtaContent = styled.div`
 export const CtaDetails = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 24px;
+  min-height: 272px;
 
   @media ${theme.media.tablet} {
     order: 2;
@@ -38,11 +40,15 @@ export const Title = styled.h2`
   font-weight: ${theme.typography.weight.semibold};
   text-align: center;
   color: ${theme.colors.white};
+  line-height: 1.2;
+  max-width: 18ch;
+  margin: 0 auto;
 `;
 
 export const Description = styled.p`
-  text-align: center;
-  color: ${theme.colors.white};
+   text-align: center;
+  max-width: 45ch;
+  margin: 0 auto;
 `;
 
 export const ActionButtons = styled.div`
@@ -51,6 +57,8 @@ export const ActionButtons = styled.div`
   align-items: center;
   gap: 24px;
   flex-wrap: wrap;
+  min-height: 56px;
+  margin: 0 auto;
 `;
 
 export const PrimaryButton = styled.a`
@@ -104,17 +112,19 @@ export const RightColumn = styled.div`
 export const CtaImage = styled.div`
   max-width: 392px;
   max-height: 452px;
-  position: absolute;
-  top: -80px;
-  right: 0;
   z-index: 3;
+  position: absolute;
+  right: 0;
+  top: -80px;
   
 
   img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    display: block;
+     width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+
+  aspect-ratio: 392 / 452;
   }
 
   

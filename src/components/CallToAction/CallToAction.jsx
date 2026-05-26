@@ -1,12 +1,12 @@
 import * as S from "./CallToAction.styled";
 import ctaData from "../../data/cta";
-import Vector from "../../assets/cta-vector.png";
+import Vector from "../../assets/images/cta-vector.webp";
 
 const CallToAction = () => {
   const { title, description, primaryButton, secondaryButton, image } = ctaData;
 
   return (
-    <S.CtaWrapper aria-labelledby="cta-section">
+    <S.CtaWrapper aria-labelledby="cta-title">
       <S.CtaContent>
         <S.CtaDetails>
           <S.Title id="cta-title">{title}</S.Title>
@@ -45,7 +45,7 @@ const CallToAction = () => {
           </S.CtaImage>
           <S.Vector
             src={Vector}
-            alt="vector shapes"
+            alt=""
             loading="lazy"
             aria-hidden="true"
             width={456}

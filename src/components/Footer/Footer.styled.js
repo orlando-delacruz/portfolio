@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import theme from "../../styles/theme";
-import FooterBg from "../../assets/footer.png";
+import footerData from "../../data/footer";
+
+const { footerBg } = footerData;
 
 export const FooterWrapper = styled.footer`
   padding-top: 112px;
@@ -11,7 +13,7 @@ export const FooterWrapper = styled.footer`
 `;
 
 export const FooterContent = styled.section`
-  background: url(${FooterBg}) center / cover no-repeat;
+  background: url(${footerBg}) center / cover no-repeat;
   width: 100%;
   height: 100%;
   position: relative;

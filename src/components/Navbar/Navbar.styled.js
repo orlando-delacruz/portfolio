@@ -82,8 +82,8 @@ export const Overlay = styled.div`
         inset: 0;
         z-index: 150;
         background-color: rgba(0, 0, 0, 0.6);
-        opacity: ${({ isOpen }) => (isOpen ? 1 : 0)};
-        pointer-events: ${({ isOpen }) => (isOpen ? "all" : "none")};
+        opacity: ${({ $isOpen }) => ($isOpen ? 1 : 0)};
+        pointer-events: ${({ $isOpen }) => ($isOpen ? "all" : "none")};
         transition: opacity 0.3s ease;
     }
 `
@@ -105,7 +105,7 @@ export const OffCanvas = styled.aside`
         background-color: ${theme.colors.secondary};
         border-right: 1px solid rgba(255, 255, 255, 0.06);
         box-shadow: 8px 0 32px rgba(0, 0, 0, 0.4);
-        transform: ${({ isOpen }) => (isOpen ? "translateX(0)" : "translateX(-100%)")};
+        transform: ${({ $isOpen }) => ($isOpen ? "translateX(0)" : "translateX(-100%)")};
         transition: transform 0.3s ease;
     }
 
@@ -161,7 +161,7 @@ export const NavLink = styled.a`
     position: relative;
     transition: color 0.2s ease;
     font-weight: ${theme.typography.weight.medium};
-    color: ${({ isActive }) => (isActive ? theme.colors.primary : "inherit")};
+    color: ${({ $isActive }) => ($isActive ? theme.colors.primary : "inherit")};
 
     &::after {
         content: "";
@@ -172,7 +172,7 @@ export const NavLink = styled.a`
         width: 100%;
         background-color: ${theme.colors.primary};
         border-radius: 2px;
-        transform: ${({ isActive }) => (isActive ? "scaleX(1)" : "scaleX(0)")};
+        transform: ${({ $isActive }) => ($isActive ? "scaleX(1)" : "scaleX(0)")};
         transition: transform 0.2s ease;
     }
 
@@ -184,9 +184,9 @@ export const NavLink = styled.a`
         display: block;
         padding: 12px 16px;
         border-radius: 10px;
-        color: ${({ isActive }) => (isActive ? theme.colors.primary : "inherit")};
-        background-color: ${({ isActive }) => (isActive ? "rgba(37, 98, 234, 0.1)" : "transparent")};
-        border-left: 3px solid ${({ isActive }) => (isActive ? theme.colors.primary : "transparent")};
+        color: ${({ $isActive }) => ($isActive ? theme.colors.primary : "inherit")};
+        background-color: ${({ $isActive }) => ($isActive ? "rgba(37, 98, 234, 0.1)" : "transparent")};
+        border-left: 3px solid ${({ $isActive }) => ($isActive ? theme.colors.primary : "transparent")};
         transition: all 0.2s ease;
 
         &::after {

@@ -1,11 +1,11 @@
-import CtaImage from "../assets/cta.png";
+import CtaImage from "../assets/images/cta.webp";
 
 const ctaData = {
   title: "Let's Build Something Amazing Together",
   description:
     "I'm currently open to internship opportunities, freelance projects, collaborations, and junior web developer roles.",
   primaryButton: {
-    href: "#contact",
+    href: "#contacts",
     label: "Contact Me",
   },
   secondaryButton: {

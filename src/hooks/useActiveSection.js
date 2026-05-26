@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
-import navlinks from "../data/navbar.js";
+import navbarData from "../data/navbar";
 
+const { navlinks } = navbarData;
 const useActiveSection = () => {
     const [activeLink, setActiveLink] = useState(null);
     const isClickScrolling = useRef(false);

@@ -16,7 +16,7 @@ const theme = {
 
     typography: {
         font: {
-            main: "Inter",
+            main: '"Inter", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
             secondary: "sans-serif",
         },
 
