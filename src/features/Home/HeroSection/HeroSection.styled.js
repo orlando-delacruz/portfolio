@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import theme from "../../../styles/theme";
 import { Link } from "react-router-dom";
 
@@ -7,17 +7,15 @@ import { Link } from "react-router-dom";
 export const HeroWrapper = styled.section`
   background-color: ${theme.colors.background};
   padding-top: 150px;
-
   display: flex;
   justify-content: center;
 
   @media ${theme.media.tablet} {
     padding-top: 120px;
-
   }
 `;
 
-/* ================= CONTAINER (KEY FIX) ================= */
+/* ================= CONTAINER ================= */
 
 export const HeroContainer = styled.div`
   width: 100%;
@@ -76,12 +74,7 @@ export const Title = styled.h1`
   line-height: 1.2;
 
   span {
-    background: linear-gradient(
-      to right,
-      ${theme.colors.primary},
-      #547fdf
-    );
-
+    background: linear-gradient(to right, ${theme.colors.primary}, #547fdf);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
@@ -90,7 +83,6 @@ export const Title = styled.h1`
 /* ================= SUBTITLE ================= */
 
 export const SubTitle = styled.p`
-  text-align: inherit;
   text-align: center;
 `;
 
@@ -118,9 +110,9 @@ export const PrimaryButton = styled(Link)`
   justify-content: center;
   align-items: center;
   gap: 10px;
-  
+
   svg {
-    font-size: $${theme.typography.size.xl};
+    font-size: ${theme.typography.size.xl};
   }
 
   &:hover {
@@ -138,19 +130,25 @@ export const SecondaryButton = styled(Link)`
   padding: 15px 30px;
   border-radius: 50px;
   background-color: transparent;
-  border: 1px solid ${theme.colors.primary};
-  color: ${theme.colors.primary};
+  border: 1px solid ${theme.colors.white};
+  color: ${theme.colors.white};
   font-size: ${theme.typography.size.lg};
   cursor: pointer;
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
   transition: all 0.2s ease;
 
-    svg {
-    font-size: $${theme.typography.size.xl};
+  svg {
+    font-size: ${theme.typography.size.xl};
   }
 
   &:hover {
     transform: scale(1.05);
-    background-color: rgba(${theme.colors.primaryRgb}, 0.1);
+    background-color: ${theme.colors.primary};
+  border: 1px solid ${theme.colors.primary};
+
   }
 
   @media ${theme.media.mobile} {
@@ -190,6 +188,7 @@ export const RightContent = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 
   @media ${theme.media.tablet} {
     order: 1;
@@ -206,5 +205,68 @@ export const HeroImageWrapper = styled.div`
     width: 100%;
     height: auto;
     object-fit: contain;
+  }
+`;
+
+/* ================= FLOAT ANIMATIONS ================= */
+
+/* Even-indexed cards (0, 2, 4) — float UP first */
+const floatUp = keyframes`
+  0%   { transform: translateY(0px); }
+  50%  { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+`;
+
+/* Odd-indexed cards (1, 3) — float DOWN first, opposite phase */
+const floatDown = keyframes`
+  0%   { transform: translateY(0px); }
+  50%  { transform: translateY(10px); }
+  100% { transform: translateY(0px); }
+`;
+
+/* ================= SKILL CARD ================= */
+
+export const SkillCard = styled.div`
+  position: absolute;
+
+  /* Desktop positions from heroData */
+  top: ${({ $top }) => $top ?? "0"};
+  left: ${({ $left }) => $left ?? "0"};
+
+  /* Padding, gap, font-size all use clamp() for fluid scaling
+     between mobile and desktop without hard breakpoint jumps */
+  padding: clamp(5px, 1.5vw, 10px) clamp(8px, 2vw, 14px);
+  gap: clamp(4px, 1vw, 8px);
+  font-size: clamp(0.6rem, 1.8vw, ${theme.typography.size.sm});
+
+  border: 1px solid ${theme.colors.primary};
+  border-radius: 10px;
+  background-color: ${theme.colors.background};
+  box-shadow: 0 4px 20px rgba(${theme.colors.primaryRgb}, 0.15);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-weight: ${theme.typography.weight.medium};
+  white-space: nowrap;
+  z-index: 10;
+
+  /* Even cards float up, odd cards float down — creates natural
+     alternating movement so cards feel independent of each other.
+     animation-delay staggers the start time on top of that. */
+  animation: ${({ $index }) => ($index % 2 === 0 ? floatUp : floatDown)} 3s ease-in-out infinite;
+  animation-delay: ${({ $index }) => ($index ?? 0) * 0.4}s;
+
+  /* On mobile: switch to tighter mobilePosition values from heroData */
+
+   @media ${theme.media.tablet} {
+    top: ${({ $tabletTop }) => $tabletTop ?? "0"};
+    left: ${({ $tabletLeft }) => $tabletLeft ?? "0"};
+  }
+
+  @media ${theme.media.mobile} {
+    top: ${({ $mobileTop }) => $mobileTop ?? "0"};
+    left: ${({ $mobileLeft }) => $mobileLeft ?? "0"};
   }
 `;

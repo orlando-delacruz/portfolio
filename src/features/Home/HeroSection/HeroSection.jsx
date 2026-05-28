@@ -10,6 +10,7 @@ const {
   primaryButton,
   secondaryButton,
   socialLinks,
+  skills,
 } = heroData;
 
 const PrimaryIcon = primaryButton.icon;
@@ -19,6 +20,7 @@ const HeroSection = () => {
   return (
     <S.HeroWrapper id="home">
       <S.HeroContainer>
+
         {/* LEFT SIDE */}
         <S.LeftContent>
           <S.Heading>
@@ -49,7 +51,13 @@ const HeroSection = () => {
 
           <S.SocialLinkWrapper>
             {socialLinks.map(({ id, icon: Icon, link, label }) => (
-              <S.SocialLink key={id} href={link} aria-label={label} target="_blank" rel="noopener noreferrer">
+              <S.SocialLink
+                key={id}
+                href={link}
+                aria-label={label}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <Icon aria-hidden="true" />
               </S.SocialLink>
             ))}
@@ -63,9 +71,41 @@ const HeroSection = () => {
               className="hero-image"
               src={heroImage}
               alt={highlightTitle}
-            />
+              width={372}
+              height={240}
+              fetchPriority="high"
+              loading="eager"
+              decoding="async" />
           </S.HeroImageWrapper>
+
+          {/* Each skill is mapped to its own floating card.
+              Position and mobile position come from heroData.
+              $index drives the alternating up/down float direction. */}
+          {skills.map((skill, index) => {
+            const Icon = skill.icon;
+
+            return (
+              <S.SkillCard
+                key={skill.id}
+                $top={skill.position.top}
+                $left={skill.position.left}
+                $mobileTop={skill.mobilePosition.top}
+                $mobileLeft={skill.mobilePosition.left}
+                $tabletTop={skill.tabletPosition.top}
+                $tabletLeft={skill.tabletPosition.left}
+                $color={skill.color}
+                $index={index}
+              >
+                <Icon
+                  style={{ color: skill.color, fontSize: "clamp(0.85rem, 2.5vw, 1.4rem)" }}
+                  aria-hidden="true"
+                />
+                <span>{skill.label}</span>
+              </S.SkillCard>
+            );
+          })}
         </S.RightContent>
+
       </S.HeroContainer>
     </S.HeroWrapper>
   );

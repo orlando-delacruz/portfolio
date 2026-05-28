@@ -28,6 +28,7 @@ const GlobalStyle = createGlobalStyle`
     body {
         max-width: 1440px;
         margin: 0 auto;
+        font-weight: ${theme.typography.weight.regular};
     }
 
     section {
