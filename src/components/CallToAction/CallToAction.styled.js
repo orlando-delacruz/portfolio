@@ -59,6 +59,10 @@ export const ActionButtons = styled.div`
   flex-wrap: wrap;
   min-height: 56px;
   margin: 0 auto;
+
+  @media ${theme.media.mobile} {
+    gap: 14px;
+  }
 `;
 
 export const PrimaryButton = styled.a`
@@ -85,6 +89,11 @@ export const PrimaryButton = styled.a`
     transform: scale(1.05);
     background-color: ${theme.colors.primaryLight};
     border-color: ${theme.colors.primaryLight};
+  }
+
+  @media ${theme.media.mobile} {
+    padding: 10px 20px;
+    font-size: ${theme.typography.size.sm};
   }
 `;
 
