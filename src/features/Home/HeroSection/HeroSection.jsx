@@ -12,6 +12,9 @@ const {
   socialLinks,
 } = heroData;
 
+const PrimaryIcon = primaryButton.icon;
+const SecondaryIcon = secondaryButton.icon;
+
 const HeroSection = () => {
   return (
     <S.HeroWrapper id="home">
@@ -30,6 +33,7 @@ const HeroSection = () => {
 
           <S.ActionButtons>
             <S.PrimaryButton to={primaryButton.link}>
+              <PrimaryIcon />
               {primaryButton.label}
             </S.PrimaryButton>
 
@@ -38,7 +42,8 @@ const HeroSection = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Download CV
+              <SecondaryIcon />
+              {secondaryButton.label}
             </S.SecondaryButton>
           </S.ActionButtons>
 

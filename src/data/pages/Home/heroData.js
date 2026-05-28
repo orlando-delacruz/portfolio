@@ -1,5 +1,7 @@
-import { FaGithub, FaLinkedin, FaFacebook } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaFacebook, FaLaptopCode } from "react-icons/fa";
 import { IoMail } from "react-icons/io5";
+import { MdOutlineFileDownload } from "react-icons/md";
+
 import HeroImage from "../../../assets/images/hero-image.webp"
 
 
@@ -12,12 +14,14 @@ const heroData = {
 
   primaryButton: {
     label: "View Projects",
-    link: "projects"
+    link: "projects",
+    icon: FaLaptopCode,
   },
 
   secondaryButton: {
     label: "Download CV",
-    link: "/resume.pdf"
+    link: "/resume.pdf",
+    icon: MdOutlineFileDownload,
   },
 
   socialLinks: [

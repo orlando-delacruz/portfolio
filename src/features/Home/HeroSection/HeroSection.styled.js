@@ -114,6 +114,14 @@ export const PrimaryButton = styled(Link)`
   font-size: ${theme.typography.size.lg};
   transition: all 0.2s ease;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  
+  svg {
+    font-size: $${theme.typography.size.xl};
+  }
 
   &:hover {
     background-color: ${theme.colors.primaryLight};
@@ -135,6 +143,10 @@ export const SecondaryButton = styled(Link)`
   font-size: ${theme.typography.size.lg};
   cursor: pointer;
   transition: all 0.2s ease;
+
+    svg {
+    font-size: $${theme.typography.size.xl};
+  }
 
   &:hover {
     transform: scale(1.05);
