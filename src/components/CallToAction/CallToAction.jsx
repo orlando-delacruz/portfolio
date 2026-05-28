@@ -16,7 +16,7 @@ const CallToAction = () => {
   }, [image.img]);
 
   return (
-    <S.CtaWrapper aria-labelledby="cta-title">
+    <S.CtaWrapper id="call-to-action" aria-labelledby="cta-title">
       <S.CtaContent>
         <S.CtaDetails>
           <S.Title id="cta-title">{title}</S.Title>

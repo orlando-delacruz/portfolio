@@ -26,9 +26,9 @@ const heroData = {
 
   socialLinks: [
     { id: "github", icon: FaGithub, link: "https://github.com/orlandostack", label: "Visit my Github" },
-    { id: "linkedin", icon: FaLinkedin, link: "#", label: "Visit my LinkedIn" },
-    { id: "facebook", icon: FaFacebook, link: "#", label: "Visit my Facebook" },
-    { id: "gmail", icon: IoMail, link: "#", label: "Send me an Email" },
+    { id: "linkedin", icon: FaLinkedin, link: "https://www.linkedin.com/in/orlando-jr-dela-cruz-127998273/", label: "Visit my LinkedIn" },
+    { id: "facebook", icon: FaFacebook, link: "https://web.facebook.com/orlando.arcangel/", label: "Visit my Facebook" },
+    { id: "gmail", icon: IoMail, link: "mailto:orlando.delacruz.dev@gmail.com", label: "Send me an Email" },
   ],
 
   skills: [

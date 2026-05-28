@@ -50,7 +50,7 @@ const footerData = {
   contactLinks: [
     { id: "contact-location", href: "https://maps.google.com/?q=San+Antonio+Quezon+Philippines", icon: FaLocationDot, label: "Brgy. Bagong Niing, San Antonio, Quezon" },
     { id: "contact-phone", href: "tel:+639095984478", icon: FaPhone, label: "09095984478" },
-    { id: "contact-mail", href: "mailto:delacruzorlando776@gmail.com", icon: IoIosMail, label: "delacruzorlando776@gmail.com" },
+    { id: "contact-mail", href: "mailto:orlando.delacruz.dev@gmail.com", icon: IoIosMail, label: "orlando.delacruz.dev@gmail" },
   ],
 };
 

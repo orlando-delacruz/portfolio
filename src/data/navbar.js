@@ -7,7 +7,7 @@ const navbarData = {
 
     actionButton: {
         label: "Get In Touch",
-        href: "contacts",
+        href: "#call-to-action",
     },
 
     navlinks: [

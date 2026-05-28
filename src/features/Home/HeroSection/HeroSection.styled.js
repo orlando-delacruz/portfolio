@@ -91,7 +91,7 @@ export const SubTitle = styled.p`
 export const ActionButtons = styled.div`
   display: flex;
   gap: 24px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
 
   @media ${theme.media.mobile} {
     gap: 14px;
@@ -122,7 +122,11 @@ export const PrimaryButton = styled(Link)`
 
   @media ${theme.media.mobile} {
     font-size: ${theme.typography.size.sm};
-    padding: 10px 25px;
+    padding: 10px 15px;
+
+    svg {
+    font-size: ${theme.typography.size.md};
+  }
   }
 `;
 
@@ -153,7 +157,11 @@ export const SecondaryButton = styled(Link)`
 
   @media ${theme.media.mobile} {
     font-size: ${theme.typography.size.sm};
-    padding: 10px 25px;
+    padding: 10px 15px;
+
+    svg {
+    font-size: ${theme.typography.size.md};
+  }
   }
 `;
 
