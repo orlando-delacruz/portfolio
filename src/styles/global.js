@@ -17,6 +17,7 @@ const GlobalStyle = createGlobalStyle`
     
     body, html {
     font-family: ${theme.typography.font.main}, ${theme.typography.font.secondary};
+    font-weight: ${theme.typography.weight.regular};
     background-color: ${theme.colors.background};
     color: ${theme.colors.white};
     line-height: 1.5;
@@ -28,7 +29,6 @@ const GlobalStyle = createGlobalStyle`
     body {
         max-width: 1440px;
         margin: 0 auto;
-        font-weight: ${theme.typography.weight.regular};
     }
 
     section {

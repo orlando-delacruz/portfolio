@@ -19,7 +19,7 @@ export const CtaContent = styled.div`
     grid-template-columns: 1fr;
     gap: 50px;
     padding: 20px;
-  background: linear-gradient(to bottom, #001d5e 41%, #0b1222 100%);
+  background: linear-gradient(to top, #001d5e 41%, #0b1222 100%);
 
   }
 `;
