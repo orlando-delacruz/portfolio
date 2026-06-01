@@ -7,7 +7,7 @@ import HeroImage from "../../../assets/images/hero-image.webp";
 
 const heroData = {
   heroImage: HeroImage,
-  role: "Web Developer",
+  role: "Front-End Developer",
   title: "I am",
   highlightTitle: "Orlando Dela Cruz",
   subtitle: "I craft clean, responsive, and user-focused web interfaces with a passion for modern design and performance.",

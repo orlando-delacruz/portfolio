@@ -6,6 +6,8 @@ const theme = {
         primaryDark: "#050E22",
         secondary: "#1E293B",
 
+        gray: "#eeeeee",
+
         background: "#0B1222",
         sectionBackground: "#050E22",
 
@@ -41,7 +43,6 @@ const theme = {
         },
 
         weight: {
-            light: "300",
             regular: "400",
             medium: "500",
             semibold: "600",
