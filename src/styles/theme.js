@@ -38,7 +38,7 @@ const theme = {
             sm: "14px",
             body: "16px",
             md: "18px",
-            lg: "20px",
+            lg: "clamp(1.25rem, 3vw, 1rem)",
             xl: "30px",
         },
 
