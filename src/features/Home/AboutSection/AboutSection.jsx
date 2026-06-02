@@ -3,10 +3,10 @@ import aboutData from "../../../data/pages/Home/aboutData";
 
 const { aboutimage, pretitle, title, titleHighlight, body_1, body_2, actionButton } = aboutData
 
-const AboutSection = () => {
+const AboutSection = ({ id }) => {
   return (
     <>
-      <S.AboutWrapper id="about" aria-labelledby="about-heading">
+      <S.AboutWrapper id={id} aria-labelledby="about-heading">
         <S.LeftContent>
           <S.ImageWrapper>
             <img

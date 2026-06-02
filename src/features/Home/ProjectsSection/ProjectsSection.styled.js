@@ -91,7 +91,7 @@ export const CardHead = styled.div`
       display: contents;
 
       .sr-only {
-        display: none;
+        display: none ;
       }
     }
 

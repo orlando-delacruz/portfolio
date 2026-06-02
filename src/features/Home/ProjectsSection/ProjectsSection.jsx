@@ -8,9 +8,9 @@ import { GiOpenBook } from "react-icons/gi";
 
 const { heading, project, viewAll } = projectsData;
 
-const ProjectsSection = () => {
+const ProjectsSection = ({ id }) => {
   return (
-    <S.SectionWrapper id="projects" aria-labelledby={heading.arialabel}>
+    <S.SectionWrapper id={id} aria-labelledby={heading.arialabel}>
       <SectionHeading
         pretitle={heading.pretitle}
         title={heading.title}

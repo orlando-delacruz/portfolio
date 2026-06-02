@@ -16,9 +16,9 @@ const {
 const PrimaryIcon = primaryButton.icon;
 const SecondaryIcon = secondaryButton.icon;
 
-const HeroSection = () => {
+const HeroSection = ({ id }) => {
   return (
-    <S.HeroWrapper id="home">
+    <S.HeroWrapper id={id}>
       <S.HeroContainer>
 
         {/* LEFT SIDE */}
