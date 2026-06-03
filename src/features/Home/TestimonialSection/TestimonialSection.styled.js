@@ -47,13 +47,14 @@ export const TestimonialCard = styled.article`
   border-radius: 20px;
   background: ${theme.colors.secondary};
   will-change: transform, box-shadow;
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+  cursor: default;
 
   &:hover {
     transform: translateY(-6px);
     box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+    border: 1px solid ${theme.colors.primary};
   }
 
   @media (prefers-reduced-motion: reduce) {
