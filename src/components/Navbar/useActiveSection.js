@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import navbarData from "../data/navbar";
+import navbarData from "../../data/navbar";
 
 const { navlinks } = navbarData;
 const useActiveSection = () => {

@@ -1,6 +1,6 @@
 import { RiMenu3Line, RiCloseLine } from "react-icons/ri";
 import * as S from "./Navbar.styled";
-import useActiveSection from "../../hooks/useActiveSection.js";
+import useActiveSection from "./useActiveSection.js";
 import { useState, useCallback, useMemo, useEffect, useRef } from "react";
 import navbarData from "../../data/navbar.js";
 

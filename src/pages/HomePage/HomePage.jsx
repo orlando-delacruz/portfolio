@@ -6,6 +6,7 @@ import SkillSection from "../../features/Home/SkillSection";
 import ServiceSection from "../../features/Home/ServiceSection";
 import ExperienceSection from "../../features/Home/ExperienceSection";
 import TestimonialSection from "../../features/Home/TestimonialSection";
+import BlogSection from "../../features/Home/BlogSection";
 
 const HomePage = () => {
   return (
@@ -17,6 +18,7 @@ const HomePage = () => {
       <ServiceSection id="services" />
       <ExperienceSection id="experience" />
       <TestimonialSection id="testimonials" />
+      <BlogSection id="blogs" />
     </Layout>
   );
 };
