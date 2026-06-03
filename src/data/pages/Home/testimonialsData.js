@@ -18,6 +18,7 @@ const testimonialsData = {
       quote:
         "A highly motivated developer who is eager to learn modern technologies and continuously improve both technical and problem-solving skills.",
     },
+
     {
       id: 2,
       profile: Profile,
@@ -27,6 +28,7 @@ const testimonialsData = {
       quote:
         "Delivered a clean and responsive website that exceeded expectations. Communication was excellent throughout the entire project.",
     },
+
     {
       id: 3,
       profile: Profile,
@@ -34,8 +36,9 @@ const testimonialsData = {
       position: "Product Manager",
       rating: 5,
       quote:
-        "Consistently provided high-quality solutions and demonstrated strong attention to detail in every stage of development.",
+        "Consistently delivered high-quality solutions while maintaining excellent collaboration across teams and stakeholders.",
     },
+
     {
       id: 4,
       profile: Profile,
@@ -43,8 +46,9 @@ const testimonialsData = {
       position: "Marketing Director",
       rating: 5,
       quote:
-        "Helped transform our ideas into a modern digital experience that improved both user engagement and overall performance.",
+        "Helped transform our vision into a modern digital experience that improved engagement and strengthened our online presence.",
     },
+
     {
       id: 5,
       profile: Profile,
@@ -52,8 +56,9 @@ const testimonialsData = {
       position: "Business Owner",
       rating: 5,
       quote:
-        "Reliable, professional, and easy to work with. The final product was delivered on time and matched all requirements.",
+        "Professional, dependable, and detail-oriented. The project was completed on schedule and met every expectation.",
     },
+
     {
       id: 6,
       profile: Profile,
@@ -61,34 +66,67 @@ const testimonialsData = {
       position: "UI/UX Designer",
       rating: 5,
       quote:
-        "Worked seamlessly with the design team and translated complex interfaces into smooth, functional applications.",
+        "Worked seamlessly with the design team and translated complex interfaces into intuitive, user-friendly experiences.",
     },
+
     {
       id: 7,
       profile: Profile,
-      name: "Kevin Brown",
-      position: "Tech Lead",
+      name: "Nathan Cooper",
+      position: "Software Architect",
       rating: 5,
       quote:
-        "Quick to adapt to new technologies and always willing to tackle challenging problems with a positive attitude.",
+        "Demonstrated strong technical skills and consistently delivered maintainable, scalable solutions for challenging requirements.",
     },
+
     {
       id: 8,
       profile: Profile,
-      name: "Olivia Martinez",
-      position: "E-commerce Manager",
+      name: "Sophia Anderson",
+      position: "E-commerce Specialist",
       rating: 5,
       quote:
-        "Implemented features that significantly improved our website's usability, speed, and customer experience.",
+        "Implemented performance improvements that noticeably enhanced page speed, user satisfaction, and conversion rates.",
     },
+
     {
       id: 9,
       profile: Profile,
-      name: "James Wilson",
+      name: "Ethan Walker",
       position: "Operations Manager",
       rating: 5,
       quote:
-        "Demonstrated strong technical expertise and delivered scalable solutions that supported our business growth.",
+        "Provided reliable support throughout the project and offered valuable suggestions that improved the final outcome.",
+    },
+
+    {
+      id: 10,
+      profile: Profile,
+      name: "Ava Thompson",
+      position: "Creative Director",
+      rating: 5,
+      quote:
+        "Brought creativity and technical expertise together to deliver a polished product that aligned perfectly with our brand.",
+    },
+
+    {
+      id: 11,
+      profile: Profile,
+      name: "Liam Harris",
+      position: "Project Coordinator",
+      rating: 5,
+      quote:
+        "Maintained clear communication from start to finish and consistently delivered progress updates on time.",
+    },
+
+    {
+      id: 12,
+      profile: Profile,
+      name: "Mia Robinson",
+      position: "Digital Strategy Consultant",
+      rating: 5,
+      quote:
+        "A pleasure to work with. The attention to detail and commitment to quality were evident throughout the entire project.",
     },
   ],
 };
