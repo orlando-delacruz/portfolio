@@ -6,6 +6,7 @@ export const SectionWrapper = styled.section`
   flex-direction: column;
   align-items: center;
   gap: 3.125rem;
+  background-color: ${theme.colors.sectionBackground};
 `;
 
 export const ContentGrid = styled.div`

@@ -1,4 +1,3 @@
-// src/features/Home/BlogSection/BlogSection.jsx
 import { useCallback, useMemo } from "react";
 import * as S from "./BlogSection.styled";
 import SectionHeading from "../../../components/SectionHeading";
@@ -6,15 +5,17 @@ import blogData from "../../../data/pages/Home/blogData";
 
 const { heading, blogs } = blogData;
 
-/**
- * Blog card component for the main (featured) blog post
- * Displays large thumbnail, full title, description and metadata
- */
 const MainBlogCard = ({ blog, onClick }) => {
   const handleClick = () => onClick(blog.id);
 
   return (
-    <S.MainBlogCard onClick={handleClick} onKeyDown={(e) => e.key === 'Enter' && handleClick()} tabIndex={0} role="button" aria-label={`Read full article: ${blog.title}`}>
+    <S.MainBlogCard
+      onClick={handleClick}
+      onKeyDown={(e) => e.key === "Enter" && handleClick()}
+      tabIndex={0}
+      role="button"
+      aria-label={`Read full article: ${blog.title}`}
+    >
       <S.MainBlogThumbnail
         src={blog.thumbnail}
         alt={`${blog.title} - featured article thumbnail`}
@@ -40,15 +41,17 @@ const MainBlogCard = ({ blog, onClick }) => {
   );
 };
 
-/**
- * Secondary blog card component for the right column list
- * Displays horizontal layout with thumbnail, truncated title and description
- */
 const SecondaryBlogCard = ({ blog, onClick }) => {
   const handleClick = () => onClick(blog.id);
 
   return (
-    <S.SecondaryBlogCard onClick={handleClick} onKeyDown={(e) => e.key === 'Enter' && handleClick()} tabIndex={0} role="button" aria-label={`Read article: ${blog.title}`}>
+    <S.SecondaryBlogCard
+      onClick={handleClick}
+      onKeyDown={(e) => e.key === "Enter" && handleClick()}
+      tabIndex={0}
+      role="button"
+      aria-label={`Read article: ${blog.title}`}
+    >
       <S.SecondaryBlogThumbnail
         src={blog.thumbnail}
         alt={`${blog.title} - article thumbnail`}
@@ -74,30 +77,20 @@ const SecondaryBlogCard = ({ blog, onClick }) => {
   );
 };
 
-const BlogSection = () => {
-  // Memoize blog data to prevent unnecessary recalculations
+const BlogSection = ({ id }) => {
   const featuredBlog = useMemo(() => blogs[0], []);
   const otherBlogs = useMemo(() => blogs.slice(1), []);
 
-  // Navigation handlers with proper accessibility
   const handleBlogClick = useCallback((blogId) => {
-    // In a real application, use react-router or Next.js navigation
-    // Example: navigate(`/blog/${blogId}`)
-    console.log(`Navigating to blog post with ID: ${blogId}`);
-    // For demonstration, you could also use:
-    // window.location.href = `/blog/${blogId}`;
+    console.log(`Navigate to blog ${blogId}`);
   }, []);
 
   const handleViewAllBlogs = useCallback(() => {
-    // Navigate to blogs listing page
-    console.log("Navigating to all blogs page");
-    // Example: navigate('/blogs');
-    // For demonstration:
-    // window.location.href = '/blogs';
+    console.log("Navigate to all blogs");
   }, []);
 
   return (
-    <S.SectionWrapper aria-labelledby="blog-section-heading">
+    <S.SectionWrapper id={id} aria-labelledby="blog-section-heading">
       <SectionHeading
         pretitle={heading.pretitle}
         title={heading.title}
