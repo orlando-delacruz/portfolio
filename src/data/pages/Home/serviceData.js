@@ -6,8 +6,8 @@ import BackEndLearning from "../../../assets/images/services/backend-learning.we
 const serviceData = {
   heading: {
     pretitle: "Services",
-    title: "What I",
-    highlight: "Can Do",
+    title: "What I Can",
+    highlight: "Offer",
     ariaLabel: "services offered",
   },
 

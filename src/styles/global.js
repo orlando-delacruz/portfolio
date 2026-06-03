@@ -43,6 +43,10 @@ const GlobalStyle = createGlobalStyle`
         padding: 50px 20px 50px;
         }
     }
+    
+    h1, h2, h3, h4, h5, h6 {
+        font-weight: ${theme.typography.weight.regular};
+    }
 
     a {
         text-decoration: none;
