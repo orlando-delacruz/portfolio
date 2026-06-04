@@ -1,5 +1,12 @@
-import Hero from "../../features/About/Hero";
 import SEO from "../../components/common/SEO";
+import Hero from "../../features/About/Hero";
+import Story from "../../features/About/Story";
+import QuickFacts from "../../features/About/QuickFacts";
+import WhatIDo from "../../features/About/WhatIDo";
+import MyApproach from "../../features/About/MyApproach";
+import CurrentGoals from "../../features/About/CurrentGoals";
+import CallToAction from "../../components/CallToAction";
+import Footer from "../../components/Footer";
 
 const AboutPage = () => {
   return (
@@ -11,6 +18,13 @@ const AboutPage = () => {
       />
 
       <Hero />
+      <Story />
+      <QuickFacts />
+      <WhatIDo />
+      <MyApproach />
+      <CurrentGoals />
+      <CallToAction />
+      <Footer />
     </>
   );
 };
