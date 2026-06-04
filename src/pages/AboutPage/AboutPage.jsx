@@ -1,4 +1,5 @@
 import Hero from "../../features/About/Hero";
+import Story from "../../features/About/Story";
 import SEO from "../../components/common/SEO";
 
 const AboutPage = () => {
@@ -11,6 +12,7 @@ const AboutPage = () => {
       />
 
       <Hero />
+      <Story />
     </>
   );
 };
