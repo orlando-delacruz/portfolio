@@ -4,6 +4,7 @@ import Story from "../../features/About/Story";
 import QuickFacts from "../../features/About/QuickFacts";
 import WhatIDo from "../../features/About/WhatIDo";
 import MyApproach from "../../features/About/MyApproach";
+import CurrentGoals from "../../features/About/CurrentGoals";
 
 const AboutPage = () => {
   return (
@@ -19,6 +20,7 @@ const AboutPage = () => {
       <QuickFacts />
       <WhatIDo />
       <MyApproach />
+      <CurrentGoals />
     </>
   );
 };
