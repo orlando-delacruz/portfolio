@@ -14,7 +14,7 @@ const heroData = {
 
   primaryButton: {
     label: "View Projects",
-    link: "projects",
+    link: "#projects",
     icon: FaLaptopCode,
   },
 

@@ -25,7 +25,7 @@ const theme = {
 
 
         heading: {
-            h1: "clamp(2.25rempx, 6vw, 3.438rem)",
+            h1: "clamp(2.25rem, 6vw, 3.438rem)",
             h2: "clamp(1.625rem, 5vw, 2.5rem)",
             h3: "clamp(1.25rem, 4vw, 1.875rem)",
             h4: "clamp(1rem, 3vw, 24px)",

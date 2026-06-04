@@ -34,7 +34,7 @@ const HeroSection = ({ id }) => {
           </S.Heading>
 
           <S.ActionButtons>
-            <S.PrimaryButton to={primaryButton.link}>
+            <S.PrimaryButton href={primaryButton.link}>
               <PrimaryIcon />
               {primaryButton.label}
             </S.PrimaryButton>

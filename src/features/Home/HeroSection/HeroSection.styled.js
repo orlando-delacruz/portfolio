@@ -99,7 +99,7 @@ export const ActionButtons = styled.div`
   }
 `;
 
-export const PrimaryButton = styled(Link)`
+export const PrimaryButton = styled.a`
   padding: 15px 30px;
   background-color: ${theme.colors.primary};
   border-radius: 50px;

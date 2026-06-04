@@ -1,20 +1,25 @@
-// src/utils/convert-images.mjs
 import sharp from "sharp";
 import { readdirSync } from "fs";
-import { join, basename } from "path";
+import { join, extname, basename } from "path";
 
 const ASSETS_DIR = "src/assets";
 
-// Kuhanin ang lahat ng .png files sa assets folder
-const pngFiles = readdirSync(ASSETS_DIR)
-  .filter(file => file.endsWith(".png"));
+const imageFiles = readdirSync(ASSETS_DIR).filter((file) =>
+  [".png", ".jpg", ".jpeg"].includes(extname(file).toLowerCase())
+);
 
-for (const file of pngFiles) {
+for (const file of imageFiles) {
   const input = join(ASSETS_DIR, file);
-  const output = join(ASSETS_DIR, file.replace(".png", ".webp"));
+  const output = join(
+    ASSETS_DIR,
+    `${basename(file, extname(file))}.webp`
+  );
 
-  await sharp(input).webp({ quality: 85 }).toFile(output);
+  await sharp(input)
+    .webp({ quality: 85 })
+    .toFile(output);
+
   console.log(`✅ ${input} → ${output}`);
 }
 
-console.log(`\n🎉 Done! Converted ${pngFiles.length} images.`);
+console.log(`\n🎉 Done! Converted ${imageFiles.length} images.`);

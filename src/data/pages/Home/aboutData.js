@@ -11,7 +11,7 @@ const aboutData = {
 
   actionButton: {
     label: "Learn More About Me",
-    link: "#",
+    link: "/about",
   }
 }
 
