@@ -20,11 +20,13 @@ export const Container = styled.div`
 export const ImageWrapper = styled.div`
   position: relative;
   width: 100%;
-  aspect-ratio: 6 / 7;
+  height: 100%;
   border-radius: 4px;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  /* Accent border detail */
   &::before {
     content: "";
     position: absolute;
@@ -35,7 +37,6 @@ export const ImageWrapper = styled.div`
     pointer-events: none;
   }
 
-  /* Bottom gradient overlay for subtle depth */
   &::after {
     content: "";
     position: absolute;
@@ -66,8 +67,7 @@ export const ImageWrapper = styled.div`
 export const Image = styled.img`
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center top;
+  object-fit: contain;
   display: block;
   transition: transform 0.6s ease;
 

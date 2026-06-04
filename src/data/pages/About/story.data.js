@@ -1,9 +1,11 @@
+import Profile from "../../../assets/images/hero-image.webp";
+
 const storyData = {
   pretitle: "MY STORY",
   heading: "From Curiosity to",
   headingHighlight: "Web Development",
   image: {
-    src: "https://picsum.photos/seed/developer/600/700",
+    src: Profile,
     alt: "A developer working at a desk surrounded by code and creative tools",
   },
   paragraphs: [
