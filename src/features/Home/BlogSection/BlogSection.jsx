@@ -1,12 +1,14 @@
 import { useCallback, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import * as S from "./BlogSection.styled";
 import SectionHeading from "../../../components/SectionHeading";
 import blogData from "../../../data/pages/Home/blogData";
+import ViewAll from "../../../components/Buttons/ViewAll";
 
 const { heading, blogs } = blogData;
 
 const MainBlogCard = ({ blog, onClick }) => {
-  const handleClick = () => onClick(blog.id);
+  const handleClick = () => onClick();
 
   return (
     <S.MainBlogCard
@@ -42,7 +44,7 @@ const MainBlogCard = ({ blog, onClick }) => {
 };
 
 const SecondaryBlogCard = ({ blog, onClick }) => {
-  const handleClick = () => onClick(blog.id);
+  const handleClick = () => onClick();
 
   return (
     <S.SecondaryBlogCard
@@ -78,16 +80,13 @@ const SecondaryBlogCard = ({ blog, onClick }) => {
 };
 
 const BlogSection = ({ id }) => {
+  const navigate = useNavigate();
   const featuredBlog = useMemo(() => blogs[0], []);
   const otherBlogs = useMemo(() => blogs.slice(1), []);
 
-  const handleBlogClick = useCallback((blogId) => {
-    console.log(`Navigate to blog ${blogId}`);
-  }, []);
-
-  const handleViewAllBlogs = useCallback(() => {
-    console.log("Navigate to all blogs");
-  }, []);
+  const handleBlogClick = useCallback(() => {
+    navigate("/blogs");
+  }, [navigate]);
 
   return (
     <S.SectionWrapper id={id} aria-labelledby="blog-section-heading">
@@ -112,13 +111,10 @@ const BlogSection = ({ id }) => {
           </S.RightContent>
         </S.ContentGrid>
 
-        <S.ViewAllButton
-          onClick={handleViewAllBlogs}
-          aria-label="View all blog articles"
-          type="button"
-        >
-          View All Blogs
-        </S.ViewAllButton>
+        <ViewAll
+          link="/blogs"
+          label="View All Blogs"
+        />
       </S.ContentWrapper>
     </S.SectionWrapper>
   );

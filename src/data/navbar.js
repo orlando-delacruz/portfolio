@@ -3,7 +3,7 @@ import Logo from "../assets/images/logo.webp";
 const navbarData = {
     logo: Logo,
     title: "Orlando Dela Cruz",
-    subtitle: "Web Developer",
+    subtitle: "Front-End Developer",
 
     actionButton: {
         label: "Get In Touch",

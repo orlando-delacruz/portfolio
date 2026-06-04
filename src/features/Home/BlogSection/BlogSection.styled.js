@@ -1,6 +1,5 @@
 import styled, { css } from "styled-components";
 import theme from "../../../styles/theme";
-
 // Shared card styles (border, hover, focus)
 const cardStyles = css`
   display: flex;
@@ -226,37 +225,5 @@ export const SecondaryBlogBody = styled.div`
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
-  }
-`;
-
-export const ViewAllButton = styled.button`
-  padding: 10px 20px;
-  border-radius: 50px;
-  border: 1px solid ${theme.colors.primary};
-  background-color: transparent;
-  color: ${theme.colors.primary};
-  font-size: ${theme.typography.size.body};
-  font-weight: ${theme.typography.weight.regular};
-  line-height: 24px;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-
-  &:hover {
-    background-color: rgba(${theme.colors.primaryRgb}, 0.2);
-    transform: translateY(-2px);
-  }
-
-  &:active {
-    transform: translateY(0);
-  }
-
-  &:focus-visible {
-    outline: 2px solid ${theme.colors.primary};
-    outline-offset: 2px;
-    background-color: rgba(${theme.colors.primaryRgb}, 0.1);
   }
 `;

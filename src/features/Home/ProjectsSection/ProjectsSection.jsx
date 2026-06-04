@@ -89,8 +89,6 @@ const ProjectsSection = ({ id }) => {
 
       <ViewAll
         link={viewAll.link}
-        target={viewAll.target}
-        rel={viewAll.rel}
         label={viewAll.label}
         aria-label="View all projects"
       />

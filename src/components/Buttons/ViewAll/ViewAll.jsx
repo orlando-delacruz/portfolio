@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import { FaArrowRight } from "react-icons/fa";
 import theme from "../../../styles/theme";
+import { Link } from "react-router-dom";
 
-const ViewAllLink = styled.a`
+const ViewAllLink = styled(Link)`
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -29,12 +30,10 @@ const ViewAllLink = styled.a`
     border-radius: 3.125rem;
   }
 `;
-const ViewAll = ({ link, target, label, rel, "aria-label": ariaLabel }) => {
+const ViewAll = ({ link, label, "aria-label": ariaLabel }) => {
   return (
     <ViewAllLink
-      href={link}
-      target={target}
-      rel={rel}
+      to={link}
       aria-label={ariaLabel || label}
     >
       <FaArrowRight aria-hidden="true" />
