@@ -22,111 +22,61 @@ const testimonialsData = {
     {
       id: 2,
       profile: Profile,
-      name: "Sarah Johnson",
-      position: "Startup Founder",
+      name: "Dhennis Nizal",
+      position: "Full Stack Developer",
       rating: 5,
       quote:
-        "Delivered a clean and responsive website that exceeded expectations. Communication was excellent throughout the entire project.",
+        "Working with Orlando during our capstone project was a great experience. He consistently delivered his tasks on time, communicated well with the team, and showed strong dedication to building a quality product.",
     },
 
     {
       id: 3,
       profile: Profile,
-      name: "Michael Torres",
-      position: "Product Manager",
+      name: "Jorence Mendoza",
+      position: "Full Stack Developer",
       rating: 5,
       quote:
-        "Consistently delivered high-quality solutions while maintaining excellent collaboration across teams and stakeholders.",
+        "Orlando was a reliable teammate throughout our capstone project. He contributed effectively to the development process and was always willing to collaborate and solve challenges with the team.",
     },
 
     {
       id: 4,
       profile: Profile,
-      name: "Emily Carter",
-      position: "Marketing Director",
+      name: "Gabriel Villanueva",
+      position: "Full Stack Developer",
       rating: 5,
       quote:
-        "Helped transform our vision into a modern digital experience that improved engagement and strengthened our online presence.",
+        "I had the opportunity to work with Orlando on several projects at Monte Carlo Technologies. He is detail-oriented, easy to work with, and consistently focused on delivering functional and user-friendly solutions.",
     },
 
     {
       id: 5,
       profile: Profile,
-      name: "Daniel Reyes",
-      position: "Business Owner",
+      name: "Darcy Tabafunda",
+      position: "TWA Student",
       rating: 5,
       quote:
-        "Professional, dependable, and detail-oriented. The project was completed on schedule and met every expectation.",
+        "Orlando developed our Classic English research website and exceeded our expectations. He was responsive, professional, and successfully transformed our requirements into a clean and functional website.",
     },
 
     {
       id: 6,
       profile: Profile,
-      name: "Jessica Lee",
-      position: "UI/UX Designer",
+      name: "John Allen",
+      position: "Full Stack Developer, Eplayment",
       rating: 5,
       quote:
-        "Worked seamlessly with the design team and translated complex interfaces into intuitive, user-friendly experiences.",
+        "Collaborating with Orlando on the Classic English project was smooth and productive. He demonstrated strong frontend development skills and maintained clear communication throughout the project.",
     },
 
     {
       id: 7,
       profile: Profile,
-      name: "Nathan Cooper",
-      position: "Software Architect",
+      name: "Maan Managbanag",
+      position: "Teacher, SANHS",
       rating: 5,
       quote:
-        "Demonstrated strong technical skills and consistently delivered maintainable, scalable solutions for challenging requirements.",
-    },
-
-    {
-      id: 8,
-      profile: Profile,
-      name: "Sophia Anderson",
-      position: "E-commerce Specialist",
-      rating: 5,
-      quote:
-        "Implemented performance improvements that noticeably enhanced page speed, user satisfaction, and conversion rates.",
-    },
-
-    {
-      id: 9,
-      profile: Profile,
-      name: "Ethan Walker",
-      position: "Operations Manager",
-      rating: 5,
-      quote:
-        "Provided reliable support throughout the project and offered valuable suggestions that improved the final outcome.",
-    },
-
-    {
-      id: 10,
-      profile: Profile,
-      name: "Ava Thompson",
-      position: "Creative Director",
-      rating: 5,
-      quote:
-        "Brought creativity and technical expertise together to deliver a polished product that aligned perfectly with our brand.",
-    },
-
-    {
-      id: 11,
-      profile: Profile,
-      name: "Liam Harris",
-      position: "Project Coordinator",
-      rating: 5,
-      quote:
-        "Maintained clear communication from start to finish and consistently delivered progress updates on time.",
-    },
-
-    {
-      id: 12,
-      profile: Profile,
-      name: "Mia Robinson",
-      position: "Digital Strategy Consultant",
-      rating: 5,
-      quote:
-        "A pleasure to work with. The attention to detail and commitment to quality were evident throughout the entire project.",
+        "Orlando and his team developed the SANHS website with professionalism and dedication. He listened carefully to our needs and delivered a solution that effectively represented our school online.",
     },
   ],
 };

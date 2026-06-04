@@ -145,9 +145,36 @@ export const Quote = styled.p`
   line-height: 1.7;
   color: rgba(255, 255, 255, 0.8);
   display: -webkit-box;
-  -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  transition: -webkit-line-clamp 0.2s ease;
+
+  &.clamped {
+    -webkit-line-clamp: 3;
+  }
+`;
+
+export const SeeMoreButton = styled.button`
+  background: none;
+  border: none;
+  padding: 0;
+  margin-top: -4px;
+  cursor: pointer;
+  font-size: ${theme.typography.size.sm};
+  font-weight: ${theme.typography.weight.semibold};
+  color: ${theme.colors.primary};
+  align-self: flex-start;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 0.75;
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${theme.colors.primaryLight};
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
 `;
 
 export const ActionButtons = styled.div`
