@@ -5,6 +5,7 @@ import * as S from "./ProjectsSection.styled";
 import { GoDotFill } from "react-icons/go";
 import { FaExternalLinkAlt, FaGithub } from "react-icons/fa";
 import { GiOpenBook } from "react-icons/gi";
+import { Link } from "react-router-dom";
 
 const { heading, project, viewAll } = projectsData;
 
@@ -73,13 +74,13 @@ const ProjectsSection = ({ id }) => {
                   >
                     <FaGithub aria-hidden="true" /> GitHub
                   </a>
-                  <a
+                  <Link
                     className="view-link"
-                    href={view}
+                    to={view}
                     aria-label={`View Case Study for ${title}`}
                   >
                     <GiOpenBook aria-hidden="true" /> View Case Study
-                  </a>
+                  </Link>
                 </div>
               </S.CardFooter>
             </S.CardContent>

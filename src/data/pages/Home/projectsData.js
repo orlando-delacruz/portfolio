@@ -23,7 +23,7 @@ const projectsData = {
         "A fully responsive personal website built from scratch to showcase my skills, projects, and professional journey. Developed using React JS, Styled-Components, and Framer Motion to deliver a clean, interactive, and consistent user interface. Smooth animations enhance user experience, and the site is optimized for both desktop and mobile devices.",
       github: "https://github.com/orlandostack/portfolio",
       live: "https://orlandodelacruz.vercel.app/",
-      view: "#",
+      view: "/projects",
     },
 
     // PROJECT 2
@@ -37,7 +37,7 @@ const projectsData = {
         "A modern, fully responsive school website providing students, parents, and teachers with real-time school information. Built with React JS, Styled-Components, and Ant Design for a polished interface. Integrated Hygraph (headless CMS) and GraphQL for dynamic content management, enabling staff to update announcements, events, and news without modifying code.",
       github: "https://github.com/orlandostack/sanhs-website",
       live: "https://sanhs-website-edu.vercel.app/",
-      view: "#",
+      view: "/projects",
     },
 
     // PROJECT 3
@@ -51,7 +51,7 @@ const projectsData = {
         "Classic English is an educational platform created by students of Tayabas Western Academy to bring literature to life. The website features stories and sonnets from William Shakespeare and other classical authors, with interactive elements such as character descriptions, embedded videos for each story, and audio read-aloud options for sonnets. Developed with React JS, Styled-Components, and Framer Motion, it provides a responsive and engaging experience for both desktop and mobile users. Content is managed through Hygraph CMS with GraphQL for dynamic updates.",
       github: "https://github.com/orlandostack/digital-classic-english",
       live: "https://classic-english.vercel.app/",
-      view: "#",
+      view: "/projects",
     },
 
     // PROJECT 4
@@ -65,7 +65,7 @@ const projectsData = {
         "A web-based equipment quality control system for San Antonio National High School, developed using Agile SDLC. The platform digitizes inspections and integrates Decision Tree and LSTM algorithms for predictive monitoring and real-time updates. Features a role-based access system where admins and users access different functionalities through secure, protected routes.",
       github: "https://github.com/DhennisNizal/qc-system",
       live: "https://qc-system.vercel.app/",
-      view: "#",
+      view: "/projects",
     },
   ],
 
