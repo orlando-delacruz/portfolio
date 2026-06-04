@@ -128,7 +128,6 @@ export const CardFooter = styled.div`
   @media ${theme.media.tablet} {
     flex-direction: column;
     gap: 0.875rem;
-    align-items: flex-start;
   }
 
   .live-demo {
@@ -139,7 +138,7 @@ export const CardFooter = styled.div`
     transition: color 0.2s ease, text-decoration 0.2s ease;
 
     svg {
-      font-size: ${theme.typography.size.lg};
+      font-size: ${theme.typography.size.body};
     }
 
     &:hover {
@@ -152,6 +151,10 @@ export const CardFooter = styled.div`
       outline-offset: 3px;
       border-radius: 3px;
     }
+
+    @media ${theme.media.tablet} {
+      order: 2;
+    }
   }
 
   .action-buttons {
@@ -159,6 +162,10 @@ export const CardFooter = styled.div`
     align-items: center;
     gap: 0.625rem;
     flex-wrap: wrap;
+
+    @media ${theme.media.tablet} {
+      order: 1;
+    }
 
     .github-link,
     .view-link {
