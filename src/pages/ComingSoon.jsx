@@ -55,6 +55,9 @@ const ComingSoon = ({ pageName = "This Page" }) => {
 
         {/* Main content */}
         <div style={styles.main}>
+          <button className="backBtn" onClick={() => window.history.back()}>
+            <span style={styles.backArrow}>←</span> go back
+          </button>
           <p style={styles.label(colors)}>[ PAGE UNDER CONSTRUCTION ]</p>
 
           <h1 style={{ ...styles.heading, ...(glitch ? styles.headingGlitch(colors) : {}) }}>
@@ -109,9 +112,7 @@ const ComingSoon = ({ pageName = "This Page" }) => {
 
         {/* Back button */}
         <div style={styles.footer(whiteRgb)}>
-          <button className="backBtn" onClick={() => window.history.back()}>
-            <span style={styles.backArrow}>←</span> go back
-          </button>
+
           <span style={styles.footerNote(whiteRgb, primaryRgb)}>
             portfolio by{" "}
             <span style={styles.footerAccent(primaryRgb)}>Orlando Dela Cruz</span>
@@ -160,6 +161,7 @@ const ComingSoon = ({ pageName = "This Page" }) => {
           cursor: pointer;
           transition: all 0.2s ease;
           letter-spacing: 0.05em;
+          margin-bottom: 1rem;
         }
 
         .backBtn:hover {
