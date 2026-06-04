@@ -1,8 +1,9 @@
+import SEO from "../../components/common/SEO";
 import Hero from "../../features/About/Hero";
 import Story from "../../features/About/Story";
 import QuickFacts from "../../features/About/QuickFacts";
 import WhatIDo from "../../features/About/WhatIDo";
-import SEO from "../../components/common/SEO";
+import MyApproach from "../../features/About/MyApproach";
 
 const AboutPage = () => {
   return (
@@ -17,6 +18,7 @@ const AboutPage = () => {
       <Story />
       <QuickFacts />
       <WhatIDo />
+      <MyApproach />
     </>
   );
 };
