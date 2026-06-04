@@ -1,6 +1,7 @@
 import Hero from "../../features/About/Hero";
 import Story from "../../features/About/Story";
 import QuickFacts from "../../features/About/QuickFacts";
+import WhatIDo from "../../features/About/WhatIDo";
 import SEO from "../../components/common/SEO";
 
 const AboutPage = () => {
@@ -15,6 +16,7 @@ const AboutPage = () => {
       <Hero />
       <Story />
       <QuickFacts />
+      <WhatIDo />
     </>
   );
 };
