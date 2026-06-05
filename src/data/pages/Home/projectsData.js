@@ -12,7 +12,6 @@ const projectsData = {
   },
 
   project: [
-    // PROJECT 1
     {
       id: 1,
       thumbnail: Project1,
@@ -20,13 +19,12 @@ const projectsData = {
       category: "Personal Project",
       progress: "3 Months",
       description:
-        "A fully responsive personal website built from scratch to showcase my skills, projects, and professional journey. Developed using React JS, Styled-Components, and Framer Motion to deliver a clean, interactive, and consistent user interface. Smooth animations enhance user experience, and the site is optimized for both desktop and mobile devices.",
+        "A fully responsive personal portfolio website built to showcase my skills, projects, experience, and professional growth as a frontend developer. Developed using React, Styled Components, Ant Design, JavaScript, CSS, and Vite, the website focuses on performance, accessibility, and SEO while providing a clean and modern user experience across all devices.",
       github: "https://github.com/orlandostack/portfolio",
       live: "https://orlandodelacruz.vercel.app/",
-      view: "/projects",
+      view: "/projects/portfolio",
     },
 
-    // PROJECT 2
     {
       id: 2,
       thumbnail: Project2,
@@ -34,13 +32,12 @@ const projectsData = {
       category: "Freelance Project",
       progress: "3 Months",
       description:
-        "A modern, fully responsive school website providing students, parents, and teachers with real-time school information. Built with React JS, Styled-Components, and Ant Design for a polished interface. Integrated Hygraph (headless CMS) and GraphQL for dynamic content management, enabling staff to update announcements, events, and news without modifying code.",
+        "A modern school website developed for San Andres National High School to establish its official online presence. Built using React, Styled Components, Ant Design, Framer Motion, Hygraph, and GraphQL, the platform enables students, parents, and faculty members to access announcements, events, and school information through a responsive and user-friendly interface.",
       github: "https://github.com/orlandostack/sanhs-website",
       live: "https://sanhs-website-edu.vercel.app/",
-      view: "/projects",
+      view: "/projects/sanhs-website",
     },
 
-    // PROJECT 3
     {
       id: 3,
       thumbnail: Project3,
@@ -48,24 +45,23 @@ const projectsData = {
       category: "Freelance Project",
       progress: "3 Months",
       description:
-        "Classic English is an educational platform created by students of Tayabas Western Academy to bring literature to life. The website features stories and sonnets from William Shakespeare and other classical authors, with interactive elements such as character descriptions, embedded videos for each story, and audio read-aloud options for sonnets. Developed with React JS, Styled-Components, and Framer Motion, it provides a responsive and engaging experience for both desktop and mobile users. Content is managed through Hygraph CMS with GraphQL for dynamic updates.",
+        "An educational platform designed to make literature more engaging and accessible for students. The website features stories, sonnets, character profiles, embedded videos, and audio narration from William Shakespeare and other classical authors. Developed with React, Styled Components, Framer Motion, Hygraph, and GraphQL, it delivers an interactive and responsive learning experience across desktop and mobile devices.",
       github: "https://github.com/orlandostack/digital-classic-english",
       live: "https://classic-english.vercel.app/",
-      view: "/projects",
+      view: "/projects/classic-english",
     },
 
-    // PROJECT 4
     {
       id: 4,
       thumbnail: Project4,
       title: "SANHS QC",
-      category: "Freelance Project",
+      category: "Academic Project",
       progress: "3 Months",
       description:
-        "A web-based equipment quality control system for San Antonio National High School, developed using Agile SDLC. The platform digitizes inspections and integrates Decision Tree and LSTM algorithms for predictive monitoring and real-time updates. Features a role-based access system where admins and users access different functionalities through secure, protected routes.",
+        "A web-based Quality Control System developed for San Andres National High School to streamline equipment monitoring, inspection management, and reporting processes. Built using React, Styled Components, Hygraph, GraphQL, JavaScript, CSS, and Vite, the platform integrates a Decision Tree Machine Learning Model to support predictive equipment analysis and maintenance decision-making.",
       github: "https://github.com/DhennisNizal/qc-system",
       live: "https://qc-system.vercel.app/",
-      view: "/projects",
+      view: "/projects/sanhs-qc",
     },
   ],
 

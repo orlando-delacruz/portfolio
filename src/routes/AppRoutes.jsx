@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import HomePage from "../pages/HomePage";
 import AboutPage from "../pages/AboutPage";
 import ProjectPage from "../pages/ProjectPage";
+import ProjectDetailPage from "../pages/ProjectDetailPage";
 import ComingSoon from "../pages/ComingSoon";
 
 export default function AppRoutes() {
@@ -11,6 +12,7 @@ export default function AppRoutes() {
       <Route path="/about" element={<AboutPage />} />
       <Route path="/projects" element={<ProjectPage />} />
       <Route path="/blogs" element={<ComingSoon pageName="Blog Page" />} />
+      <Route path="/projects/:slug" element={<ProjectDetailPage />} />
     </Routes>
   );
 }

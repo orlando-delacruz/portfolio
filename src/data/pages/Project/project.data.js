@@ -24,20 +24,30 @@ const projects = [
     categoryKey: "personal",
     duration: "3 Months",
     description:
-      "A fully responsive personal portfolio website developed to showcase my skills, projects, experience, and professional growth as a web developer. Built with React, Styled Components, and Framer Motion to create a modern and engaging user experience.",
+      "A fully responsive personal portfolio website built to showcase my skills, projects, experience, and professional growth as a frontend developer. Developed using React, Styled Components, Ant Design, JavaScript, CSS, and Vite with a focus on performance, accessibility, and SEO.",
     highlights: [
       "Responsive Design",
-      "Interactive Animations",
       "SEO Optimization",
       "Project Showcase",
+      "Performance Focused",
     ],
-    techStack: ["React", "Styled Components", "Framer Motion", "Vite"],
+    techStack: [
+      "React",
+      "Styled Components",
+      "Ant Design",
+      "JavaScript",
+      "CSS",
+      "Vite",
+      "React Helmet",
+      "Sharp",
+    ],
     links: {
       live: "https://orlandodelacruz.vercel.app/",
       github: "https://github.com/orlandostack/portfolio",
       caseStudy: "/projects/portfolio",
     },
   },
+
   {
     id: 2,
     thumbnail: Project2,
@@ -47,20 +57,29 @@ const projects = [
     categoryKey: "freelance",
     duration: "3 Months",
     description:
-      "A modern school website designed to provide students, parents, and faculty with easy access to announcements, events, academic information, and school updates. The platform integrates a headless CMS to allow dynamic content management without requiring code changes.",
+      "A modern school website developed for San Andres National High School to establish its official online presence. Built with React, Styled Components, Ant Design, Framer Motion, Hygraph, and GraphQL for dynamic content management and an engaging user experience.",
     highlights: [
+      "School Website Development",
       "CMS Integration",
       "Responsive Design",
-      "GraphQL",
-      "Content Management",
+      "Interactive Animations",
     ],
-    techStack: ["React", "Styled Components", "Ant Design", "Hygraph", "GraphQL"],
+    techStack: [
+      "React",
+      "Styled Components",
+      "Ant Design",
+      "Framer Motion",
+      "Hygraph",
+      "GraphQL",
+      "Vite",
+    ],
     links: {
       live: "https://sanhs-website-edu.vercel.app/",
       github: "https://github.com/orlandostack/sanhs-website",
       caseStudy: "/projects/sanhs-website",
     },
   },
+
   {
     id: 3,
     thumbnail: Project3,
@@ -70,20 +89,27 @@ const projects = [
     categoryKey: "freelance",
     duration: "3 Months",
     description:
-      "An educational platform created to make literature more engaging for students through interactive stories, multimedia content, character descriptions, audio narration, and video integration.",
+      "An educational platform designed to make literature more engaging through interactive stories, character profiles, multimedia content, audio narration, and video integration. Built using React, Styled Components, Framer Motion, Hygraph, and GraphQL.",
     highlights: [
       "Interactive Learning",
       "Multimedia Content",
       "CMS Integration",
       "Responsive Design",
     ],
-    techStack: ["React", "Styled Components", "Framer Motion", "GraphQL", "Hygraph"],
+    techStack: [
+      "React",
+      "Styled Components",
+      "Framer Motion",
+      "GraphQL",
+      "Hygraph",
+    ],
     links: {
       live: "https://classic-english.vercel.app/",
       github: "https://github.com/orlandostack/digital-classic-english",
       caseStudy: "/projects/classic-english",
     },
   },
+
   {
     id: 4,
     thumbnail: Project4,
@@ -93,14 +119,24 @@ const projects = [
     categoryKey: "academic",
     duration: "3 Months",
     description:
-      "A web-based equipment quality control system developed using Agile SDLC principles. The platform digitizes inspection workflows and integrates predictive monitoring features using machine learning models for equipment analysis and reporting.",
+      "A web-based Quality Control System developed for San Andres National High School to streamline equipment monitoring, inspections, and reporting. The platform integrates a Decision Tree Machine Learning Model for predictive equipment analysis and maintenance planning.",
     highlights: [
-      "Role-Based Access",
       "Dashboard System",
-      "Protected Routes",
-      "Agile Development",
+      "Machine Learning Integration",
+      "Decision Tree Model",
+      "GraphQL Integration",
     ],
-    techStack: ["React", "Laravel", "MySQL", "PHP"],
+    techStack: [
+      "React",
+      "Styled Components",
+      "JavaScript",
+      "CSS",
+      "HTML",
+      "Hygraph",
+      "GraphQL",
+      "Vite",
+      "Decision Tree Model",
+    ],
     links: {
       live: "https://qc-system.vercel.app/",
       github: "https://github.com/DhennisNizal/qc-system",
