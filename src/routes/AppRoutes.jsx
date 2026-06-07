@@ -4,6 +4,7 @@ import AboutPage from "../pages/AboutPage";
 import ProjectPage from "../pages/ProjectPage";
 import ProjectDetailPage from "../pages/ProjectDetailPage";
 import BlogPage from "../pages/BlogPage";
+import BlogDetailPage from "../pages/BlogDetailPage";
 // import ComingSoon from "../pages/ComingSoon";
 
 export default function AppRoutes() {
@@ -14,6 +15,7 @@ export default function AppRoutes() {
       <Route path="/projects" element={<ProjectPage />} />
       <Route path="/blogs" element={<BlogPage />} />
       <Route path="/projects/:slug" element={<ProjectDetailPage />} />
+      <Route path="/blogs/:slug" element={<BlogDetailPage />} />
     </Routes>
   );
 }

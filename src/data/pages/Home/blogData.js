@@ -18,6 +18,7 @@ const blogData = {
       date: "May 20, 2026",
       title: "How I Built My First Laravel Project",
       duration: "8 Min Read",
+      slug: "how-i-built-my-first-laravel-project",
       description:
         "Thinking about learning Laravel? Read about my journey building my very first project, including the concepts that clicked, the mistakes I made, and the lessons that helped me understand modern web development.",
     },
@@ -27,6 +28,7 @@ const blogData = {
       date: "May 27, 2026",
       title: "React vs Vanilla JavaScript for Beginners",
       duration: "6 Min Read",
+      slug: "react-vs-vanilla-javascript-for-beginners",
       description:
         "Should you learn React right away or master JavaScript first? This article compares both approaches, highlighting their strengths, limitations, and when each one makes the most sense.",
     },
@@ -36,6 +38,7 @@ const blogData = {
       date: "June 3, 2026",
       title: "Understanding REST APIs for Frontend Developers",
       duration: "7 Min Read",
+      slug: "understanding-rest-apis-for-frontend-developers",
       description:
         "Think of a REST API as a waiter taking your order to the kitchen. This beginner-friendly guide explains requests, responses, endpoints, and how frontend applications communicate with backend services.",
     },
@@ -45,6 +48,7 @@ const blogData = {
       date: "June 10, 2026",
       title: "A Beginner's Guide to Git and GitHub",
       duration: "9 Min Read",
+      slug: "a-beginners-guide-to-git-and-github",
       description:
         "Stop fearing the terminal. This step-by-step guide breaks down Git and GitHub into plain English, showing how version control works and why every developer should learn it.",
     },
