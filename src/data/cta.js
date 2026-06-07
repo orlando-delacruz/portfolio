@@ -6,7 +6,7 @@ const ctaData = {
     "I'm currently open to internship opportunities, freelance projects, collaborations, and junior web developer roles.",
 
   primaryButton: {
-    href: "#contacts",
+    href: "mailto:orlando.delacruz.dev@gmail.com",
     label: "Contact Me",
   },
 

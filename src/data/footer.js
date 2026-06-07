@@ -18,11 +18,11 @@ const footerData = {
     "Web developer focused on building responsive and scalable modern web applications.",
 
   socialLinks: [
-    { id: "social-github", href: "#", icon: FaGithub, label: "Visit my GitHub profile" },
-    { id: "social-linkedin", href: "#", icon: FaLinkedin, label: "Visit my LinkedIn profile" },
-    { id: "social-mail", href: "#", icon: IoIosMail, label: "Send me an email" },
-    { id: "social-phone", href: "#", icon: FaPhone, label: "Call me" },
-    { id: "social-facebook", href: "#", icon: FaFacebook, label: "Visit my Facebook profile" },
+    { id: "social-github", href: "https://github.com/orlandostack", icon: FaGithub, label: "Visit my GitHub profile" },
+    { id: "social-linkedin", href: "https://www.linkedin.com/in/orlando-jr-dela-cruz-127998273/", icon: FaLinkedin, label: "Visit my LinkedIn profile" },
+    { id: "social-mail", href: "mailto:orlando.delacruz.dev@gmail.com", icon: IoIosMail, label: "Send me an email" },
+    { id: "social-phone", href: "tel:+639095984478s", icon: FaPhone, label: "Call me" },
+    { id: "social-facebook", href: "https://web.facebook.com/orlando.arcangel/", icon: FaFacebook, label: "Visit my Facebook profile" },
   ],
 
   quickLinksTitle: "Quick Links",

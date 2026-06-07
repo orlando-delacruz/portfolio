@@ -23,7 +23,7 @@ const CallToAction = () => {
           <S.Description>{description}</S.Description>
 
           <S.ActionButtons>
-            <S.PrimaryButton href={primaryButton.href}>
+            <S.PrimaryButton href={primaryButton.href} target="_blank">
               {primaryButton.label}
             </S.PrimaryButton>
 
