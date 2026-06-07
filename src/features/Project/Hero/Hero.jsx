@@ -1,25 +1,18 @@
 import * as S from "./Hero.styled";
 import BreadCrumb from "../../../components/BreadCrumb/BreadCrumb";
-import heroData from "../../../data/pages/Project/hero.data";
+import hero from "../../../data/pages/Project/hero.data";
 
-/**
- * ProjectHero
- * Centered hero section for the Projects page.
- * Renders breadcrumb, pre-title label, heading, description, and quick-stats cards.
- */
 const Hero = () => {
-  const { breadcrumb, pretitle, heading, description, stats } = heroData;
+  const { pretitle, heading, description, stats } = hero;
 
   return (
     <S.HeroSection aria-labelledby="project-hero-heading">
-      {/* Background decorative layer */}
       <S.BgGlow aria-hidden="true" />
 
-      {/* Breadcrumb — absolutely positioned via BreadCrumb.styled */}
-      <BreadCrumb label={breadcrumb.label} paths={breadcrumb.paths} />
+      <BreadCrumb items={[{ label: "Home", href: "/" }, { label: "Projects" }]} />
+
 
       <S.Inner>
-        {/* Small label */}
         <S.PreTitle aria-hidden="true">{pretitle}</S.PreTitle>
 
         {/* Main heading */}

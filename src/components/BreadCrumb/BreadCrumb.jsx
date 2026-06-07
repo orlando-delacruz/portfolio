@@ -1,40 +1,46 @@
-import * as S from "./BreadCrumb.styled"
+import { Link } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
 import { FiChevronRight } from "react-icons/fi";
+import * as S from "./BreadCrumb.styled";
 
-const BreadCrumb = ({ label, paths = [] }) => {
+/**
+ * @param {{ items: Array<{ label: string, href?: string }> }} props
+ *
+ */
+const BreadCrumb = ({ items = [] }) => {
   return (
-    <S.BreadCrumb aria-label="breadcrumb">
+    <S.BreadCrumb aria-label="Breadcrumb">
       <S.List>
-        <S.Item>
-          <S.NavLink to="/">
-            <S.HomeIcon>
-              <FaHome />
-            </S.HomeIcon>
-            <span className="label">Home</span>
-          </S.NavLink>
-        </S.Item>
+        {items.map(({ label, href }, index) => {
+          const isFirst = index === 0;
+          const isLast = index === items.length - 1;
 
-        {paths.map((path, index) => (
-          <>
-            <S.Item key={`sep-${index}`} aria-hidden="true">
-              <S.Separator><FiChevronRight /></S.Separator>
+          return (
+            <S.Item key={label}>
+              {/* Separator between items — not before the first */}
+              {index > 0 && (
+                <S.Separator aria-hidden="true">
+                  <FiChevronRight />
+                </S.Separator>
+              )}
+
+              {isLast ? (
+                // Current page — no link
+                <S.CurrentPage aria-current="page">{label}</S.CurrentPage>
+              ) : (
+                // Navigable link — first item gets the home icon
+                <S.NavLink as={Link} to={href ?? "/"}>
+                  {isFirst && (
+                    <S.HomeIcon aria-hidden="true">
+                      <FaHome />
+                    </S.HomeIcon>
+                  )}
+                  <span className="label">{label}</span>
+                </S.NavLink>
+              )}
             </S.Item>
-            <S.Item key={`path-${index}`}>
-              <S.NavLink to={path.href}>
-                <span className="label">{path.label}</span>
-              </S.NavLink>
-            </S.Item>
-          </>
-        ))}
-
-        <S.Item aria-hidden="true">
-          <S.Separator><FiChevronRight /></S.Separator>
-        </S.Item>
-
-        <S.Item>
-          <S.CurrentPage aria-current="page">{label}</S.CurrentPage>
-        </S.Item>
+          );
+        })}
       </S.List>
     </S.BreadCrumb>
   );

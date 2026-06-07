@@ -8,11 +8,6 @@ import BreadCrumb from "../../../components/BreadCrumb/BreadCrumb";
 import { projectsBySlug } from "../../../data/project";
 import * as S from "./ProjectDetail.styled";
 
-const breadcrumbBase = [
-  { label: "Home", href: "/" },
-  { label: "Projects", href: "/projects" },
-];
-
 const ProjectDetail = () => {
   const { slug } = useParams();
   const project = projectsBySlug[slug];
@@ -45,7 +40,11 @@ const ProjectDetail = () => {
       <S.DetailPage>
         {/* Hero */}
         <S.HeroBanner aria-labelledby="detail-title">
-          <BreadCrumb items={[...breadcrumbBase, { label: title }]} />
+          <BreadCrumb items={[
+            { label: "Home", href: "/" },
+            { label: "Projects", href: "/projects" },
+            { label: title },
+          ]} />
           <S.BgGlow aria-hidden="true" />
 
           <S.HeroInner>

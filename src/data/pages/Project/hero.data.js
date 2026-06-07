@@ -1,7 +1,9 @@
-const heroData = {
+const hero = {
   breadcrumb: {
-    label: "Projects",
-    paths: [],
+    items: [
+      { label: "Home", href: "/" },
+      { label: "Projects" },
+    ],
   },
 
   pretitle: "PROJECTS",
@@ -36,4 +38,4 @@ const heroData = {
   ],
 };
 
-export default heroData;
+export default hero;

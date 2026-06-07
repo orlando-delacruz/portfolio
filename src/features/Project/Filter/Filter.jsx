@@ -1,7 +1,7 @@
 // src\features\Project\Filter\Filter.jsx
 import { useId } from "react";
 import { FiSearch } from "react-icons/fi";
-import { filtersData } from "../../../data/pages/Project/project.data";
+import { filtersData } from "../../../data/project";
 import * as S from "./Filter.styled";
 
 const Filter = ({

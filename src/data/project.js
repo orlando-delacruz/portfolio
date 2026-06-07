@@ -92,7 +92,7 @@ const projects = [
     categoryKey: "freelance",
     duration: "3 Months",
     description:
-      "A modern school website developed for San Andres National High School to establish its official online presence. Built with React, Styled Components, Ant Design, Framer Motion, Hygraph, and GraphQL for dynamic content management and an engaging user experience.",
+      "A modern school website developed for San Antonio National High School to establish its official online presence. Built with React, Styled Components, Ant Design, Framer Motion, Hygraph, and GraphQL for dynamic content management and an engaging user experience.",
     links: {
       live: "https://sanhs-website-edu.vercel.app/",
       github: "https://github.com/orlandostack/sanhs-website",
@@ -101,7 +101,7 @@ const projects = [
     year: "2025",
     role: "Frontend Developer",
     overview:
-      "San Andres National High School previously had no official website. The objective of the project was to create a professional digital platform that would serve as the school's primary online communication channel. The website allows administrators to manage content efficiently through a headless CMS while providing users with a modern browsing experience enhanced by animations and responsive design.",
+      "San Antonio National High School previously had no official website. The objective of the project was to create a professional digital platform that would serve as the school's primary online communication channel. The website allows administrators to manage content efficiently through a headless CMS while providing users with a modern browsing experience enhanced by animations and responsive design.",
     highlights: [
       "School Website Development",
       "CMS Integration",
