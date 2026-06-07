@@ -1,31 +1,36 @@
+
 import SectionHeading from "../../../components/SectionHeading";
-import projectsData from "../../../data/pages/Home/projectsData";
 import ViewAll from "../../../components/Buttons/ViewAll";
 import * as S from "./ProjectsSection.styled";
 import { GoDotFill } from "react-icons/go";
 import { FaExternalLinkAlt, FaGithub } from "react-icons/fa";
 import { GiOpenBook } from "react-icons/gi";
 import { Link } from "react-router-dom";
+import projects, {
+  projectsHeading,
+  viewAll,
+} from "../../../data/project";
 
-const { heading, project, viewAll } = projectsData;
+// Show only first 4 on the home page
+const featuredProjects = projects.slice(0, 4);
 
 const ProjectsSection = ({ id }) => {
   return (
-    <S.SectionWrapper id={id} aria-labelledby={heading.arialabel}>
+    <S.SectionWrapper id={id} aria-labelledby={projectsHeading.arialabel}>
       <SectionHeading
-        pretitle={heading.pretitle}
-        title={heading.title}
-        highlight={heading.highlight}
-        arialabel={heading.arialabel}
+        pretitle={projectsHeading.pretitle}
+        title={projectsHeading.title}
+        highlight={projectsHeading.highlight}
+        arialabel={projectsHeading.arialabel}
       />
 
       <S.ContentGrid role="list">
-        {project.map(({ id, thumbnail, title, category, progress, description, github, live, view }, index) => (
-          <S.ProjectCard key={id} role="listitem" as="article">
+        {featuredProjects.map(({ id: projectId, thumbnail, thumbnailAlt, title, category, duration, description, links }, index) => (
+          <S.ProjectCard key={projectId} role="listitem" as="article">
             <S.Thumbnail>
               <img
                 src={thumbnail}
-                alt={`${title} project thumbnail`}
+                alt={thumbnailAlt}
                 loading={index < 2 ? "eager" : "lazy"}
                 fetchpriority={index < 2 ? "high" : undefined}
                 decoding="async"
@@ -45,21 +50,20 @@ const ProjectsSection = ({ id }) => {
                   <GoDotFill aria-hidden="true" />
                   <div className="meta-item">
                     <dt className="sr-only">Duration</dt>
-                    <dd className="progress">{progress}</dd>
+                    <dd>{duration}</dd>
                   </div>
                 </dl>
               </S.CardHead>
-              <S.CardBody aria-label={`Description: ${description}`}>
-                {description}
-              </S.CardBody>
+
+              <S.CardBody>{description}</S.CardBody>
 
               <S.CardFooter>
                 <a
                   className="live-demo"
-                  href={live}
+                  href={links.live}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={`Live Demo for ${title}`}
+                  aria-label={`Live demo for ${title}`}
                 >
                   Live Demo <FaExternalLinkAlt aria-hidden="true" />
                 </a>
@@ -67,7 +71,7 @@ const ProjectsSection = ({ id }) => {
                 <div className="action-buttons">
                   <a
                     className="github-link"
-                    href={github}
+                    href={links.github}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`GitHub repository for ${title}`}
@@ -76,8 +80,8 @@ const ProjectsSection = ({ id }) => {
                   </a>
                   <Link
                     className="view-link"
-                    to={view}
-                    aria-label={`View Case Study for ${title}`}
+                    to={links.caseStudy}
+                    aria-label={`Case study for ${title}`}
                   >
                     <GiOpenBook aria-hidden="true" /> View Case Study
                   </Link>
@@ -85,15 +89,16 @@ const ProjectsSection = ({ id }) => {
               </S.CardFooter>
             </S.CardContent>
           </S.ProjectCard>
-        ))}
-      </S.ContentGrid>
+        ))
+        }
+      </S.ContentGrid >
 
       <ViewAll
         link={viewAll.link}
         label={viewAll.label}
         aria-label="View all projects"
       />
-    </S.SectionWrapper>
+    </S.SectionWrapper >
   );
 };
 
