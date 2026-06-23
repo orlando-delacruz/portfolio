@@ -4,6 +4,7 @@ import theme from "../../styles/theme";
 import { blogDetailData } from "../../data/blogs";
 import Hero from "../../features/BlogDetail/Hero";
 import BlogContent from "../../features/BlogDetail/Content";
+import CallToAction from "../../components/CallToAction";
 
 const NotFound = styled.div`
   display: flex;
@@ -57,6 +58,8 @@ const BlogDetailPage = () => {
         takeaways={article.takeaways}
         related={article.related}
       />
+
+      <CallToAction />
     </main>
   );
 };

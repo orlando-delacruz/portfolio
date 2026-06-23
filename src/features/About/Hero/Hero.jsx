@@ -11,7 +11,7 @@ const Hero = () => (
   >
     <S.Overlay aria-hidden="true" />
 
-    <BreadCrumb label="About" />
+    <BreadCrumb items={[{ label: "Home", href: "/" }, { label: "About Me" }]} />
 
     <S.Content>
       <S.HeadingWrapper>

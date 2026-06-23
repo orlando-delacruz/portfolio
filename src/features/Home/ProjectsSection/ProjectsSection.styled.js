@@ -26,7 +26,6 @@ export const ProjectCard = styled.div`
   flex-direction: column;
   align-items: center;
 
-
   &:focus-within {
     outline: 2px solid ${theme.colors.primary};
     outline-offset: 4px;
@@ -70,8 +69,8 @@ export const CardHead = styled.div`
 
   @media ${theme.media.tablet} {
     flex-direction: column;
-    align-items: flex-start; 
-    gap: 0.5rem; 
+    align-items: flex-start;
+    gap: 0.5rem;
   }
 
   .card-title {
@@ -92,7 +91,7 @@ export const CardHead = styled.div`
       display: contents;
 
       .sr-only {
-        display: none ;
+        display: none;
       }
     }
 
@@ -134,17 +133,26 @@ export const CardFooter = styled.div`
     display: flex;
     align-items: center;
     gap: 0.625rem;
-    color: ${theme.colors.primary};
-    transition: color 0.2s ease, text-decoration 0.2s ease;
+    color: ${theme.colors.white};
+    transition:
+      color 0.2s ease,
+      text-decoration 0.2s ease;
+    background-color: ${theme.colors.primary};
+    font-size: ${theme.typography.size.sm};
+    padding: 0.625rem 0.938rem;
+    font-weight: ${theme.typography.weight.medium};
+    border-radius: 3.125rem;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease;
 
     svg {
       font-size: ${theme.typography.size.body};
     }
 
     &:hover {
-      text-decoration: underline;
+      background-color: ${theme.colors.primaryLight};
     }
-
 
     &:focus-visible {
       outline: 2px solid ${theme.colors.primary};
@@ -180,7 +188,9 @@ export const CardFooter = styled.div`
       font-size: ${theme.typography.size.sm};
       font-weight: ${theme.typography.weight.medium};
       background-color: transparent;
-      transition: background-color 0.2s ease, color 0.2s ease;
+      transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
 
       &:hover {
         background-color: ${theme.colors.primary};
