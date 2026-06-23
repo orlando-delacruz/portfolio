@@ -1,10 +1,9 @@
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { BsCheckCircleFill, BsLightbulbFill } from "react-icons/bs";
-import blogDetailData, { authorData } from "../../../data/pages/BlogDetail/blogDetail.data";
+import { blogDetailData, authorData } from "../../../data/blogs";
 import * as S from "./Content.styled";
 
-/* ─── Author initials fallback ────────────────────────────── */
 const getInitials = (name) =>
   name
     .split(" ")
@@ -12,8 +11,6 @@ const getInitials = (name) =>
     .join("")
     .toUpperCase()
     .slice(0, 2);
-
-/* ─── Sub-components ──────────────────────────────────────── */
 
 const ArticleSections = ({ sections }) => (
   <>
@@ -111,7 +108,6 @@ const RelatedArticles = ({ relatedSlugs }) => {
 
 const BlogContent = ({ sections, takeaways, related }) => (
   <S.ContentWrapper>
-    {/* Article body sections */}
     {sections?.length > 0 && (
       <S.ReadingColumn>
         <ArticleSections sections={sections} />
@@ -119,8 +115,6 @@ const BlogContent = ({ sections, takeaways, related }) => (
         <AuthorBox />
       </S.ReadingColumn>
     )}
-
-    {/* Related articles — full width */}
     <RelatedArticles relatedSlugs={related} />
   </S.ContentWrapper>
 );

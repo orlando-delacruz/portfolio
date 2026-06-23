@@ -12,7 +12,7 @@ import ViteIcon from "../../../assets/images/skills/vite.webp";
 // ========== BACKEND ==========
 import PHP from "../../../assets/images/skills/php.webp";
 import Laravel from "../../../assets/images/skills/laravel.webp";
-import REST from "../../../assets/images/skills/REST.webp";
+import REST from "../../../assets/images/skills/rest.webp";
 import GraphQL from "../../../assets/images/skills/graphql.webp";
 
 // ========== TOOLS ===========
@@ -21,7 +21,7 @@ import Github from "../../../assets/images/skills/github.webp";
 import VSCode from "../../../assets/images/skills/vscode.webp";
 import ClickUp from "../../../assets/images/skills/clickup.webp";
 import Chrome from "../../../assets/images/skills/chrome.webp";
-import Lighthouse from "../../../assets/images/skills/loghthouse.webp";
+import Lighthouse from "../../../assets/images/skills/lighthouse.webp";
 import Discord from "../../../assets/images/skills/discord.webp";
 import Canva from "../../../assets/images/skills/canva.webp";
 
@@ -31,9 +31,7 @@ import Teamwork from "../../../assets/images/skills/teamwork.webp";
 import TimeManagement from "../../../assets/images/skills/time-management.webp";
 import ProblemSolving from "../../../assets/images/skills/problem-solving.webp";
 import Adaptability from "../../../assets/images/skills/adaptability.webp";
-import Attention from "../../../assets/images/skills/attention-detail.webp";
-
-
+import Attention from "../../../assets/images/skills/attention-to-detail.webp";
 
 const skillsData = {
   heading: {
@@ -56,7 +54,11 @@ const skillsData = {
 
         { id: "tailwind", icon: TailwindIcon, label: "Tailwind CSS" },
         { id: "bootstrap", icon: BootstrapIcon, label: "Bootstrap" },
-        { id: "styled", icon: StyledComponentsIcon, label: "Styled Components" },
+        {
+          id: "styled",
+          icon: StyledComponentsIcon,
+          label: "Styled Components",
+        },
         { id: "antd", icon: AntDesignIcon, label: "Ant Design" },
 
         { id: "vite", icon: ViteIcon, label: "Vite" },
@@ -98,8 +100,16 @@ const skillsData = {
       skills: [
         { id: "communication", icon: Communication, label: "Communication" },
         { id: "teamwork", icon: Teamwork, label: "Teamwork" },
-        { id: "timemanagement", icon: TimeManagement, label: "Time Management" },
-        { id: "problemsolving", icon: ProblemSolving, label: "Problem Solving" },
+        {
+          id: "timemanagement",
+          icon: TimeManagement,
+          label: "Time Management",
+        },
+        {
+          id: "problemsolving",
+          icon: ProblemSolving,
+          label: "Problem Solving",
+        },
         { id: "adaptability", icon: Adaptability, label: "Adaptability" },
         { id: "attention", icon: Attention, label: "Attention to Detail" },
       ],

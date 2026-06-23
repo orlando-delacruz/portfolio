@@ -2,12 +2,11 @@ import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import * as S from "./BlogSection.styled";
 import SectionHeading from "../../../components/SectionHeading";
-import blogData from "../../../data/pages/Home/blogData";
+import { blogData } from "../../../data/blogs";
 import ViewAll from "../../../components/Buttons/ViewAll";
 
 const { heading, blogs } = blogData;
 
-/* ─── Main (featured) card ────────────────────────────────── */
 const MainBlogCard = ({ blog }) => (
   <S.MainBlogCard
     as={Link}
@@ -38,7 +37,6 @@ const MainBlogCard = ({ blog }) => (
   </S.MainBlogCard>
 );
 
-/* ─── Secondary cards ─────────────────────────────────────── */
 const SecondaryBlogCard = ({ blog }) => (
   <S.SecondaryBlogCard
     as={Link}
@@ -69,7 +67,6 @@ const SecondaryBlogCard = ({ blog }) => (
   </S.SecondaryBlogCard>
 );
 
-/* ─── Section ─────────────────────────────────────────────── */
 const BlogSection = ({ id }) => {
   const featuredBlog = useMemo(() => blogs[0], []);
   const otherBlogs = useMemo(() => blogs.slice(1), []);
@@ -83,20 +80,17 @@ const BlogSection = ({ id }) => {
         arialabel={heading.ariaLabel}
         id="blog-section-heading"
       />
-
       <S.ContentWrapper>
         <S.ContentGrid>
           <S.LeftContent>
             <MainBlogCard blog={featuredBlog} />
           </S.LeftContent>
-
           <S.RightContent>
             {otherBlogs.map((blog) => (
-              <SecondaryBlogCard key={blog.id} blog={blog} />
+              <SecondaryBlogCard key={blog.slug} blog={blog} />
             ))}
           </S.RightContent>
         </S.ContentGrid>
-
         <ViewAll link="/blogs" label="View All Blogs" />
       </S.ContentWrapper>
     </S.SectionWrapper>

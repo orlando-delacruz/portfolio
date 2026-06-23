@@ -1,29 +1,19 @@
-import Blog1 from "../../../assets/images/blog/blog-1.webp";
-import Blog2 from "../../../assets/images/blog/blog-2.webp";
-import Blog3 from "../../../assets/images/blog/blog-3.webp";
-import Blog4 from "../../../assets/images/blog/blog-4.webp";
+import Blog1 from "../assets/images/blog/blog-1.webp";
+import Blog2 from "../assets/images/blog/blog-2.webp";
+import Blog3 from "../assets/images/blog/blog-3.webp";
+import Blog4 from "../assets/images/blog/blog-4.webp";
 
-/* ─── Author (shared across all articles) ─────────────────── */
-export const authorData = {
-  name: "Orlando Dela Cruz",
-  role: "Web Developer",
-  avatar: null, // set to an image import if available
-  description:
-    "Frontend-focused web developer sharing lessons, experiences, and insights from building projects and learning modern web technologies.",
-};
-
-/* ─── Articles keyed by slug ──────────────────────────────── */
-const blogDetailData = {
-  "how-i-built-my-first-laravel-project": {
+const blogs = [
+  // BLOG 1
+  {
     slug: "how-i-built-my-first-laravel-project",
     thumbnail: Blog1,
-    thumbnailAlt: "How I Built My First Laravel Project article cover",
-    category: "Laravel",
-    categoryKey: "laravel",
     date: "May 20, 2026",
-    dateTime: "2026-05-20",
     duration: "8 Min Read",
+    category: "Laravel",
     title: "How I Built My First Laravel Project",
+    description:
+      "Thinking about learning Laravel? Read about my journey building my very first project, including the concepts that clicked, the mistakes I made, and the lessons that helped me understand modern web development.",
     intro: [
       "Learning Laravel felt overwhelming at first because there were so many concepts to understand. Routing, controllers, models, migrations, authentication, and database relationships all seemed connected in ways I didn't fully understand.",
       "However, building a real project helped me connect those pieces together. Instead of watching endless tutorials, I learned more by creating something practical and solving problems as they appeared.",
@@ -79,16 +69,16 @@ const blogDetailData = {
     ],
   },
 
-  "react-vs-vanilla-javascript-for-beginners": {
+  // BLOG 2
+  {
     slug: "react-vs-vanilla-javascript-for-beginners",
     thumbnail: Blog2,
-    thumbnailAlt: "React vs Vanilla JavaScript for Beginners article cover",
-    category: "React",
-    categoryKey: "react",
     date: "May 27, 2026",
-    dateTime: "2026-05-27",
     duration: "6 Min Read",
+    category: "React",
     title: "React vs Vanilla JavaScript for Beginners",
+    description:
+      "Should you learn React right away or master JavaScript first? This article compares both approaches, highlighting their strengths, limitations, and when each one makes the most sense.",
     intro: [
       "When you start learning web development, one of the first big questions you'll face is whether to learn React right away or spend more time mastering vanilla JavaScript first.",
       "Both paths have real merit, and the right answer depends on your goals, your timeline, and how you learn best. This article breaks down the trade-offs so you can make an informed choice.",
@@ -101,17 +91,16 @@ const blogDetailData = {
       "a-beginners-guide-to-git-and-github",
     ],
   },
-
-  "understanding-rest-apis-for-frontend-developers": {
+  // BLOG 3
+  {
     slug: "understanding-rest-apis-for-frontend-developers",
     thumbnail: Blog3,
-    thumbnailAlt: "Understanding REST APIs for Frontend Developers article cover",
-    category: "Frontend Development",
-    categoryKey: "frontend",
     date: "June 3, 2026",
-    dateTime: "2026-06-03",
     duration: "7 Min Read",
+    category: "Frontend Development",
     title: "Understanding REST APIs for Frontend Developers",
+    description:
+      "Think of a REST API as a waiter taking your order to the kitchen. This beginner-friendly guide explains requests, responses, endpoints, and how frontend applications communicate with backend services.",
     intro: [
       "Think of a REST API as a waiter at a restaurant. You tell the waiter what you want, the waiter goes to the kitchen, and the kitchen prepares your order. The waiter then brings the result back to your table.",
       "As a frontend developer, you are the customer placing the order. The API is the waiter. Understanding how that communication works is one of the most important skills you can build early in your career.",
@@ -124,17 +113,16 @@ const blogDetailData = {
       "a-beginners-guide-to-git-and-github",
     ],
   },
-
-  "a-beginners-guide-to-git-and-github": {
+  // BLOG 4
+  {
     slug: "a-beginners-guide-to-git-and-github",
     thumbnail: Blog4,
-    thumbnailAlt: "A Beginner's Guide to Git and GitHub article cover",
-    category: "Tools",
-    categoryKey: "tools",
     date: "June 10, 2026",
-    dateTime: "2026-06-10",
     duration: "9 Min Read",
+    category: "Tools",
     title: "A Beginner's Guide to Git and GitHub",
+    description:
+      "Stop fearing the terminal. This step-by-step guide breaks down Git and GitHub into plain English, showing how version control works and why every developer should learn it.",
     intro: [
       "The terminal can look intimidating when you first start. Commands like git commit, git push, and git merge sound technical, but once you understand what they do, version control becomes one of the most freeing tools in your workflow.",
       "This guide walks through Git and GitHub in plain English — no jargon, no assumptions. By the end, you will understand why every developer uses version control and how to start using it yourself.",
@@ -147,6 +135,103 @@ const blogDetailData = {
       "understanding-rest-apis-for-frontend-developers",
     ],
   },
+];
+
+export const blogData = {
+  heading: {
+    pretitle: "Blogs",
+    title: "Latest Articles &",
+    highlight: "Learning Journey",
+    ariaLabel: "latest articles",
+  },
+  blogs,
 };
 
-export default blogDetailData;
+export const blogList = blogs;
+
+export const featured = {
+  id: blogs[0].slug,
+  badge: "Featured Article",
+  thumbnail: blogs[0].thumbnail,
+  thumbnailAlt: `${blogs[0].title} - featured article thumbnail`,
+  date: blogs[0].date,
+  dateTime: "2026-05-20",
+  duration: blogs[0].duration,
+  title: blogs[0].title,
+  description:
+    "Building my first Laravel project was both exciting and challenging. In this article, I share how I approached learning Laravel, the mistakes I made, and the lessons that helped me understand backend development more effectively.",
+  link: `/blogs/${blogs[0].slug}`,
+};
+
+export const hero = {
+  breadcrumb: {
+    label: "Blogs",
+    paths: [],
+  },
+  pretitle: "BLOGS",
+  heading: {
+    main: "Articles, Insights, and My",
+    highlight: "Learning Journey",
+  },
+  description:
+    "A collection of articles where I share what I learn about web development, frontend technologies, modern tools, and the experiences I gain while building real-world projects.",
+  stats: [
+    {
+      id: "stat-1",
+      value: "4+",
+      label: "Articles Published",
+      ariaLabel: "4 or more articles published",
+    },
+    {
+      id: "stat-2",
+      value: "React",
+      label: "Main Topic",
+      ariaLabel: "Main topic is React",
+    },
+    {
+      id: "stat-3",
+      value: "Frontend",
+      label: "Primary Focus",
+      ariaLabel: "Primary focus is Frontend Development",
+    },
+  ],
+};
+
+export const authorData = {
+  name: "Orlando Dela Cruz",
+  role: "Web Developer",
+  avatar: null,
+  description:
+    "Frontend-focused web developer sharing lessons, experiences, and insights from building projects and learning modern web technologies.",
+};
+
+export const blogDetailData = blogs.reduce((acc, blog) => {
+  const {
+    slug,
+    thumbnail,
+    title,
+    category,
+    date,
+    duration,
+    intro,
+    sections,
+    takeaways,
+    related,
+  } = blog;
+  acc[slug] = {
+    slug,
+    thumbnail,
+    thumbnailAlt: `${title} article cover`,
+    category,
+    categoryKey: category.toLowerCase().replace(/\s+/g, "-"),
+    date,
+    dateTime: date,
+    duration,
+    title,
+    intro,
+    sections,
+    takeaways,
+    related,
+  };
+  return acc;
+}, {});

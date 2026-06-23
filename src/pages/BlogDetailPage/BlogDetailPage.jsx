@@ -1,11 +1,10 @@
 import { useParams, Link } from "react-router-dom";
 import styled from "styled-components";
 import theme from "../../styles/theme";
-import blogDetailData from "../../data/pages/BlogDetail/blogDetail.data";
+import { blogDetailData } from "../../data/blogs";
 import Hero from "../../features/BlogDetail/Hero";
 import BlogContent from "../../features/BlogDetail/Content";
 
-/* ── Not-found fallback ───────────────────────────────────── */
 const NotFound = styled.div`
   display: flex;
   flex-direction: column;
@@ -15,18 +14,14 @@ const NotFound = styled.div`
   gap: 1rem;
   text-align: center;
   padding: 2rem;
-
   h2 {
     font-size: ${theme.typography.heading.h2};
     font-weight: ${theme.typography.weight.semibold};
   }
-
   p { color: rgba(255, 255, 255, 0.5); }
-
   a {
     color: ${theme.colors.primary};
     margin-top: 0.5rem;
-
     &:hover { text-decoration: underline; }
   }
 `;
@@ -57,7 +52,6 @@ const BlogDetailPage = () => {
         title={article.title}
         intro={article.intro}
       />
-
       <BlogContent
         sections={article.sections}
         takeaways={article.takeaways}

@@ -59,18 +59,18 @@ const testimonialsData = {
         "Orlando developed our Classic English research website and exceeded our expectations. He was responsive, professional, and successfully transformed our requirements into a clean and functional website.",
     },
 
-    {
-      id: 6,
-      profile: Profile,
-      name: "John Allen",
-      position: "Full Stack Developer, Eplayment",
-      rating: 5,
-      quote:
-        "Collaborating with Orlando on the Classic English project was smooth and productive. He demonstrated strong frontend development skills and maintained clear communication throughout the project.",
-    },
+    // {
+    //   id: 6,
+    //   profile: Profile,
+    //   name: "John Allen",
+    //   position: "Full Stack, Eplayment",
+    //   rating: 5,
+    //   quote:
+    //     "Collaborating with Orlando on the Classic English project was smooth and productive. He demonstrated strong frontend development skills and maintained clear communication throughout the project.",
+    // },
 
     {
-      id: 7,
+      id: 6,
       profile: Profile,
       name: "Maan Managbanag",
       position: "Teacher, SANHS",

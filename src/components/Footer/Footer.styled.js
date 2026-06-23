@@ -17,14 +17,14 @@ export const FooterContent = styled.section`
   width: 100%;
   height: 100%;
   position: relative;
-  border-radius: 65px 65px 0 0;
+  border-radius: 30px 30px 0 0;
 `;
 
 export const Overlay = styled.div`
   background-color: ${theme.colors.overlay};
   position: absolute;
   inset: 0;
-  border-radius: 65px 65px 0 0;
+  border-radius: 30px 30px 0 0;
 `;
 
 export const ContentGrid = styled.div`
