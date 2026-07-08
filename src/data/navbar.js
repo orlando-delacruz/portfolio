@@ -7,16 +7,16 @@ const navbarData = {
 
     actionButton: {
         label: "Get In Touch",
-        href: "#call-to-action",
+        href: "/contact",
     },
 
     navlinks: [
-        { label: "Home", href: "#home", id: "home" },
-        { label: "About", href: "#about", id: "about" },
-        { label: "Projects", href: "#projects", id: "projects" },
-        { label: "Skills", href: "#skills", id: "skills" },
-        { label: "Blogs", href: "#blogs", id: "blogs" },
-        { label: "Contact", href: "#contacts", id: "contacts" },
+        { label: "Home", href: "#home", id: "home", type: "section" },
+        { label: "About", href: "/about", id: "about", type: "page" },
+        { label: "Projects", href: "#projects", id: "projects", type: "section" },
+        { label: "Skills", href: "#skills", id: "skills", type: "section" },
+        { label: "Blogs", href: "/blogs", id: "blogs", type: "page" },
+        { label: "Contact", href: "/contact", id: "contact", type: "page" },
     ],
 }
 

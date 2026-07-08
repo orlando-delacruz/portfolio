@@ -11,6 +11,7 @@
     "convert-images": "node src/utils/convert-images.mjs"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "antd": "^6.4.3",
     "framer-motion": "^12.40.0",
     "react": "^19.2.6",
