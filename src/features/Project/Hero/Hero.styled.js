@@ -25,17 +25,19 @@ export const HeroSection = styled.section`
   align-items: center;
   justify-content: center;
   text-align: center;
-  min-height: 100svh;
-  padding: 140px 65px 100px;
   overflow: hidden;
   isolation: isolate;
+  margin-top: 95px;
 
   @media ${theme.media.tablet} {
     padding: 120px 20px 80px;
+    margin-top: 68px;
+
   }
 
   @media ${theme.media.mobile} {
     padding: 110px 20px 70px;
+    margin-top: 65px;
   }
 `;
 

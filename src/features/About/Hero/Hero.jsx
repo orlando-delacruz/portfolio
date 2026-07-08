@@ -1,4 +1,3 @@
-import BreadCrumb from "../../../components/BreadCrumb/BreadCrumb";
 import * as S from "./Hero.styled";
 import hero from "../../../data/pages/About/hero.data";
 import { FaUser } from "react-icons/fa";
@@ -10,8 +9,6 @@ const Hero = () => (
     aria-labelledby="hero-heading"
   >
     <S.Overlay aria-hidden="true" />
-
-    <BreadCrumb items={[{ label: "Home", href: "/" }, { label: "About Me" }]} />
 
     <S.Content>
       <S.HeadingWrapper>

@@ -19,13 +19,14 @@ export const NavbarWrapper = styled.header`
     @media ${theme.media.tablet} {
         padding: 10px 20px;
     }
-`
+`;
 
 export const Logo = styled.div`
     display: flex;
     align-items: center;
     gap: 14px;
-`
+    cursor: pointer;
+`;
 
 export const LogoImage = styled.div`
     width: 55px;
@@ -41,13 +42,13 @@ export const LogoImage = styled.div`
         width: 45px;
         height: 45px;
     }
-`
+`;
 
 export const LogoDetails = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-`
+`;
 
 export const LogoTitle = styled.p`
     font-size: ${theme.typography.size.lg};
@@ -56,12 +57,12 @@ export const LogoTitle = styled.p`
     @media ${theme.media.tablet} {
         font-size: ${theme.typography.size.md};
     }
-`
+`;
 
 export const LogoSubTitle = styled.p`
     font-size: ${theme.typography.size.sm};
     font-weight: ${theme.typography.weight.light};
-`
+`;
 
 export const Navigation = styled.nav`
     display: flex;
@@ -71,7 +72,7 @@ export const Navigation = styled.nav`
     @media ${theme.media.tablet} {
         display: none;
     }
-`
+`;
 
 export const Overlay = styled.div`
     display: none;
@@ -86,32 +87,33 @@ export const Overlay = styled.div`
         pointer-events: ${({ $isOpen }) => ($isOpen ? "all" : "none")};
         transition: opacity 0.3s ease;
     }
-`
+`;
+
 export const OffCanvasWrapper = styled.div`
-  position: fixed;
-  inset: 0;
-  z-index: 200;
+    position: fixed;
+    inset: 0;
+    z-index: 200;
 `;
 
 export const OffCanvas = styled.aside`
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 300px;
-  z-index: 200;
-  padding: 28px 24px;
-  background-color: ${theme.colors.secondary};
-  border-right: 1px solid rgba(255, 255, 255, 0.06);
-  box-shadow: 8px 0 32px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 300px;
+    z-index: 200;
+    padding: 28px 24px;
+    background-color: ${theme.colors.secondary};
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 8px 0 32px rgba(0, 0, 0, 0.4);
 
-  @media ${theme.media.mobile} {
-    width: 100%;
-    border-right: none;
-  }
+    @media ${theme.media.mobile} {
+        width: 100%;
+        border-right: none;
+    }
 `;
 
 export const OffCanvasHeader = styled.div`
@@ -120,7 +122,7 @@ export const OffCanvasHeader = styled.div`
     align-items: center;
     padding-bottom: 24px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-`
+`;
 
 export const CloseButton = styled.button`
     display: flex;
@@ -137,30 +139,34 @@ export const CloseButton = styled.button`
     &:hover {
         opacity: 1;
     }
-`
+`;
 
 export const OffCanvasNavLists = styled.ul`
     display: flex;
     flex-direction: column;
     gap: 4px;
     flex: 1;
-`
+`;
 
 export const NavLists = styled.ul`
     display: flex;
     align-items: center;
     gap: 24px;
-`
+`;
 
 export const NavItem = styled.li`
     width: 100%;
-`
+`;
 
 export const NavLink = styled.a`
     position: relative;
     transition: color 0.2s ease;
     font-weight: ${theme.typography.weight.medium};
-    color: ${({ $isActive }) => ($isActive ? theme.colors.primary : "inherit")};
+    color: inherit;
+
+    &.active {
+        color: ${theme.colors.primary};
+    }
 
     &::after {
         content: "";
@@ -171,8 +177,12 @@ export const NavLink = styled.a`
         width: 100%;
         background-color: ${theme.colors.primary};
         border-radius: 2px;
-        transform: ${({ $isActive }) => ($isActive ? "scaleX(1)" : "scaleX(0)")};
+        transform: scaleX(0);
         transition: transform 0.2s ease;
+    }
+
+    &.active::after {
+        transform: scaleX(1);
     }
 
     &:hover {
@@ -183,10 +193,16 @@ export const NavLink = styled.a`
         display: block;
         padding: 12px 16px;
         border-radius: 10px;
-        color: ${({ $isActive }) => ($isActive ? theme.colors.primary : "inherit")};
-        background-color: ${({ $isActive }) => ($isActive ? "rgba(37, 98, 234, 0.1)" : "transparent")};
-        border-left: 3px solid ${({ $isActive }) => ($isActive ? theme.colors.primary : "transparent")};
+        color: inherit;
+        background-color: transparent;
+        border-left: 3px solid transparent;
         transition: all 0.2s ease;
+
+        &.active {
+            color: ${theme.colors.primary};
+            background-color: rgba(37, 98, 234, 0.1);
+            border-left-color: ${theme.colors.primary};
+        }
 
         &::after {
             display: none;
@@ -197,7 +213,7 @@ export const NavLink = styled.a`
             border-left-color: ${theme.colors.primary};
         }
     }
-`
+`;
 
 export const NavButton = styled.button`
     background: linear-gradient(to right, ${theme.colors.primary}, #153784);
@@ -214,7 +230,7 @@ export const NavButton = styled.button`
     @media ${theme.media.tablet} {
         width: 100%;
     }
-`
+`;
 
 export const MenuButton = styled.button`
     display: none;
@@ -234,4 +250,4 @@ export const MenuButton = styled.button`
         align-items: center;
         justify-content: center;
     }
-`
+`;

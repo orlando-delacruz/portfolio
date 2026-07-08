@@ -15,6 +15,7 @@ const pulseGlow = keyframes`
 /* ─── Section ─────────────────────────────────────────────── */
 export const HeroSection = styled.section`
   position: relative;
+  margin-top: 96px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,6 +24,9 @@ export const HeroSection = styled.section`
   overflow: hidden;
   isolation: isolate;
   background-color: ${theme.colors.sectionBackground};
+  padding: 95px 20px 80px !important;
+
+  
 
   @media ${theme.media.tablet} {
     padding: 120px 20px 80px;

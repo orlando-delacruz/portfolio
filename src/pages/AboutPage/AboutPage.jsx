@@ -6,7 +6,6 @@ import WhatIDo from "../../features/About/WhatIDo";
 import MyApproach from "../../features/About/MyApproach";
 import CurrentGoals from "../../features/About/CurrentGoals";
 import CallToAction from "../../components/CallToAction";
-import Footer from "../../components/Footer";
 
 const AboutPage = () => {
   return (
@@ -24,7 +23,6 @@ const AboutPage = () => {
       <MyApproach />
       <CurrentGoals />
       <CallToAction />
-      <Footer />
     </>
   );
 };

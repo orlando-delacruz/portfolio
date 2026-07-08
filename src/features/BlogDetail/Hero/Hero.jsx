@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-import { FiArrowLeft } from "react-icons/fi";
 import { GoDotFill } from "react-icons/go";
 import BreadCrumb from "../../../components/BreadCrumb/BreadCrumb";
 import * as S from "./Hero.styled";
@@ -26,9 +24,6 @@ const Hero = ({
     />
 
     <S.Inner>
-      <S.BackLink as={Link} to="/blogs" aria-label="Back to all articles">
-        <FiArrowLeft aria-hidden="true" /> All Articles
-      </S.BackLink>
 
       <S.CategoryBadge aria-label={`Category: ${category}`}>
         {category}

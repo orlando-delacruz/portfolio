@@ -1,4 +1,3 @@
-import BreadCrumb from "../../../components/BreadCrumb/BreadCrumb";
 import { hero } from "../../../data/blogs";
 import * as S from "./Hero.styled";
 
@@ -8,7 +7,6 @@ const Hero = () => {
   return (
     <S.HeroSection aria-labelledby="blog-hero-heading">
       <S.BgGlow aria-hidden="true" />
-      <BreadCrumb items={[{ label: "Home", href: "/" }, { label: "Blogs" }]} />
       <S.Inner>
         <S.PreTitle aria-hidden="true">{pretitle}</S.PreTitle>
         <S.Heading id="blog-hero-heading">

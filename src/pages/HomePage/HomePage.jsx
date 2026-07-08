@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Layout from "../../components/Layout";
 import HeroSection from "../../features/Home/HeroSection";
 import AboutSection from "../../features/Home/AboutSection";
@@ -9,6 +11,23 @@ import TestimonialSection from "../../features/Home/TestimonialSection";
 import BlogSection from "../../features/Home/BlogSection";
 
 const HomePage = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    const scrollTarget = location.state?.scrollTo;
+    if (!scrollTarget) return;
+
+    // Small delay to ensure the DOM is fully rendered
+    const timeoutId = setTimeout(() => {
+      const target = document.getElementById(scrollTarget);
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }, 150);
+
+    return () => clearTimeout(timeoutId);
+  }, [location]);
+
   return (
     <Layout>
       <HeroSection id="home" />

@@ -11,13 +11,12 @@ const navbarData = {
     },
 
     navlinks: [
-        { label: "Home", href: "#home", id: "home", type: "section" },
-        { label: "About", href: "/about", id: "about", type: "page" },
-        { label: "Projects", href: "#projects", id: "projects", type: "section" },
-        { label: "Skills", href: "#skills", id: "skills", type: "section" },
-        { label: "Blogs", href: "/blogs", id: "blogs", type: "page" },
-        { label: "Contact", href: "/contact", id: "contact", type: "page" },
+        { label: "Home", href: "/", id: "home" },
+        { label: "About", href: "/about", id: "about" },
+        { label: "Projects", href: "/projects", id: "projects" },
+        { label: "Blog", href: "/blogs", id: "blog" },
+        { label: "Contact", href: "/contact", id: "contact" },
     ],
-}
+};
 
 export default navbarData;

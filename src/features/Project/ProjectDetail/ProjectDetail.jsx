@@ -1,7 +1,7 @@
 
 import { useParams, Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { FiArrowLeft, FiExternalLink, FiClock, FiCalendar, FiUser } from "react-icons/fi";
+import { FiExternalLink, FiClock, FiCalendar, FiUser } from "react-icons/fi";
 import { FaGithub } from "react-icons/fa";
 import { BsCheckCircleFill } from "react-icons/bs";
 import BreadCrumb from "../../../components/BreadCrumb/BreadCrumb";
@@ -48,10 +48,6 @@ const ProjectDetail = () => {
           <S.BgGlow aria-hidden="true" />
 
           <S.HeroInner>
-            <S.BackLink as={Link} to="/projects" aria-label="Back to all projects">
-              <FiArrowLeft aria-hidden="true" /> All Projects
-            </S.BackLink>
-
             <S.CategoryBadge>{category}</S.CategoryBadge>
             <S.HeroTitle id="detail-title">{title}</S.HeroTitle>
             <S.HeroDescription>{description}</S.HeroDescription>

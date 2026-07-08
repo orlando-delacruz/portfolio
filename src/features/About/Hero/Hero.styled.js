@@ -3,7 +3,9 @@ import theme from "../../../styles/theme";
 
 export const SectionWrapper = styled.section`
   width: 100%;
+  position: relative;
   height: 350px;
+  margin-top: 95px;
   background-image: url(${({ $bg }) => $bg});
   background-repeat: no-repeat;
   background-size: cover;
@@ -14,6 +16,14 @@ export const SectionWrapper = styled.section`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media ${theme.media.tablet} {
+    margin-top: 68px;
+  }
+
+   @media ${theme.media.mobile} {
+    margin-top: 65px;
+  }
 `;
 
 export const Overlay = styled.div`

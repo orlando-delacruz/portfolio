@@ -1,8 +1,9 @@
 import { RiMenu3Line, RiCloseLine } from "react-icons/ri";
+import { NavLink, Link } from "react-router-dom";
 import * as S from "./Navbar.styled";
-import useActiveSection from "./useActiveSection.js";
-import { useState, useCallback, useMemo, useEffect, useRef } from "react";
-import navbarData from "../../data/navbar.js";
+import { useState, useCallback, useEffect, useRef, useMemo } from "react";
+import navbarData from "../../data/navbar";
+import useSectionNavigation from "../../hooks/useSectionNavigation";
 
 const { logo, title, subtitle, actionButton, navlinks } = navbarData;
 
@@ -28,52 +29,81 @@ const LogoContent = () => (
 const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
     const offCanvasRef = useRef(null);
-
-    const { activeLink, handleNavClick } = useActiveSection();
+    const { navigateToSection, navigateToPage } = useSectionNavigation();
 
     const toggleMenu = useCallback(() => setMenuOpen((prev) => !prev), []);
     const closeMenu = useCallback(() => setMenuOpen(false), []);
 
-    const onNavClick = useCallback(
-        (href) => {
-            handleNavClick(href);
-            closeMenu();
-        },
-        [handleNavClick, closeMenu]
-    );
-
-    // 🔥 FIX: prevent focus leakage when menu is closed
+    // Prevent focus leakage when menu is closed
     useEffect(() => {
         const el = offCanvasRef.current;
         if (!el) return;
-
         const focusable = el.querySelectorAll("a, button");
-
         focusable.forEach((node) => {
             node.tabIndex = menuOpen ? 0 : -1;
         });
     }, [menuOpen]);
 
+    const handleNavClick = useCallback(
+        (href, type) => {
+            closeMenu();
+            if (type === "section") {
+                const sectionId = href.replace("#", "");
+                navigateToSection(sectionId);
+            } else {
+                navigateToPage(href);
+            }
+        },
+        [closeMenu, navigateToSection, navigateToPage]
+    );
+
+    // Memoize nav items
     const NavItems = useMemo(
         () =>
-            navlinks.map(({ label, href, id }) => (
-                <S.NavItem key={id}>
-                    <S.NavLink
-                        href={href}
-                        $isActive={activeLink === href}
-                        onClick={() => onNavClick(href)}
-                    >
-                        {label}
-                    </S.NavLink>
-                </S.NavItem>
-            )),
-        [activeLink, onNavClick]
+            navlinks.map((item) => {
+                const isExact = item.href === "/" || item.href === "/about" || item.href === "/contact";
+
+                // Determine if this is a section link or page link
+                const isSection = item.href && item.href.startsWith("#");
+
+                if (isSection) {
+                    return (
+                        <S.NavItem key={item.id}>
+                            <S.NavLink
+                                as="a"
+                                href={item.href}
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    handleNavClick(item.href, "section");
+                                }}
+                            >
+                                {item.label}
+                            </S.NavLink>
+                        </S.NavItem>
+                    );
+                }
+
+                return (
+                    <S.NavItem key={item.id}>
+                        <S.NavLink
+                            as={NavLink}
+                            to={item.href}
+                            end={isExact}
+                            className={({ isActive }) => (isActive ? "active" : "")}
+                            onClick={() => handleNavClick(item.href, "page")}
+                        >
+                            {item.label}
+                        </S.NavLink>
+                    </S.NavItem>
+                );
+            }),
+        [handleNavClick]
     );
 
     return (
         <>
             <S.NavbarWrapper aria-label="Main navigation">
-                <S.Logo>
+                <S.Logo as={Link} to="/" onClick={closeMenu}>
                     <LogoContent />
                 </S.Logo>
 
@@ -81,9 +111,9 @@ const Navbar = () => {
                     <S.NavLists>{NavItems}</S.NavLists>
 
                     <S.NavButton
-                        as="a"
-                        href={actionButton.href}
-                        aria-label={`${actionButton.label} — scroll to contacts`}
+                        as={Link}
+                        to="/contact"
+                        aria-label={`${actionButton.label} — go to contact page`}
                         onClick={closeMenu}
                     >
                         {actionButton.label}
@@ -110,7 +140,6 @@ const Navbar = () => {
                 </S.MenuButton>
             </S.NavbarWrapper>
 
-            {/* 🔥 FIXED OFFCANVAS */}
             {menuOpen && (
                 <S.OffCanvasWrapper>
                     <S.OffCanvas
@@ -119,10 +148,9 @@ const Navbar = () => {
                         aria-label="Mobile navigation"
                     >
                         <S.OffCanvasHeader>
-                            <S.Logo>
+                            <S.Logo as={Link} to="/" onClick={closeMenu}>
                                 <LogoContent />
                             </S.Logo>
-
                             <S.CloseButton
                                 onClick={closeMenu}
                                 aria-label="Close navigation menu"
@@ -131,13 +159,48 @@ const Navbar = () => {
                             </S.CloseButton>
                         </S.OffCanvasHeader>
 
-                        <S.OffCanvasNavLists>{NavItems}</S.OffCanvasNavLists>
+                        <S.OffCanvasNavLists>
+                            {navlinks.map((item) => {
+                                const isExact = item.href === "/" || item.href === "/about" || item.href === "/contact";
+                                const isSection = item.href && item.href.startsWith("#");
+
+                                if (isSection) {
+                                    return (
+                                        <S.NavItem key={item.id}>
+                                            <S.NavLink
+                                                as="a"
+                                                href={item.href}
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    handleNavClick(item.href, "section");
+                                                }}
+                                            >
+                                                {item.label}
+                                            </S.NavLink>
+                                        </S.NavItem>
+                                    );
+                                }
+
+                                return (
+                                    <S.NavItem key={item.id}>
+                                        <S.NavLink
+                                            as={NavLink}
+                                            to={item.href}
+                                            end={isExact}
+                                            className={({ isActive }) => (isActive ? "active" : "")}
+                                            onClick={() => handleNavClick(item.href, "page")}
+                                        >
+                                            {item.label}
+                                        </S.NavLink>
+                                    </S.NavItem>
+                                );
+                            })}
+                        </S.OffCanvasNavLists>
 
                         <S.NavButton
+                            as={Link}
+                            to="/contact"
                             onClick={closeMenu}
-                            as="a"
-                            href={actionButton.href}
-                            aria-label={`${actionButton.label} — scroll to contacts`}
                         >
                             {actionButton.label}
                         </S.NavButton>

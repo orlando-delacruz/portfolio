@@ -16,8 +16,8 @@ export const DetailPage = styled.main`
 /* ── ─ Hero banner ────────────────────────────────────────── */
 export const HeroBanner = styled.section`
   position: relative;
-  padding: 140px 65px 80px;
   background-color: ${theme.colors.sectionBackground};
+  margin-top: 95px;
   overflow: hidden;
 
   &::after {

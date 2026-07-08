@@ -33,10 +33,11 @@ export const ContentGrid = styled.div`
   gap: 35px;
   position: relative;
   z-index: 1;
+  padding: 60px 65px;
 
   @media ${theme.media.tablet} {
     grid-template-columns: repeat(2, 1fr);
-    padding: 40px;
+    padding: 40px 30px;
   }
 
   @media ${theme.media.mobile} {
@@ -70,6 +71,9 @@ export const Logo = styled.div`
   display: flex;
   align-items: center;
   gap: 14px;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
 `;
 
 export const LogoImage = styled.div`
@@ -96,7 +100,7 @@ export const LogoDetails = styled.div`
 `;
 
 export const LogoTitle = styled.h2`
-  font-size: ${theme.typography.size.lg};
+  font-size: ${theme.typography.size.md};
   font-weight: ${theme.typography.weight.medium};
 
   @media ${theme.media.tablet} {
@@ -130,7 +134,7 @@ export const SocialLink = styled.a`
 `;
 
 export const FooterTitle = styled.h3`
-  font-size: ${theme.typography.heading.h3};
+  font-size: ${theme.typography.heading.h4};
   font-weight: ${theme.typography.weight.medium};
 `;
 
@@ -139,22 +143,38 @@ export const FooterLinks = styled.div`
   flex-direction: column;
   align-items: flex-start;
   gap: 10px;
+
+  & > li {
+    width: 100%;
+  }
+
+  a {
+    color: inherit;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: color 0.2s ease;
+    text-decoration: none;
+
+    svg {
+      font-size: ${theme.typography.size.body};
+      flex-shrink: 0;
+    }
+
+    &:hover {
+      color: ${theme.colors.primary};
+      text-decoration: underline;
+    }
+
+    &:focus-visible {
+      outline: 2px solid ${theme.colors.primary};
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+  }
 `;
 
-export const FooterLink = styled.a`
-  color: inherit;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  transition: color 0.2s ease;
-
-  svg {
-    font-size: ${theme.typography.size.body};
-    flex-shrink: 0;
-  }
-
-  &:hover {
-    color: ${theme.colors.primary};
-    text-decoration: underline;
-  }
+// Keep for backward compatibility but mark as deprecated
+export const FooterLink = styled.span`
+  /* Wrapper for links - styling is applied to the inner <a> or <Link> */
 `;
