@@ -1,7 +1,6 @@
-// src\features\Project\Filter\Filter.jsx
 import { useId } from "react";
 import { FiSearch } from "react-icons/fi";
-import { filtersData } from "../../../data/project";
+import { getDisplayLabel } from "../../../utils/categoryUtils";
 import * as S from "./Filter.styled";
 
 const Filter = ({
@@ -9,8 +8,18 @@ const Filter = ({
   onFilterChange,
   searchQuery,
   onSearchChange,
+  categories = [], // 👈 dynamic categories from parent
 }) => {
   const searchId = useId();
+
+  // Build filter items: always include "All Projects" then the dynamic categories
+  const filterItems = [
+    { key: "all", label: "All Projects" },
+    ...categories.map((cat) => ({
+      key: cat,
+      label: getDisplayLabel(cat),
+    })),
+  ];
 
   return (
     <S.FiltersSection aria-label="Project filters">
@@ -31,7 +40,7 @@ const Filter = ({
 
       {/* Filter tabs */}
       <S.TabRow role="group" aria-label="Filter projects by category">
-        {filtersData.map(({ key, label }) => (
+        {filterItems.map(({ key, label }) => (
           <S.TabBtn
             key={key}
             $active={activeFilter === key}

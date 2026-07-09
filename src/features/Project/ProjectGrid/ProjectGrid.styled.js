@@ -41,3 +41,14 @@ export const EmptyState = styled.div`
     font-size: ${theme.typography.size.body};
   }
 `;
+
+export const ErrorWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  color: ${theme.colors.primary};
+  font-size: ${theme.typography.size.lg};
+  text-align: center;
+  padding: 2rem;
+`;

@@ -1,31 +1,58 @@
+import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import {
-  FiArrowLeft,
-  FiExternalLink,
-  FiClock,
-  FiCalendar,
-  FiUser,
-} from "react-icons/fi";
+import { FiExternalLink, FiClock, FiCalendar, FiUser } from "react-icons/fi";
 import { FaGithub } from "react-icons/fa";
-import { BsCheckCircleFill } from "react-icons/bs";
 import BreadCrumb from "../../../components/BreadCrumb/BreadCrumb";
-import { projectsBySlug } from "../../../data/project";
-import Screenshots from "../Screenshots"; // 👈 ADD THIS IMPORT
+import ProjectLinkButton from "../../../components/ProjectLinkButton";
+import Loading from "../../../components/Loading";
+import HygraphRichText from "../../../components/RichText";
+import { fetchProjectBySlug } from "../../../services/hygraph";
+import Screenshots from "../Screenshots";
 import * as S from "./ProjectDetail.styled";
 
 const ProjectDetail = () => {
   const { slug } = useParams();
-  const project = projectsBySlug[slug];
+  const [project, setProject] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  if (!project) {
+  useEffect(() => {
+    if (!slug) return;
+
+    const loadProject = async () => {
+      try {
+        setLoading(true);
+        const data = await fetchProjectBySlug(slug);
+        if (data) {
+          setProject(data);
+        } else {
+          setError("Project not found");
+        }
+      } catch (err) {
+        setError(err.message || "Failed to load project");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadProject();
+  }, [slug]);
+
+  if (loading) {
+    return (
+      <S.DetailPage>
+        <Loading fullPage text="Loading project..." />
+      </S.DetailPage>
+    );
+  }
+
+  if (error || !project) {
     return (
       <S.DetailPage>
         <S.NotFound>
           <h2>Project not found</h2>
-          <p>
-            The case study you're looking for doesn't exist or has been moved.
-          </p>
+          <p>{error || "The project you are looking for does not exist."}</p>
           <Link to="/projects">← Back to Projects</Link>
         </S.NotFound>
       </S.DetailPage>
@@ -33,8 +60,6 @@ const ProjectDetail = () => {
   }
 
   const {
-    thumbnail,
-    thumbnailAlt,
     title,
     category,
     duration,
@@ -43,11 +68,17 @@ const ProjectDetail = () => {
     description,
     overview,
     highlights,
-    techStack,
     challenges,
-    links,
-    screenshots, // 👈 ADD screenshots
+    githubUrl,
+    githubVisibility,
+    liveDemoUrl,
+    liveDemoVisibility,
+    thumbnail,
+    screenshots,
+    technologies,
   } = project;
+
+  const thumbnailUrl = thumbnail?.url || "/images/placeholder.webp";
 
   return (
     <>
@@ -69,15 +100,7 @@ const ProjectDetail = () => {
           <S.BgGlow aria-hidden="true" />
 
           <S.HeroInner>
-            <S.BackLink
-              as={Link}
-              to="/projects"
-              aria-label="Back to all projects"
-            >
-              <FiArrowLeft aria-hidden="true" /> All Projects
-            </S.BackLink>
-
-            <S.CategoryBadge>{category}</S.CategoryBadge>
+            <S.CategoryBadge>{category || "Uncategorized"}</S.CategoryBadge>
             <S.HeroTitle id="detail-title">{title}</S.HeroTitle>
             <S.HeroDescription>{description}</S.HeroDescription>
 
@@ -85,50 +108,77 @@ const ProjectDetail = () => {
               <S.MetaPill>
                 <FiClock aria-hidden="true" />
                 <span className="label">Duration</span>
-                <span className="value">{duration}</span>
+                <span className="value">{duration || "—"}</span>
               </S.MetaPill>
               <S.MetaPill>
                 <FiCalendar aria-hidden="true" />
                 <span className="label">Year</span>
-                <span className="value">{year}</span>
+                <span className="value">{year || "—"}</span>
               </S.MetaPill>
               <S.MetaPill>
                 <FiUser aria-hidden="true" />
                 <span className="label">Role</span>
-                <span className="value">{role}</span>
+                <span className="value">{role || "—"}</span>
               </S.MetaPill>
             </S.MetaRow>
 
             <S.HeroCTA>
-              <a
-                className="btn-primary"
-                href={links.live}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`Live demo for ${title}`}
-              >
-                <FiExternalLink aria-hidden="true" /> Live Demo
-              </a>
+              <ProjectLinkButton
+                url={liveDemoUrl}
+                visibility={
+                  liveDemoVisibility ||
+                  (liveDemoUrl ? "AVAILABLE" : "UNAVAILABLE")
+                }
+                label="Live Demo"
+                icon={FiExternalLink}
+                variant="primary"
+                statusText={liveDemoVisibility === "COMING_SOON" ? "Soon" : ""}
+                tooltipText={
+                  liveDemoVisibility === "COMING_SOON"
+                    ? "Live demo coming soon."
+                    : ""
+                }
+              />
 
-              <a
-                className="btn-ghost"
-                href={links.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`GitHub repository for ${title}`}
-              >
-                <FaGithub aria-hidden="true" /> GitHub
-              </a>
+              <ProjectLinkButton
+                url={githubUrl}
+                visibility={githubVisibility || (githubUrl ? "PUBLIC" : "NONE")}
+                label="GitHub"
+                icon={FaGithub}
+                variant="ghost"
+                statusText={githubVisibility === "PRIVATE" ? "Private" : ""}
+                tooltipText={
+                  githubVisibility === "PRIVATE"
+                    ? "The source code for this project is private."
+                    : ""
+                }
+              />
             </S.HeroCTA>
           </S.HeroInner>
         </S.HeroBanner>
 
         {/* Body */}
         <S.Body>
+          {/* ── Technologies Used — moved above thumbnail ── */}
+          <div>
+            <S.SectionLabel>Stack</S.SectionLabel>
+            <S.SectionHeading>Technologies Used</S.SectionHeading>
+            <S.BadgeContainer>
+              {technologies && technologies.length > 0 ? (
+                technologies.map((tech) => (
+                  <S.TechBadge key={tech.slug}>{tech.name}</S.TechBadge>
+                ))
+              ) : (
+                <p>No technologies listed.</p>
+              )}
+            </S.BadgeContainer>
+          </div>
+
+          {/* ── Thumbnail ── */}
           <S.ScreenshotWrapper>
             <img
-              src={thumbnail}
-              alt={thumbnailAlt}
+              src={thumbnailUrl}
+              alt={`${title} thumbnail`}
               loading="eager"
               fetchPriority="high"
               decoding="async"
@@ -139,50 +189,26 @@ const ProjectDetail = () => {
             <div>
               <S.SectionLabel>Overview</S.SectionLabel>
               <S.SectionHeading>About This Project</S.SectionHeading>
-              <S.BodyText>{overview}</S.BodyText>
+              <HygraphRichText content={overview?.raw} />
             </div>
             <div>
               <S.SectionLabel>Highlights</S.SectionLabel>
               <S.SectionHeading>Key Features</S.SectionHeading>
-              <S.HighlightList aria-label="Project highlights">
-                {highlights.map((h) => (
-                  <S.HighlightItem key={h}>
-                    <BsCheckCircleFill aria-hidden="true" /> {h}
-                  </S.HighlightItem>
-                ))}
-              </S.HighlightList>
+              <HygraphRichText content={highlights?.raw} />
             </div>
           </S.DetailGrid>
 
-          {/* ═══════════════════════════════════════════════════════ */}
-          {/* 👇 ADD SCREENSHOTS SECTION HERE                          */}
-          {/* ═══════════════════════════════════════════════════════ */}
-          <Screenshots screenshots={screenshots} />
-
-          <div>
-            <S.SectionLabel>Stack</S.SectionLabel>
-            <S.SectionHeading>Technologies Used</S.SectionHeading>
-            <S.TechGrid role="list" aria-label="Technologies used">
-              {techStack.map(({ name, purpose }) => (
-                <S.TechRow key={name} role="listitem">
-                  <span className="tech-name">{name}</span>
-                  <span className="tech-purpose">{purpose}</span>
-                </S.TechRow>
-              ))}
-            </S.TechGrid>
-          </div>
+          <Screenshots
+            screenshots={screenshots?.map((s) => ({
+              src: s.url,
+              alt: s.alt || `${title} screenshot`,
+            }))}
+          />
 
           <div>
             <S.SectionLabel>Process</S.SectionLabel>
             <S.SectionHeading>Challenges &amp; Solutions</S.SectionHeading>
-            <S.ChallengeList>
-              {challenges.map(({ title: ct, body }) => (
-                <S.ChallengeCard key={ct}>
-                  <h3>{ct}</h3>
-                  <p>{body}</p>
-                </S.ChallengeCard>
-              ))}
-            </S.ChallengeList>
+            <HygraphRichText content={challenges?.raw} />
           </div>
         </S.Body>
       </S.DetailPage>

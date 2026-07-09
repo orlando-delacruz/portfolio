@@ -1,30 +1,114 @@
-import { useState, useMemo, useCallback } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import SectionHeading from "../../../components/SectionHeading";
+import Loading from "../../../components/Loading";
+import { fetchTechnologiesWithCategories } from "../../../services/hygraph";
+import {
+  getDisplayLabel,
+  getSortedCategories,
+} from "../../../utils/categoryUtils";
 import * as S from "./SkillSection.styled";
-import skillsData from "../../../data/pages/Home/skillsData";
 
-const { heading, categories } = skillsData;
+const heading = {
+  pretitle: "Skills & Technologies",
+  title: "My Tech",
+  highlight: "Stack",
+  ariaLabel: "skills and technologies",
+};
 
 const SkillSection = ({ id }) => {
-  const [activeCategory, setActiveCategory] = useState(categories[0]?.id ?? "");
+  const [technologies, setTechnologies] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [activeCategory, setActiveCategory] = useState("");
 
-  const activeSkills = useMemo(
-    () => categories.find((c) => c.id === activeCategory)?.skills ?? [],
-    [activeCategory]
+  useEffect(() => {
+    const loadTechnologies = async () => {
+      try {
+        setLoading(true);
+        const data = await fetchTechnologiesWithCategories();
+        setTechnologies(data);
+
+        // Set first available category as active
+        if (data.length > 0) {
+          const categories = getSortedCategories(data.map((t) => t.category));
+          if (categories.length > 0) {
+            setActiveCategory(categories[0]);
+          }
+        }
+      } catch (err) {
+        setError(err.message || "Failed to load technologies");
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadTechnologies();
+  }, []);
+
+  // Group technologies by category
+  const groupedTechnologies = useMemo(() => {
+    const groups = {};
+    technologies.forEach((tech) => {
+      const category = tech.category || "Uncategorized";
+      if (!groups[category]) {
+        groups[category] = [];
+      }
+      groups[category].push(tech);
+    });
+    return groups;
+  }, [technologies]);
+
+  // Get sorted categories
+  const categories = useMemo(() => {
+    return getSortedCategories(Object.keys(groupedTechnologies));
+  }, [groupedTechnologies]);
+
+  const activeSkills = useMemo(() => {
+    return groupedTechnologies[activeCategory] || [];
+  }, [groupedTechnologies, activeCategory]);
+
+  const handleKeyDown = useCallback(
+    (e, index) => {
+      if (e.key === "ArrowRight") {
+        const next = (index + 1) % categories.length;
+        setActiveCategory(categories[next]);
+        document.getElementById(`tab-${categories[next]}`)?.focus();
+      }
+      if (e.key === "ArrowLeft") {
+        const prev = (index - 1 + categories.length) % categories.length;
+        setActiveCategory(categories[prev]);
+        document.getElementById(`tab-${categories[prev]}`)?.focus();
+      }
+    },
+    [categories],
   );
 
-  const handleKeyDown = useCallback((e, index) => {
-    if (e.key === "ArrowRight") {
-      const next = (index + 1) % categories.length;
-      setActiveCategory(categories[next].id);
-      document.getElementById(`tab-${categories[next].id}`)?.focus();
-    }
-    if (e.key === "ArrowLeft") {
-      const prev = (index - 1 + categories.length) % categories.length;
-      setActiveCategory(categories[prev].id);
-      document.getElementById(`tab-${categories[prev].id}`)?.focus();
-    }
-  }, []);
+  if (loading) {
+    return (
+      <S.SectionWrapper id={id}>
+        <Loading fullPage text="Loading skills..." />
+      </S.SectionWrapper>
+    );
+  }
+
+  if (error) {
+    return (
+      <S.SectionWrapper id={id}>
+        <p style={{ color: "rgba(255,255,255,0.5)", textAlign: "center" }}>
+          Failed to load skills. Please try again later.
+        </p>
+      </S.SectionWrapper>
+    );
+  }
+
+  if (categories.length === 0) {
+    return (
+      <S.SectionWrapper id={id}>
+        <p style={{ color: "rgba(255,255,255,0.4)", textAlign: "center" }}>
+          No skills found. Please add technologies with categories in Hygraph.
+        </p>
+      </S.SectionWrapper>
+    );
+  }
 
   return (
     <S.SectionWrapper id={id}>
@@ -32,34 +116,34 @@ const SkillSection = ({ id }) => {
         pretitle={heading.pretitle}
         title={heading.title}
         highlight={heading.highlight}
-        aria-label={heading.ariaLabel}
+        arialabel={heading.ariaLabel}
       />
 
-      {/* Tab navigation */}
       <S.SkillNavigation aria-label="Skill categories">
         <S.TabList role="tablist">
-          {categories.map(({ id: catId, label }, index) => {
-            const isActive = catId === activeCategory;
+          {categories.map((category, index) => {
+            const isActive = category === activeCategory;
+            const displayLabel = getDisplayLabel(category);
+
             return (
               <S.TabButton
-                key={catId}
-                id={`tab-${catId}`}
+                key={category}
+                id={`tab-${category}`}
                 role="tab"
                 aria-selected={isActive}
                 aria-controls="skill-tabpanel"
                 $active={isActive}
-                onClick={() => setActiveCategory(catId)}
+                onClick={() => setActiveCategory(category)}
                 onKeyDown={(e) => handleKeyDown(e, index)}
                 tabIndex={isActive ? 0 : -1}
               >
-                {label}
+                {displayLabel}
               </S.TabButton>
             );
           })}
         </S.TabList>
       </S.SkillNavigation>
 
-      {/* Tab panel */}
       <S.TabPanel
         id="skill-tabpanel"
         role="tabpanel"
@@ -68,18 +152,22 @@ const SkillSection = ({ id }) => {
       >
         {activeSkills.length > 0 ? (
           <S.ContentGrid>
-            {activeSkills.map(({ id: skillId, icon, label }) => (
-              <S.SkillCard key={skillId} as="article">
-                <img
-                  className="icon"
-                  src={icon}
-                  alt=""
-                  aria-hidden="true"
-                  loading="lazy"
-                  width={50}
-                  height={50}
-                />
-                <p className="skill-title">{label}</p>
+            {activeSkills.map((skill) => (
+              <S.SkillCard key={skill.slug} as="article">
+                {skill.icon?.url ? (
+                  <img
+                    className="icon"
+                    src={skill.icon.url}
+                    alt=""
+                    aria-hidden="true"
+                    loading="lazy"
+                    width={50}
+                    height={50}
+                  />
+                ) : (
+                  <div className="icon-placeholder" aria-hidden="true" />
+                )}
+                <p className="skill-title">{skill.name}</p>
               </S.SkillCard>
             ))}
           </S.ContentGrid>

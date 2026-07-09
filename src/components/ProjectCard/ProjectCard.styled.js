@@ -16,8 +16,9 @@ export const CardWrapper = styled.article`
   transition: transform 0.25s ease, box-shadow 0.25s ease;
   animation: ${shimIn} 0.45s ease both;
   animation-delay: ${({ $index }) => `${$index * 0.09}s`};
+  cursor: pointer;
 
-  &:focus-within {
+  &:focus-visible {
     outline: 2px solid ${theme.colors.primary};
     outline-offset: 4px;
     border-radius: 1.25rem;
@@ -76,20 +77,37 @@ export const CardHead = styled.div`
   .meta {
     display: flex;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 0.4rem;
+    flex-wrap: nowrap;
+    gap: 0.6rem;
     font-size: ${theme.typography.size.xs};
     color: rgba(255, 255, 255, 0.5);
     margin: 0;
+    min-width: 0; /* allows shrinking */
+
+    .meta-wrapper {
+      display: flex;
+      gap: 5px;
+    }
 
     .sep {
       opacity: 0.35;
       font-size: 0.45rem;
+      flex-shrink: 0;
     }
 
     .category {
       color: ${theme.colors.primary};
       font-weight: ${theme.typography.weight.medium};
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Duration also should not wrap */
+    & > div:last-child dd {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 `;
@@ -100,7 +118,7 @@ export const CardBody = styled.p`
   color: rgba(255, 255, 255, 0.65);
   flex: 1;
   display: -webkit-box;
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -115,79 +133,13 @@ export const Divider = styled.hr`
 export const CardFooter = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 0.625rem;
+  justify-content: flex-end;
   margin-top: auto;
-
-  .live-demo {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.375rem;
-    color: ${theme.colors.primary};
-    font-size: ${theme.typography.size.sm};
-    font-weight: ${theme.typography.weight.medium};
-    transition: opacity 0.2s ease;
-    text-decoration: none;
-
-    svg {
-      font-size: 0.7rem;
-    }
-
-    &:hover {
-      opacity: 0.75;
-      text-decoration: underline;
-    }
-
-    &:focus-visible {
-      outline: 2px solid ${theme.colors.primary};
-      outline-offset: 3px;
-      border-radius: 3px;
-    }
-  }
 
   .action-buttons {
     display: flex;
     align-items: center;
     gap: 0.5rem;
     flex-wrap: wrap;
-
-    .btn {
-      padding: 0.5rem 0.875rem;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 50px;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.375rem;
-      font-size: ${theme.typography.size.xs};
-      font-weight: ${theme.typography.weight.medium};
-      font-family: inherit;
-      color: rgba(255, 255, 255, 0.65);
-      background: transparent;
-      cursor: pointer;
-      text-decoration: none;
-      transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
-
-      &:hover {
-        background: rgba(255, 255, 255, 0.08);
-        border-color: rgba(255, 255, 255, 0.28);
-        color: ${theme.colors.white};
-      }
-
-      &:focus-visible {
-        outline: 2px solid ${theme.colors.primary};
-        outline-offset: 3px;
-      }
-
-      &.primary {
-        border-color: ${theme.colors.primary};
-        color: ${theme.colors.primary};
-
-        &:hover {
-          background: ${theme.colors.primary};
-          color: ${theme.colors.white};
-        }
-      }
-    }
   }
 `;

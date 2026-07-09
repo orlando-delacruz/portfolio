@@ -1,5 +1,5 @@
-import styled, { css } from "styled-components";
-import theme from "../../../styles/theme";
+import styled, { css } from 'styled-components';
+import theme from '../../../styles/theme';
 
 export const SectionWrapper = styled.section`
   display: flex;
@@ -96,13 +96,21 @@ export const SkillCard = styled.div`
     transform: translateY(-2px);
   }
 
-  img {
+  img.icon {
     width: 3.125rem;
     height: 3.125rem;
     object-fit: contain;
   }
 
-  p {
+  .icon-placeholder {
+    width: 3.125rem;
+    height: 3.125rem;
+    border-radius: 50%;
+    background: rgba(${theme.colors.primaryRgb}, 0.1);
+    border: 2px dashed rgba(255, 255, 255, 0.1);
+  }
+
+  .skill-title {
     font-size: ${theme.typography.size.sm};
     font-weight: ${theme.typography.weight.medium};
     text-align: center;

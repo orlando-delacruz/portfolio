@@ -60,6 +60,7 @@ export const ImageWrapper = styled.li`
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.08);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
+  background: rgba(255, 255, 255, 0.02); /* subtle background for letterboxing */
 
   &:hover {
     transform: scale(1.02);
@@ -71,7 +72,8 @@ export const ImageWrapper = styled.li`
     height: auto;
     display: block;
     aspect-ratio: 16 / 9;
-    object-fit: cover;
+    object-fit: contain; /* 👈 changed from cover to contain */
+    background: rgba(0, 0, 0, 0.1); /* subtle background for empty areas */
   }
 `;
 

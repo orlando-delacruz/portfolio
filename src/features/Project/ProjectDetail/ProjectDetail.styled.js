@@ -421,3 +421,26 @@ export const NotFound = styled.div`
     font-size: ${theme.typography.size.body};
   }
 `;
+
+export const BadgeContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+`;
+
+export const TechBadge = styled.span`
+  padding: 0.4rem 1rem;
+  border-radius: 50px;
+  background: rgba(${theme.colors.primaryRgb}, 0.12);
+  border: 1px solid rgba(${theme.colors.primaryRgb}, 0.25);
+  color: ${theme.colors.primary};
+  font-size: ${theme.typography.size.sm};
+  font-weight: ${theme.typography.weight.medium};
+  transition: background 0.2s ease, transform 0.2s ease;
+
+  &:hover {
+    background: rgba(${theme.colors.primaryRgb}, 0.25);
+    transform: translateY(-2px);
+  }
+`;

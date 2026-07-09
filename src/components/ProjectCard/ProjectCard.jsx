@@ -1,10 +1,12 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FaExternalLinkAlt, FaGithub } from "react-icons/fa";
-import { GiOpenBook } from "react-icons/gi";
 import { GoDotFill } from "react-icons/go";
+import ProjectLinkButton from "../ProjectLinkButton";
 import * as S from "./ProjectCard.styled";
 
 const ProjectCard = ({ project, index }) => {
+  const navigate = useNavigate();
+
   const {
     thumbnail,
     thumbnailAlt,
@@ -12,17 +14,57 @@ const ProjectCard = ({ project, index }) => {
     category,
     duration,
     description,
+    githubUrl,
+    githubVisibility,
+    liveDemoUrl,
+    liveDemoVisibility,
+    slug,
     links,
   } = project;
 
+  // Extract thumbnail URL and alt text
+  const thumbnailUrl = thumbnail?.url || "/images/placeholder.webp";
+  const altText = thumbnailAlt || `${title} thumbnail`;
+
+  // Fallback for old data (if using JSON links)
+  const fallbackGitHub = links?.github || githubUrl;
+  const fallbackLive = links?.live || liveDemoUrl;
+  const gitVisibility =
+    githubVisibility || (fallbackGitHub ? "PUBLIC" : "NONE");
+  const liveVisibility =
+    liveDemoVisibility || (fallbackLive ? "AVAILABLE" : "UNAVAILABLE");
+
+  // Navigate to project detail
+  const handleCardClick = () => {
+    navigate(`/projects/${slug}`);
+  };
+
+  // Keyboard support (Enter/Space)
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      handleCardClick();
+    }
+  };
+
+  // Stop propagation on interactive elements to prevent card click
+  const stopPropagation = (e) => e.stopPropagation();
+
   return (
-    <S.CardWrapper $index={index} aria-label={title}>
+    <S.CardWrapper
+      $index={index}
+      aria-label={title}
+      role="link"
+      tabIndex={0}
+      onClick={handleCardClick}
+      onKeyDown={handleKeyDown}
+    >
       <S.Thumbnail>
         <img
-          src={thumbnail}
-          alt={thumbnailAlt}
+          src={thumbnailUrl}
+          alt={altText}
           loading={index < 2 ? "eager" : "lazy"}
-          fetchPriority={index < 2 ? "high" : undefined} // 👈 camelCase
+          fetchPriority={index < 2 ? "high" : undefined}
           decoding="async"
           width="638"
           height="359"
@@ -33,13 +75,13 @@ const ProjectCard = ({ project, index }) => {
         <S.CardHead>
           <h3 className="card-title">{title}</h3>
           <dl className="meta" aria-label={`${title} metadata`}>
-            <div>
-              <dt className="sr-only">Category</dt>
+            <div className="meta-wrapper">
+              <dt className="sr-only">Category: </dt>
               <dd className="category">{category}</dd>
             </div>
             <GoDotFill className="sep" aria-hidden="true" />
-            <div>
-              <dt className="sr-only">Duration</dt>
+            <div className="meta-wrapper">
+              <dt className="sr-only">Duration:</dt>
               <dd>{duration}</dd>
             </div>
           </dl>
@@ -50,33 +92,34 @@ const ProjectCard = ({ project, index }) => {
         <S.Divider />
 
         <S.CardFooter>
-          <a
-            className="live-demo"
-            href={links.live}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`Live demo for ${title}`}
-          >
-            Live Demo <FaExternalLinkAlt aria-hidden="true" />
-          </a>
+          <div className="action-buttons" onClick={stopPropagation}>
+            {/* Live Demo Button — moved here, before GitHub */}
+            <ProjectLinkButton
+              url={fallbackLive}
+              visibility={liveVisibility}
+              label="Live Demo"
+              icon={FaExternalLinkAlt}
+              variant="primary"
+              statusText={liveVisibility === "COMING_SOON" ? "Soon" : ""}
+              tooltipText={
+                liveVisibility === "COMING_SOON" ? "Live demo coming soon." : ""
+              }
+            />
 
-          <div className="action-buttons">
-            <a
-              className="btn"
-              href={links.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`GitHub repository for ${title}`}
-            >
-              <FaGithub aria-hidden="true" /> GitHub
-            </a>
-            <Link
-              className="btn primary"
-              to={links.caseStudy}
-              aria-label={`Case study for ${title}`}
-            >
-              <GiOpenBook aria-hidden="true" /> Case Study
-            </Link>
+            {/* GitHub Button */}
+            <ProjectLinkButton
+              url={fallbackGitHub}
+              visibility={gitVisibility}
+              label="GitHub"
+              icon={FaGithub}
+              variant="ghost"
+              statusText={gitVisibility === "PRIVATE" ? "Private" : ""}
+              tooltipText={
+                gitVisibility === "PRIVATE"
+                  ? "The source code for this project is private."
+                  : ""
+              }
+            />
           </div>
         </S.CardFooter>
       </S.CardContent>
