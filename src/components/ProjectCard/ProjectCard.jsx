@@ -69,12 +69,12 @@ const ProjectCard = ({ project, index }) => {
         <S.CardHead>
           <h3 className="card-title">{title}</h3>
           <dl className="meta" aria-label={`${title} metadata`}>
-            <div>
+            <div className="meta-wrapper">
               <dt className="sr-only">Category</dt>
               <dd className="category">{category}</dd>
             </div>
             <GoDotFill className="sep" aria-hidden="true" />
-            <div>
+            <div className="meta-wrapper">
               <dt className="sr-only">Duration</dt>
               <dd>{duration}</dd>
             </div>

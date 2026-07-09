@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import * as S from "./CallToAction.styled";
 import ctaData from "../../data/cta";
 
@@ -11,8 +12,10 @@ const CallToAction = () => {
     link.as = "image";
     link.href = image.img;
     link.fetchPriority = "high";
-
     document.head.appendChild(link);
+    return () => {
+      document.head.removeChild(link);
+    };
   }, [image.img]);
 
   return (
@@ -23,7 +26,11 @@ const CallToAction = () => {
           <S.Description>{description}</S.Description>
 
           <S.ActionButtons>
-            <S.PrimaryButton href={primaryButton.href} target="_blank">
+            <S.PrimaryButton
+              as={Link}
+              to="/contact"
+              aria-label="Go to contact page"
+            >
               {primaryButton.label}
             </S.PrimaryButton>
 

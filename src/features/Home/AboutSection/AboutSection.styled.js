@@ -84,15 +84,14 @@ export const Description = styled.div`
 
 export const ActionButton = styled(Link)`
   color: ${theme.colors.white};
-  border: 1px solid ${theme.colors.white};
+  background-color: ${theme.colors.primary};
   border-radius: 50px;
   padding: 10px 20px;
   font-size: ${theme.typography.size.body};
   transition: all 0.3s ease;
 
   &:hover {
-    background-color: ${theme.colors.primary};
+    background-color: ${theme.colors.primaryLight};
     color: ${theme.colors.white};
-    border-color: ${theme.colors.primary};
   }
 `;
