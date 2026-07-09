@@ -1,24 +1,17 @@
 import { GraphQLClient } from 'graphql-request';
 
-// Validate environment variables
 const endpoint = import.meta.env.VITE_HYGRAPH_ENDPOINT;
 const token = import.meta.env.VITE_HYGRAPH_ACCESS_TOKEN;
 
 if (!endpoint || !token) {
-  throw new Error(
-    'Missing Hygraph environment variables. Please set VITE_HYGRAPH_ENDPOINT and VITE_HYGRAPH_ACCESS_TOKEN in .env'
-  );
+  throw new Error('Missing Hygraph environment variables.');
 }
 
 export const hygraphClient = new GraphQLClient(endpoint, {
-  headers: {
-    Authorization: `Bearer ${token}`,
-  },
+  headers: { Authorization: `Bearer ${token}` },
 });
 
-// ============================================================
-// TECHNOLOGIES
-// ============================================================
+// ─── TECHNOLOGIES ─────────────────────────────────────────────
 
 export const fetchTechnologiesWithCategories = async () => {
   const query = `
@@ -27,9 +20,7 @@ export const fetchTechnologiesWithCategories = async () => {
         name
         slug
         category
-        icon {
-          url
-        }
+        icon { url }
       }
     }
   `;
@@ -37,12 +28,8 @@ export const fetchTechnologiesWithCategories = async () => {
     const data = await hygraphClient.request(query);
     return data.technologies;
   } catch (error) {
-    console.error('GraphQL Error:', {
-      message: error.message,
-      response: error.response?.errors || 'No response errors',
-      status: error.response?.status,
-    });
-    throw new Error('Could not load technologies. Please try again later.', { cause: error });
+    console.error('GraphQL Error:', error);
+    throw new Error('Could not load technologies.', { cause: error });
   }
 };
 
@@ -51,16 +38,12 @@ export const fetchTechnologies = fetchTechnologiesWithCategories;
 export const fetchTechnologyCategories = async () => {
   const query = `
     query TechnologyCategories {
-      technologies {
-        category
-      }
+      technologies { category }
     }
   `;
   try {
     const data = await hygraphClient.request(query);
-    const categories = data.technologies
-      .map((tech) => tech.category)
-      .filter(Boolean);
+    const categories = data.technologies.map((t) => t.category).filter(Boolean);
     return [...new Set(categories)];
   } catch (error) {
     console.error('GraphQL Error:', error);
@@ -68,9 +51,7 @@ export const fetchTechnologyCategories = async () => {
   }
 };
 
-// ============================================================
-// PROJECTS
-// ============================================================
+// ─── PROJECTS ──────────────────────────────────────────────────
 
 export const fetchFeaturedProjects = async () => {
   const query = `
@@ -81,8 +62,8 @@ export const fetchFeaturedProjects = async () => {
         description
         category
         duration
-        githubUrl
         githubVisibility
+        githubUrl
         liveDemoUrl
         liveDemoVisibility
         caseStudySlug
@@ -109,8 +90,8 @@ export const fetchAllProjects = async () => {
         description
         category
         duration
-        githubUrl
         githubVisibility
+        githubUrl
         liveDemoUrl
         liveDemoVisibility
         caseStudySlug
@@ -121,6 +102,7 @@ export const fetchAllProjects = async () => {
   `;
   try {
     const data = await hygraphClient.request(query);
+    console.log("GraphQL projects:", data.projects);
     return data.projects;
   } catch (error) {
     console.error('GraphQL Error:', error);
@@ -142,8 +124,8 @@ export const fetchProjectBySlug = async (slug) => {
         duration
         year
         role
-        githubUrl
         githubVisibility
+        githubUrl
         liveDemoUrl
         liveDemoVisibility
         caseStudySlug
@@ -165,16 +147,12 @@ export const fetchProjectBySlug = async (slug) => {
 export const fetchProjectCategories = async () => {
   const query = `
     query ProjectCategories {
-      projects {
-        category
-      }
+      projects { category }
     }
   `;
   try {
     const data = await hygraphClient.request(query);
-    const categories = data.projects
-      .map((project) => project.category)
-      .filter(Boolean);
+    const categories = data.projects.map((p) => p.category).filter(Boolean);
     return [...new Set(categories)];
   } catch (error) {
     console.error('GraphQL Error:', error);
@@ -182,34 +160,20 @@ export const fetchProjectCategories = async () => {
   }
 };
 
-// ============================================================
-// BLOG
-// ============================================================
+// ─── BLOG ──────────────────────────────────────────────────────
 
 export const fetchFeaturedBlogPost = async () => {
   const query = `
     query FeaturedBlogPost {
-      blogPosts(
-        where: { isFeatured: true }
-        orderBy: date_DESC
-        first: 1
-      ) {
+      blogPosts(where: { isFeatured: true }, orderBy: date_DESC, first: 1) {
         title
         slug
         excerpt
         date
         duration
-        blogCategory {
-          name
-          slug
-        }
-        author {
-          name
-          role
-        }
-        thumbnail {
-          url
-        }
+        blogCategory { name slug }
+        author { name role }
+        thumbnail { url }
       }
     }
   `;
@@ -232,18 +196,9 @@ export const fetchAllBlogPosts = async () => {
         date
         duration
         isFeatured
-        // Add sortingOrder if you have it in the model
-        // sortingOrder
-        blogCategory {
-          name
-          slug
-        }
-        author {
-          name
-        }
-        thumbnail {
-          url
-        }
+        blogCategory { name slug }
+        author { name }
+        thumbnail { url }
       }
     }
   `;
@@ -263,26 +218,12 @@ export const fetchBlogPostBySlug = async (slug) => {
         title
         slug
         excerpt
-        content {
-          raw
-        }
+        content { raw }
         date
         duration
-        blogCategory {
-          name
-          slug
-        }
-        author {
-          name
-          role
-          avatar {
-            url
-          }
-          bio
-        }
-        thumbnail {
-          url
-        }
+        blogCategory { name slug }
+        author { name role avatar { url } bio }
+        thumbnail { url }
       }
     }
   `;

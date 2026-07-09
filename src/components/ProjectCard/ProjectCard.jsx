@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { FaExternalLinkAlt, FaGithub } from "react-icons/fa";
 import { GoDotFill } from "react-icons/go";
 import ProjectLinkButton from "../ProjectLinkButton";
+import { getGitHubLabel } from "../../utils/githubUtils";
 import * as S from "./ProjectCard.styled";
 
 const ProjectCard = ({ project, index }) => {
@@ -22,32 +23,25 @@ const ProjectCard = ({ project, index }) => {
     links,
   } = project;
 
-  // Extract thumbnail URL and alt text
   const thumbnailUrl = thumbnail?.url || "/images/placeholder.webp";
   const altText = thumbnailAlt || `${title} thumbnail`;
 
-  // Fallback for old data (if using JSON links)
   const fallbackGitHub = links?.github || githubUrl;
   const fallbackLive = links?.live || liveDemoUrl;
+
+  // Use githubVisibility directly; fallback based on URL existence
   const gitVisibility =
-    githubVisibility || (fallbackGitHub ? "PUBLIC" : "NONE");
+    githubVisibility || (fallbackGitHub ? "Public" : "None");
   const liveVisibility =
-    liveDemoVisibility || (fallbackLive ? "AVAILABLE" : "UNAVAILABLE");
+    liveDemoVisibility || (fallbackLive ? "Available" : "Unavailable");
 
-  // Navigate to project detail
-  const handleCardClick = () => {
-    navigate(`/projects/${slug}`);
-  };
-
-  // Keyboard support (Enter/Space)
+  const handleCardClick = () => navigate(`/projects/${slug}`);
   const handleKeyDown = (e) => {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
       handleCardClick();
     }
   };
-
-  // Stop propagation on interactive elements to prevent card click
   const stopPropagation = (e) => e.stopPropagation();
 
   return (
@@ -75,13 +69,13 @@ const ProjectCard = ({ project, index }) => {
         <S.CardHead>
           <h3 className="card-title">{title}</h3>
           <dl className="meta" aria-label={`${title} metadata`}>
-            <div className="meta-wrapper">
-              <dt className="sr-only">Category: </dt>
+            <div>
+              <dt className="sr-only">Category</dt>
               <dd className="category">{category}</dd>
             </div>
             <GoDotFill className="sep" aria-hidden="true" />
-            <div className="meta-wrapper">
-              <dt className="sr-only">Duration:</dt>
+            <div>
+              <dt className="sr-only">Duration</dt>
               <dd>{duration}</dd>
             </div>
           </dl>
@@ -93,31 +87,37 @@ const ProjectCard = ({ project, index }) => {
 
         <S.CardFooter>
           <div className="action-buttons" onClick={stopPropagation}>
-            {/* Live Demo Button — moved here, before GitHub */}
             <ProjectLinkButton
               url={fallbackLive}
               visibility={liveVisibility}
               label="Live Demo"
               icon={FaExternalLinkAlt}
               variant="primary"
-              statusText={liveVisibility === "COMING_SOON" ? "Soon" : ""}
+              statusText={liveVisibility === "Coming Soon" ? "Soon" : ""}
               tooltipText={
-                liveVisibility === "COMING_SOON" ? "Live demo coming soon." : ""
+                liveVisibility === "Coming Soon" ? "Coming Soon" : ""
               }
             />
 
-            {/* GitHub Button */}
             <ProjectLinkButton
               url={fallbackGitHub}
               visibility={gitVisibility}
-              label="GitHub"
+              label={getGitHubLabel(gitVisibility)}
               icon={FaGithub}
               variant="ghost"
-              statusText={gitVisibility === "PRIVATE" ? "Private" : ""}
+              statusText={
+                gitVisibility === "Private"
+                  ? "Private"
+                  : gitVisibility === "None"
+                    ? "None"
+                    : ""
+              }
               tooltipText={
-                gitVisibility === "PRIVATE"
-                  ? "The source code for this project is private."
-                  : ""
+                gitVisibility === "Private"
+                  ? "This repository is private and cannot be viewed publicly."
+                  : gitVisibility === "None"
+                    ? "No GitHub repository is available for this project."
+                    : ""
               }
             />
           </div>

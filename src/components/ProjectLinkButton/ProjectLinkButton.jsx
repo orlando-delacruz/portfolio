@@ -1,18 +1,6 @@
+import { useState } from "react";
 import * as S from "./ProjectLinkButton.styled";
 
-/**
- * A reusable button for project links with visibility control.
- *
- * @param {Object} props
- * @param {string} props.url - The link URL (optional)
- * @param {string} props.visibility - 'PUBLIC' | 'PRIVATE' | 'NONE' | 'AVAILABLE' | 'COMING_SOON' | 'UNAVAILABLE'
- * @param {string} props.label - Button label (e.g., 'GitHub')
- * @param {React.ElementType} [props.icon] - Icon component
- * @param {string} [props.variant='ghost'] - 'primary' or 'ghost'
- * @param {string} [props.statusText=''] - Optional status text to show as badge
- * @param {string} [props.tooltipText=''] - Optional tooltip text (shown on hover)
- * @param {string} [props.className=''] - Additional CSS class
- */
 const ProjectLinkButton = ({
   url,
   visibility,
@@ -23,11 +11,13 @@ const ProjectLinkButton = ({
   tooltipText = "",
   className = "",
 }) => {
-  // Determine if the button should be rendered
-  const isVisible = visibility !== "NONE" && visibility !== "UNAVAILABLE";
-  if (!isVisible) return null;
+  const [showTooltip, setShowTooltip] = useState(false);
 
-  const isDisabled = visibility === "PRIVATE" || visibility === "COMING_SOON";
+  const isDisabled =
+    visibility === "PRIVATE" ||
+    visibility === "NONE" ||
+    visibility === "COMING_SOON" ||
+    visibility === "UNAVAILABLE";
   const isEnabled = !isDisabled && url;
 
   const buttonProps = {
@@ -43,23 +33,48 @@ const ProjectLinkButton = ({
     ...(isDisabled && { disabled: true, "aria-disabled": true }),
   };
 
-  const tooltipMessage =
-    tooltipText ||
+  const getDefaultTooltip = () => {
+    if (tooltipText) return tooltipText;
+    switch (visibility) {
+      case "PRIVATE":
+        return "This repository is private and cannot be viewed publicly.";
+      case "NONE":
+        return "No GitHub repository is available for this project.";
+      case "COMING_SOON":
+        return "Coming Soon";
+      case "UNAVAILABLE":
+        return "Unavailable";
+      default:
+        return "";
+    }
+  };
+
+  const defaultStatusText =
+    statusText ||
     (visibility === "PRIVATE"
-      ? "The source code for this project is private."
-      : visibility === "COMING_SOON"
-        ? "Live demo coming soon."
+      ? "Private"
+      : visibility === "NONE"
+        ? "None"
         : "");
 
   return (
-    <S.ButtonWrapper>
+    <S.ButtonWrapper
+      onMouseEnter={() => setShowTooltip(true)}
+      onMouseLeave={() => setShowTooltip(false)}
+      onFocus={() => setShowTooltip(true)}
+      onBlur={() => setShowTooltip(false)}
+    >
       <S.StyledButton {...buttonProps}>
         {Icon && <Icon aria-hidden="true" />}
         {label}
-        {statusText && <S.StatusBadge>{statusText}</S.StatusBadge>}
+        {defaultStatusText && (
+          <S.StatusBadge>{defaultStatusText}</S.StatusBadge>
+        )}
       </S.StyledButton>
-      {isDisabled && tooltipMessage && (
-        <S.Tooltip role="tooltip">{tooltipMessage}</S.Tooltip>
+      {isDisabled && getDefaultTooltip() && (
+        <S.Tooltip className="tooltip" $visible={showTooltip} role="tooltip">
+          {getDefaultTooltip()}
+        </S.Tooltip>
       )}
     </S.ButtonWrapper>
   );

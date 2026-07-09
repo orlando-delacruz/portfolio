@@ -8,6 +8,7 @@ import ProjectLinkButton from "../../../components/ProjectLinkButton";
 import Loading from "../../../components/Loading";
 import HygraphRichText from "../../../components/RichText";
 import { fetchProjectBySlug } from "../../../services/hygraph";
+import { getGitHubLabel } from "../../../utils/githubUtils";
 import Screenshots from "../Screenshots";
 import * as S from "./ProjectDetail.styled";
 
@@ -80,6 +81,10 @@ const ProjectDetail = () => {
 
   const thumbnailUrl = thumbnail?.url || "/images/placeholder.webp";
 
+  const gitVisibility = githubVisibility || (githubUrl ? "Public" : "None");
+  const liveVisibility =
+    liveDemoVisibility || (liveDemoUrl ? "Available" : "Unavailable");
+
   return (
     <>
       <Helmet>
@@ -88,7 +93,6 @@ const ProjectDetail = () => {
       </Helmet>
 
       <S.DetailPage>
-        {/* Hero */}
         <S.HeroBanner aria-labelledby="detail-title">
           <BreadCrumb
             items={[
@@ -125,41 +129,42 @@ const ProjectDetail = () => {
             <S.HeroCTA>
               <ProjectLinkButton
                 url={liveDemoUrl}
-                visibility={
-                  liveDemoVisibility ||
-                  (liveDemoUrl ? "AVAILABLE" : "UNAVAILABLE")
-                }
+                visibility={liveVisibility}
                 label="Live Demo"
                 icon={FiExternalLink}
                 variant="primary"
-                statusText={liveDemoVisibility === "COMING_SOON" ? "Soon" : ""}
+                statusText={liveVisibility === "Coming Soon" ? "Soon" : ""}
                 tooltipText={
-                  liveDemoVisibility === "COMING_SOON"
-                    ? "Live demo coming soon."
-                    : ""
+                  liveVisibility === "Coming Soon" ? "Coming Soon" : ""
                 }
               />
 
               <ProjectLinkButton
                 url={githubUrl}
-                visibility={githubVisibility || (githubUrl ? "PUBLIC" : "NONE")}
-                label="GitHub"
+                visibility={gitVisibility}
+                label={getGitHubLabel(gitVisibility)}
                 icon={FaGithub}
                 variant="ghost"
-                statusText={githubVisibility === "PRIVATE" ? "Private" : ""}
+                statusText={
+                  gitVisibility === "Private"
+                    ? "Private"
+                    : gitVisibility === "None"
+                      ? "None"
+                      : ""
+                }
                 tooltipText={
-                  githubVisibility === "PRIVATE"
-                    ? "The source code for this project is private."
-                    : ""
+                  gitVisibility === "Private"
+                    ? "This repository is private and cannot be viewed publicly."
+                    : gitVisibility === "None"
+                      ? "No GitHub repository is available for this project."
+                      : ""
                 }
               />
             </S.HeroCTA>
           </S.HeroInner>
         </S.HeroBanner>
 
-        {/* Body */}
         <S.Body>
-          {/* ── Technologies Used — moved above thumbnail ── */}
           <div>
             <S.SectionLabel>Stack</S.SectionLabel>
             <S.SectionHeading>Technologies Used</S.SectionHeading>
@@ -174,7 +179,6 @@ const ProjectDetail = () => {
             </S.BadgeContainer>
           </div>
 
-          {/* ── Thumbnail ── */}
           <S.ScreenshotWrapper>
             <img
               src={thumbnailUrl}

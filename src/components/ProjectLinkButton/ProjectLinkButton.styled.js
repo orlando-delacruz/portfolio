@@ -4,6 +4,11 @@ import theme from '../../styles/theme';
 export const ButtonWrapper = styled.div`
   display: inline-block;
   position: relative;
+
+  &:hover .tooltip {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
 `;
 
 export const StyledButton = styled.a`
@@ -16,7 +21,7 @@ export const StyledButton = styled.a`
   font-weight: ${theme.typography.weight.medium};
   font-family: inherit;
   text-decoration: none;
-  cursor: ${({ $disabled }) => ($disabled ? 'not-allowed' : 'pointer')};
+  cursor: ${({ $disabled }) => ($disabled ? 'help' : 'pointer')};
   transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
   opacity: ${({ $disabled }) => ($disabled ? 0.6 : 1)};
   border: 1px solid
@@ -27,14 +32,21 @@ export const StyledButton = styled.a`
   }};
   background: ${({ $variant, $disabled }) => {
     if ($disabled) return 'transparent';
-    if ($variant === 'primary') return theme.colors.primary; // 👈 primary background
+    if ($variant === 'primary') return theme.colors.primary;
     return 'transparent';
   }};
   color: ${({ $variant, $disabled }) => {
     if ($disabled) return 'rgba(255, 255, 255, 0.4)';
-    if ($variant === 'primary') return theme.colors.white; // 👈 white text on primary
+    if ($variant === 'primary') return theme.colors.white;
     return 'rgba(255, 255, 255, 0.65)';
   }};
+
+  /* Allow hover on wrapper when button is disabled */
+  ${({ $disabled }) =>
+    $disabled &&
+    `
+      pointer-events: none;
+    `}
 
   svg {
     font-size: 0.8rem;
@@ -42,7 +54,7 @@ export const StyledButton = styled.a`
 
   &:hover:not([disabled]) {
     background: ${({ $variant }) => {
-    if ($variant === 'primary') return `rgba(${theme.colors.primaryRgb}, 0.8)`; // 👈 darken on hover
+    if ($variant === 'primary') return `rgba(${theme.colors.primaryRgb}, 0.8)`;
     return 'rgba(255, 255, 255, 0.08)';
   }};
     color: ${({ $variant }) => {
@@ -89,9 +101,11 @@ export const Tooltip = styled.div`
   white-space: nowrap;
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-  opacity: 0;
+  opacity: ${({ $visible }) => ($visible ? 1 : 0)};
+  visibility: ${({ $visible }) => ($visible ? 'visible' : 'hidden')};
   pointer-events: none;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+  z-index: 9999;
 
   &::after {
     content: '';
@@ -101,10 +115,6 @@ export const Tooltip = styled.div`
     transform: translateX(-50%);
     border: 6px solid transparent;
     border-top-color: ${theme.colors.secondary};
-  }
-
-  ${ButtonWrapper}:hover & {
-    opacity: 1;
   }
 
   @media (max-width: 576px) {

@@ -15,25 +15,23 @@ const ProjectsGrid = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [activeFilter, setActiveFilter] = useState("all");
+  const [activeFilter, setActiveFilter] = useState("all"); // ✅ Always start with "All Projects"
   const [searchQuery, setSearchQuery] = useState("");
 
+  // Fetch projects and categories
   useEffect(() => {
     const loadData = async () => {
       try {
         setLoading(true);
         const [projectsData, categoriesData] = await Promise.all([
           fetchAllProjects(),
-          fetchProjectCategories(), // 👈 from Project model
+          fetchProjectCategories(),
         ]);
         setProjects(projectsData);
+        // Sort categories according to PROJECT_CATEGORY_ORDER
         const sorted = getSortedProjectCategories(categoriesData);
         setCategories(sorted);
-        if (sorted.length > 0) {
-          setActiveFilter(sorted[0]);
-        } else {
-          setActiveFilter("all");
-        }
+        // ✅ Do NOT change activeFilter – keep it as 'all'
       } catch (err) {
         setError(err.message || "Failed to load data");
       } finally {
@@ -48,6 +46,7 @@ const ProjectsGrid = () => {
 
   const filtered = useMemo(() => {
     const q = searchQuery.trim().toLowerCase();
+
     return projects.filter((p) => {
       const matchesFilter =
         activeFilter === "all" || p.category === activeFilter;
@@ -87,10 +86,11 @@ const ProjectsGrid = () => {
         onSearchChange={handleSearchChange}
         categories={categories}
       />
+
       <S.GridSection aria-label="Projects grid" aria-live="polite">
         {filtered.length > 0 ? (
           <>
-            <S.ResultCount>
+            <S.ResultCount aria-live="polite">
               {filtered.length} project{filtered.length !== 1 ? "s" : ""} found
             </S.ResultCount>
             <S.Grid role="list">
