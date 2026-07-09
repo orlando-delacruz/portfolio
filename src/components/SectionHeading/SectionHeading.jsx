@@ -1,4 +1,4 @@
-import * as S from "./SectionHeading.styled"
+import * as S from "./SectionHeading.styled";
 
 const SectionHeading = ({ pretitle, title, highlight, arialabel }) => {
   return (
@@ -9,9 +9,10 @@ const SectionHeading = ({ pretitle, title, highlight, arialabel }) => {
         <div className="eyebrow"></div>
       </S.PreTitle>
 
-      <S.Title arialabel={arialabel}>{title} <span className="title-highlight">{highlight}</span></S.Title>
+      <S.Title aria-label={arialabel}>
+        {title} <span className="title-highlight">{highlight}</span>
+      </S.Title>
     </S.Wrapper>
-
   );
 };
 
