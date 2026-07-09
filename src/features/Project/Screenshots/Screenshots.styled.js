@@ -5,6 +5,7 @@ export const Section = styled.section`
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  padding: 0;
 `;
 
 export const Header = styled.div`

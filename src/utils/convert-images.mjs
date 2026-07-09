@@ -2,7 +2,7 @@ import sharp from "sharp";
 import { readdirSync } from "fs";
 import { join, extname, basename } from "path";
 
-const ASSETS_DIR = "src/assets/images/skills";
+const ASSETS_DIR = "public/images";
 
 const imageFiles = readdirSync(ASSETS_DIR).filter((file) =>
   [".png", ".jpg", ".jpeg"].includes(extname(file).toLowerCase())
