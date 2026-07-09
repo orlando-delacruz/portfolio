@@ -26,7 +26,7 @@ const Featured = () => {
             src={thumbnail}
             alt={thumbnailAlt}
             loading="eager"
-            fetchpriority="high"
+            fetchPriority="high" // 👈 camelCase
             decoding="async"
             width="720"
             height="480"

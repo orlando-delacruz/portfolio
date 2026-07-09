@@ -1,11 +1,17 @@
-
 import { useParams, Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { FiExternalLink, FiClock, FiCalendar, FiUser } from "react-icons/fi";
+import {
+  FiArrowLeft,
+  FiExternalLink,
+  FiClock,
+  FiCalendar,
+  FiUser,
+} from "react-icons/fi";
 import { FaGithub } from "react-icons/fa";
 import { BsCheckCircleFill } from "react-icons/bs";
 import BreadCrumb from "../../../components/BreadCrumb/BreadCrumb";
 import { projectsBySlug } from "../../../data/project";
+import Screenshots from "../Screenshots"; // 👈 ADD THIS IMPORT
 import * as S from "./ProjectDetail.styled";
 
 const ProjectDetail = () => {
@@ -17,7 +23,9 @@ const ProjectDetail = () => {
       <S.DetailPage>
         <S.NotFound>
           <h2>Project not found</h2>
-          <p>The case study you're looking for doesn't exist or has been moved.</p>
+          <p>
+            The case study you're looking for doesn't exist or has been moved.
+          </p>
           <Link to="/projects">← Back to Projects</Link>
         </S.NotFound>
       </S.DetailPage>
@@ -25,9 +33,20 @@ const ProjectDetail = () => {
   }
 
   const {
-    thumbnail, thumbnailAlt, title, category, duration,
-    year, role, description, overview, highlights,
-    techStack, challenges, links,
+    thumbnail,
+    thumbnailAlt,
+    title,
+    category,
+    duration,
+    year,
+    role,
+    description,
+    overview,
+    highlights,
+    techStack,
+    challenges,
+    links,
+    screenshots, // 👈 ADD screenshots
   } = project;
 
   return (
@@ -40,14 +59,24 @@ const ProjectDetail = () => {
       <S.DetailPage>
         {/* Hero */}
         <S.HeroBanner aria-labelledby="detail-title">
-          <BreadCrumb items={[
-            { label: "Home", href: "/" },
-            { label: "Projects", href: "/projects" },
-            { label: title },
-          ]} />
+          <BreadCrumb
+            items={[
+              { label: "Home", href: "/" },
+              { label: "Projects", href: "/projects" },
+              { label: title },
+            ]}
+          />
           <S.BgGlow aria-hidden="true" />
 
           <S.HeroInner>
+            <S.BackLink
+              as={Link}
+              to="/projects"
+              aria-label="Back to all projects"
+            >
+              <FiArrowLeft aria-hidden="true" /> All Projects
+            </S.BackLink>
+
             <S.CategoryBadge>{category}</S.CategoryBadge>
             <S.HeroTitle id="detail-title">{title}</S.HeroTitle>
             <S.HeroDescription>{description}</S.HeroDescription>
@@ -101,7 +130,7 @@ const ProjectDetail = () => {
               src={thumbnail}
               alt={thumbnailAlt}
               loading="eager"
-              fetchpriority="high"
+              fetchPriority="high"
               decoding="async"
             />
           </S.ScreenshotWrapper>
@@ -124,6 +153,11 @@ const ProjectDetail = () => {
               </S.HighlightList>
             </div>
           </S.DetailGrid>
+
+          {/* ═══════════════════════════════════════════════════════ */}
+          {/* 👇 ADD SCREENSHOTS SECTION HERE                          */}
+          {/* ═══════════════════════════════════════════════════════ */}
+          <Screenshots screenshots={screenshots} />
 
           <div>
             <S.SectionLabel>Stack</S.SectionLabel>

@@ -1,27 +1,28 @@
-// src\features\Project\ProjectGrid\ProjectCard.jsx
+import { Link } from "react-router-dom";
 import { FaExternalLinkAlt, FaGithub } from "react-icons/fa";
 import { GiOpenBook } from "react-icons/gi";
 import { GoDotFill } from "react-icons/go";
-import { Link } from "react-router-dom";
-import * as S from "./ProjectGrid.styled";
+import * as S from "./ProjectCard.styled";
 
-/**
- * ProjectCard — stripped to: thumbnail, meta, title, description, footer.
- * Highlights & tech stack live on the Case Study / Detail page.
- * Cards are equal-height via CSS grid + flex column on CardWrapper.
- */
 const ProjectCard = ({ project, index }) => {
-  const { thumbnail, thumbnailAlt, title, category, duration, description, links } = project;
+  const {
+    thumbnail,
+    thumbnailAlt,
+    title,
+    category,
+    duration,
+    description,
+    links,
+  } = project;
 
   return (
     <S.CardWrapper $index={index} aria-label={title}>
-      {/* Thumbnail */}
       <S.Thumbnail>
         <img
           src={thumbnail}
           alt={thumbnailAlt}
           loading={index < 2 ? "eager" : "lazy"}
-          fetchpriority={index < 2 ? "high" : undefined}
+          fetchPriority={index < 2 ? "high" : undefined} // 👈 camelCase
           decoding="async"
           width="638"
           height="359"
@@ -29,7 +30,6 @@ const ProjectCard = ({ project, index }) => {
       </S.Thumbnail>
 
       <S.CardContent>
-        {/* Head */}
         <S.CardHead>
           <h3 className="card-title">{title}</h3>
           <dl className="meta" aria-label={`${title} metadata`}>
@@ -45,12 +45,10 @@ const ProjectCard = ({ project, index }) => {
           </dl>
         </S.CardHead>
 
-        {/* Description — flex:1 pushes footer to bottom */}
         <S.CardBody>{description}</S.CardBody>
 
         <S.Divider />
 
-        {/* Footer */}
         <S.CardFooter>
           <a
             className="live-demo"

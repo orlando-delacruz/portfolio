@@ -2,7 +2,7 @@ import { useState, useMemo, useCallback } from "react";
 import { FiSearch } from "react-icons/fi";
 import projects from "../../../data/project";
 import ProjectFilters from "../Filter/Filter";
-import ProjectCard from "./ProjectCard";
+import ProjectCard from "../../../components/ProjectCard";
 import * as S from "./ProjectGrid.styled";
 
 const ProjectsGrid = () => {
@@ -14,19 +14,15 @@ const ProjectsGrid = () => {
 
   const filtered = useMemo(() => {
     const q = searchQuery.trim().toLowerCase();
-
     return projects.filter((p) => {
       const matchesFilter =
         activeFilter === "all" || p.categoryKey === activeFilter;
-
       const matchesSearch =
         !q ||
         p.title.toLowerCase().includes(q) ||
         p.description.toLowerCase().includes(q) ||
-        // FIX: techStack is { name, purpose }[] — search name, not the object
         p.techStack.some((t) => t.name.toLowerCase().includes(q)) ||
         p.highlights.some((h) => h.toLowerCase().includes(q));
-
       return matchesFilter && matchesSearch;
     });
   }, [activeFilter, searchQuery]);
@@ -55,7 +51,9 @@ const ProjectsGrid = () => {
         ) : (
           <S.EmptyState role="status">
             <FiSearch aria-hidden="true" />
-            <p>No projects match your search. Try a different keyword or filter.</p>
+            <p>
+              No projects match your search. Try a different keyword or filter.
+            </p>
           </S.EmptyState>
         )}
       </S.GridSection>

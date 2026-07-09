@@ -127,6 +127,10 @@ const projects = [
         body: "School staff needed a way to update announcements and content without technical knowledge. Hygraph content models were configured to provide a simple and structured content management experience.",
       },
     ],
+    screenshots: [
+      { src: Project1, alt: "Portfolio homepage screenshot" },
+      { src: Project1, alt: "Portfolio projects section" },
+    ],
   },
 
   /* ── PROJECT 3 ─────────────────────────────────────────── */

@@ -24,7 +24,7 @@ const BlogCard = ({ article, index }) => {
           src={thumbnail}
           alt={thumbnailAlt}
           loading={index < 3 ? "eager" : "lazy"}
-          fetchpriority={index === 0 ? "high" : undefined}
+          fetchPriority={index === 0 ? "high" : undefined} // 👈 camelCase
           decoding="async"
           width="480"
           height="270"
@@ -33,7 +33,9 @@ const BlogCard = ({ article, index }) => {
       <S.CardContent>
         <S.CardMeta>
           <S.CategoryBadge>{category}</S.CategoryBadge>
-          <S.Duration aria-label={`Reading time: ${duration}`}>{duration}</S.Duration>
+          <S.Duration aria-label={`Reading time: ${duration}`}>
+            {duration}
+          </S.Duration>
         </S.CardMeta>
         <S.DateText dateTime={dateTime}>{date}</S.DateText>
         <S.CardTitle>{title}</S.CardTitle>

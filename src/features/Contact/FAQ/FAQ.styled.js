@@ -98,9 +98,9 @@ export const Indicator = styled.span`
 `;
 
 export const AnswerWrapper = styled.div`
-  max-height: ${({ $isOpen }) => ($isOpen ? '400px' : '0')};
+  max-height: ${({ $height }) => ($height ? `${$height}px` : '0')};
   overflow: hidden;
-  transition: max-height 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: max-height 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 `;
 
 export const AnswerText = styled.div`
