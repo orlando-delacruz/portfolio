@@ -1,66 +1,110 @@
+import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import styled from "styled-components";
-import theme from "../../styles/theme";
-import { blogDetailData } from "../../data/blogs";
-import Hero from "../../features/BlogDetail/Hero";
-import BlogContent from "../../features/BlogDetail/Content";
+import { Helmet } from "react-helmet-async";
+import { fetchBlogPostBySlug } from "../../services/hygraph";
+import HygraphRichText from "../../components/RichText";
+import Loading from "../../components/Loading";
 import CallToAction from "../../components/CallToAction";
-
-const NotFound = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 60vh;
-  gap: 1rem;
-  text-align: center;
-  padding: 2rem;
-  h2 {
-    font-size: ${theme.typography.heading.h2};
-    font-weight: ${theme.typography.weight.semibold};
-  }
-  p { color: rgba(255, 255, 255, 0.5); }
-  a {
-    color: ${theme.colors.primary};
-    margin-top: 0.5rem;
-    &:hover { text-decoration: underline; }
-  }
-`;
+import Author from "../../features/BlogDetail/Author";
+import * as S from "./BlogDetailPage.styled";
 
 const BlogDetailPage = () => {
   const { slug } = useParams();
-  const article = blogDetailData[slug];
+  const [post, setPost] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  if (!article) {
+  useEffect(() => {
+    if (!slug) return;
+
+    const loadPost = async () => {
+      try {
+        setLoading(true);
+        const data = await fetchBlogPostBySlug(slug);
+        if (data) {
+          setPost(data);
+        } else {
+          setError("Article not found");
+        }
+      } catch (err) {
+        setError(err.message || "Failed to load article");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadPost();
+  }, [slug]);
+
+  if (loading) {
     return (
-      <NotFound>
-        <h2>Article not found</h2>
-        <p>This article doesn't exist or may have been removed.</p>
-        <Link to="/blogs">← Back to Blogs</Link>
-      </NotFound>
+      <S.PageWrapper>
+        <Loading fullPage text="Loading article..." />
+      </S.PageWrapper>
     );
   }
 
-  return (
-    <main>
-      <Hero
-        thumbnail={article.thumbnail}
-        thumbnailAlt={article.thumbnailAlt}
-        category={article.category}
-        date={article.date}
-        dateTime={article.dateTime}
-        duration={article.duration}
-        title={article.title}
-        intro={article.intro}
-      />
-      <BlogContent
-        sections={article.sections}
-        takeaways={article.takeaways}
-        related={article.related}
-      />
+  if (error || !post) {
+    return (
+      <S.NotFoundWrapper>
+        <h2>Article not found</h2>
+        <p>
+          {error || "This article does not exist or may have been removed."}
+        </p>
+        <Link to="/blogs">← Back to Blogs</Link>
+      </S.NotFoundWrapper>
+    );
+  }
 
-      <CallToAction />
-    </main>
+  const { title, content, thumbnail, date, duration, blogCategory, author } =
+    post;
+
+  return (
+    <>
+      <Helmet>
+        <title>{`${title} | Orlando Dela Cruz`}</title>
+        <meta name="description" content={post.excerpt} />
+      </Helmet>
+
+      <S.PageWrapper>
+        {/* Hero */}
+        <S.HeroSection>
+          <S.HeroInner>
+            {blogCategory && (
+              <S.CategoryLabel>{blogCategory.name}</S.CategoryLabel>
+            )}
+            <S.Title>{title}</S.Title>
+            <S.MetaRow>
+              <span>{date}</span>
+              <span>•</span>
+              <span>{duration}</span>
+            </S.MetaRow>
+            {author && (
+              <S.AuthorInfoInline>By {author.name}</S.AuthorInfoInline>
+            )}
+            {thumbnail && (
+              <S.FeaturedImage
+                src={thumbnail.url}
+                alt={title}
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
+              />
+            )}
+          </S.HeroInner>
+        </S.HeroSection>
+
+        {/* Content */}
+        <S.ContentSection>
+          <HygraphRichText content={content?.raw} />
+
+          {/* Author Section */}
+          {author && <Author author={author} />}
+        </S.ContentSection>
+
+        <CallToAction />
+      </S.PageWrapper>
+    </>
   );
 };
 

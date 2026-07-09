@@ -13,7 +13,6 @@ const TestimonialSection = () => {
     totalSlides,
     currentIndex,
     visibleTestimonials,
-    liveRegionRef,
     goToPrevious,
     goToNext,
     handleKeyDown,
@@ -27,7 +26,6 @@ const TestimonialSection = () => {
       aria-labelledby="testimonial-heading"
       onKeyDown={handleKeyDown}
     >
-
       <SectionHeading
         id="testimonial-heading"
         pretitle={heading.pretitle}
@@ -42,13 +40,6 @@ const TestimonialSection = () => {
             <TestimonialCard key={testimonial.id} {...testimonial} />
           ))}
         </S.ContentGrid>
-
-        <span
-          ref={liveRegionRef}
-          aria-live="polite"
-          aria-atomic="true"
-          className="sr-only"
-        />
 
         <S.ActionButtons role="group" aria-label="Testimonial navigation">
           <S.NavButton
@@ -69,8 +60,6 @@ const TestimonialSection = () => {
             <FaChevronRight aria-hidden="true" />
           </S.NavButton>
         </S.ActionButtons>
-
-
       </S.ContentWrapper>
     </S.SectionWrapper>
   );

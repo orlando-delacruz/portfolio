@@ -3,28 +3,20 @@ import { FiArrowRight } from "react-icons/fi";
 import * as S from "./BlogList.styled";
 
 const BlogCard = ({ article, index }) => {
-  const {
-    thumbnail,
-    thumbnailAlt,
-    date,
-    dateTime,
-    duration,
-    category,
-    title,
-    description,
-    slug,
-  } = article;
+  const { thumbnail, date, duration, blogCategory, title, excerpt, slug } =
+    article;
 
+  const thumbnailUrl = thumbnail?.url || "/images/placeholder.webp";
   const href = `/blogs/${slug}`;
 
   return (
     <S.Card $index={index} aria-label={title}>
       <S.Thumbnail>
         <img
-          src={thumbnail}
-          alt={thumbnailAlt}
+          src={thumbnailUrl}
+          alt={`${title} thumbnail`}
           loading={index < 3 ? "eager" : "lazy"}
-          fetchPriority={index === 0 ? "high" : undefined} // 👈 camelCase
+          fetchPriority={index === 0 ? "high" : undefined}
           decoding="async"
           width="480"
           height="270"
@@ -32,14 +24,16 @@ const BlogCard = ({ article, index }) => {
       </S.Thumbnail>
       <S.CardContent>
         <S.CardMeta>
-          <S.CategoryBadge>{category}</S.CategoryBadge>
+          <S.CategoryBadge>
+            {blogCategory?.name || "Uncategorized"}
+          </S.CategoryBadge>
           <S.Duration aria-label={`Reading time: ${duration}`}>
             {duration}
           </S.Duration>
         </S.CardMeta>
-        <S.DateText dateTime={dateTime}>{date}</S.DateText>
+        <S.DateText dateTime={date}>{date}</S.DateText>
         <S.CardTitle>{title}</S.CardTitle>
-        <S.CardDescription>{description}</S.CardDescription>
+        <S.CardDescription>{excerpt}</S.CardDescription>
         <S.Divider />
         <S.ReadMore as={Link} to={href} aria-label={`Read article: ${title}`}>
           Read More <FiArrowRight aria-hidden="true" />

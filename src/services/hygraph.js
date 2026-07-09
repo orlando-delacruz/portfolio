@@ -16,9 +16,10 @@ export const hygraphClient = new GraphQLClient(endpoint, {
   },
 });
 
-/**
- * Fetch all technologies with categories and icons (for Skills section)
- */
+// ============================================================
+// TECHNOLOGIES
+// ============================================================
+
 export const fetchTechnologiesWithCategories = async () => {
   const query = `
     query TechnologiesWithCategories {
@@ -45,150 +46,8 @@ export const fetchTechnologiesWithCategories = async () => {
   }
 };
 
-// Alias for backward compatibility (e.g., TestHygraph.jsx)
 export const fetchTechnologies = fetchTechnologiesWithCategories;
 
-/**
- * Fetch featured projects (for Home page)
- */
-export const fetchFeaturedProjects = async () => {
-  const query = `
-    query FeaturedProjects {
-      projects(where: { isFeatured: true }, orderBy: featuredOrder_ASC) {
-        title
-        slug
-        description
-        category
-        duration
-        githubUrl
-        githubVisibility
-        liveDemoUrl
-        liveDemoVisibility
-        caseStudySlug
-        thumbnail {
-          url
-        }
-        technologies {
-          ... on Technology {
-            name
-          }
-        }
-      }
-    }
-  `;
-  try {
-    const data = await hygraphClient.request(query);
-    return data.projects;
-  } catch (error) {
-    console.error('GraphQL Error:', {
-      message: error.message,
-      response: error.response?.errors || 'No response errors',
-      status: error.response?.status,
-    });
-    throw new Error('Could not load featured projects. Please try again later.', { cause: error });
-  }
-};
-
-/**
- * Fetch all projects (for Projects page)
- */
-export const fetchAllProjects = async () => {
-  const query = `
-    query Projects {
-      projects {
-        title
-        slug
-        description
-        category
-        duration
-        githubUrl
-        githubVisibility
-        liveDemoUrl
-        liveDemoVisibility
-        caseStudySlug
-        thumbnail {
-          url
-        }
-        technologies {
-          ... on Technology {
-            name
-          }
-        }
-      }
-    }
-  `;
-  try {
-    const data = await hygraphClient.request(query);
-    return data.projects;
-  } catch (error) {
-    console.error('GraphQL Error:', {
-      message: error.message,
-      response: error.response?.errors || 'No response errors',
-      status: error.response?.status,
-    });
-    throw new Error('Could not load projects. Please try again later.', { cause: error });
-  }
-};
-
-/**
- * Fetch a project by slug (for Project Detail page)
- */
-export const fetchProjectBySlug = async (slug) => {
-  const query = `
-    query Project($slug: String!) {
-      project(where: { slug: $slug }) {
-        title
-        slug
-        description
-        overview {
-          raw
-        }
-        highlights {
-          raw
-        }
-        challenges {
-          raw
-        }
-        category
-        duration
-        year
-        role
-        githubUrl
-        githubVisibility
-        liveDemoUrl
-        liveDemoVisibility
-        caseStudySlug
-        thumbnail {
-          url
-        }
-        screenshots {
-          url
-        }
-        technologies {
-          ... on Technology {
-            name
-            slug
-          }
-        }
-      }
-    }
-  `;
-  try {
-    const data = await hygraphClient.request(query, { slug });
-    return data.project;
-  } catch (error) {
-    console.error('GraphQL Error:', {
-      message: error.message,
-      response: error.response?.errors || 'No response errors',
-      status: error.response?.status,
-    });
-    throw new Error('Could not load project. Please try again later.', { cause: error });
-  }
-};
-
-/**
- * Fetch unique categories from technologies (for dynamic filters)
- */
 export const fetchTechnologyCategories = async () => {
   const query = `
     query TechnologyCategories {
@@ -209,9 +68,100 @@ export const fetchTechnologyCategories = async () => {
   }
 };
 
-/**
- * Fetch unique categories from projects (for dynamic project filters)
- */
+// ============================================================
+// PROJECTS
+// ============================================================
+
+export const fetchFeaturedProjects = async () => {
+  const query = `
+    query FeaturedProjects {
+      projects(where: { isFeatured: true }, orderBy: featuredOrder_ASC) {
+        title
+        slug
+        description
+        category
+        duration
+        githubUrl
+        githubVisibility
+        liveDemoUrl
+        liveDemoVisibility
+        caseStudySlug
+        thumbnail { url }
+        technologies { ... on Technology { name } }
+      }
+    }
+  `;
+  try {
+    const data = await hygraphClient.request(query);
+    return data.projects;
+  } catch (error) {
+    console.error('GraphQL Error:', error);
+    throw new Error('Could not load featured projects.', { cause: error });
+  }
+};
+
+export const fetchAllProjects = async () => {
+  const query = `
+    query Projects {
+      projects {
+        title
+        slug
+        description
+        category
+        duration
+        githubUrl
+        githubVisibility
+        liveDemoUrl
+        liveDemoVisibility
+        caseStudySlug
+        thumbnail { url }
+        technologies { ... on Technology { name } }
+      }
+    }
+  `;
+  try {
+    const data = await hygraphClient.request(query);
+    return data.projects;
+  } catch (error) {
+    console.error('GraphQL Error:', error);
+    throw new Error('Could not load projects.', { cause: error });
+  }
+};
+
+export const fetchProjectBySlug = async (slug) => {
+  const query = `
+    query Project($slug: String!) {
+      project(where: { slug: $slug }) {
+        title
+        slug
+        description
+        overview { raw }
+        highlights { raw }
+        challenges { raw }
+        category
+        duration
+        year
+        role
+        githubUrl
+        githubVisibility
+        liveDemoUrl
+        liveDemoVisibility
+        caseStudySlug
+        thumbnail { url }
+        screenshots { url }
+        technologies { ... on Technology { name slug } }
+      }
+    }
+  `;
+  try {
+    const data = await hygraphClient.request(query, { slug });
+    return data.project;
+  } catch (error) {
+    console.error('GraphQL Error:', error);
+    throw new Error('Could not load project.', { cause: error });
+  }
+};
+
 export const fetchProjectCategories = async () => {
   const query = `
     query ProjectCategories {
@@ -229,5 +179,118 @@ export const fetchProjectCategories = async () => {
   } catch (error) {
     console.error('GraphQL Error:', error);
     throw new Error('Could not load project categories.', { cause: error });
+  }
+};
+
+// ============================================================
+// BLOG
+// ============================================================
+
+export const fetchFeaturedBlogPost = async () => {
+  const query = `
+    query FeaturedBlogPost {
+      blogPosts(
+        where: { isFeatured: true }
+        orderBy: date_DESC
+        first: 1
+      ) {
+        title
+        slug
+        excerpt
+        date
+        duration
+        blogCategory {
+          name
+          slug
+        }
+        author {
+          name
+          role
+        }
+        thumbnail {
+          url
+        }
+      }
+    }
+  `;
+  try {
+    const data = await hygraphClient.request(query);
+    return data.blogPosts[0] || null;
+  } catch (error) {
+    console.error('GraphQL Error:', error);
+    throw new Error('Could not load featured blog post.', { cause: error });
+  }
+};
+
+export const fetchAllBlogPosts = async () => {
+  const query = `
+    query AllBlogPosts {
+      blogPosts(orderBy: date_DESC) {
+        title
+        slug
+        excerpt
+        date
+        duration
+        isFeatured
+        // Add sortingOrder if you have it in the model
+        // sortingOrder
+        blogCategory {
+          name
+          slug
+        }
+        author {
+          name
+        }
+        thumbnail {
+          url
+        }
+      }
+    }
+  `;
+  try {
+    const data = await hygraphClient.request(query);
+    return data.blogPosts;
+  } catch (error) {
+    console.error('GraphQL Error:', error);
+    throw new Error('Could not load blog posts.', { cause: error });
+  }
+};
+
+export const fetchBlogPostBySlug = async (slug) => {
+  const query = `
+    query BlogPost($slug: String!) {
+      blogPost(where: { slug: $slug }) {
+        title
+        slug
+        excerpt
+        content {
+          raw
+        }
+        date
+        duration
+        blogCategory {
+          name
+          slug
+        }
+        author {
+          name
+          role
+          avatar {
+            url
+          }
+          bio
+        }
+        thumbnail {
+          url
+        }
+      }
+    }
+  `;
+  try {
+    const data = await hygraphClient.request(query, { slug });
+    return data.blogPost;
+  } catch (error) {
+    console.error('GraphQL Error:', error);
+    throw new Error('Could not load blog post.', { cause: error });
   }
 };
