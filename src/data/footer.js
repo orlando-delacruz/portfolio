@@ -18,7 +18,7 @@ const footerData = {
     "Web developer focused on building responsive and scalable modern web applications.",
 
   socialLinks: [
-    { id: "social-github", href: "https://github.com/orlandostack", icon: FaGithub, label: "Visit my GitHub profile" },
+    { id: "social-github", href: "https://github.com/orlando-delacruz", icon: FaGithub, label: "Visit my GitHub profile" },
     { id: "social-linkedin", href: "https://www.linkedin.com/in/orlando-jr-dela-cruz-127998273/", icon: FaLinkedin, label: "Visit my LinkedIn profile" },
     { id: "social-mail", href: "mailto:orlando.delacruz.dev@gmail.com", icon: IoIosMail, label: "Send me an email" },
     { id: "social-phone", href: "tel:+639095984478", icon: FaPhone, label: "Call me" },
