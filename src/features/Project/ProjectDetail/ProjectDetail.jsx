@@ -9,6 +9,7 @@ import Loading from "../../../components/Loading";
 import HygraphRichText from "../../../components/RichText";
 import { fetchProjectBySlug } from "../../../services/hygraph";
 import { getGitHubLabel } from "../../../utils/githubUtils";
+import { capitalizeFirstLetter } from "../../../utils/stringUtils";
 import Screenshots from "../Screenshots";
 import * as S from "./ProjectDetail.styled";
 
@@ -81,9 +82,11 @@ const ProjectDetail = () => {
 
   const thumbnailUrl = thumbnail?.url || "/images/placeholder.webp";
 
-  const gitVisibility = githubVisibility || (githubUrl ? "Public" : "None");
+  const gitVisibility = githubVisibility || (githubUrl ? "public" : "none");
   const liveVisibility =
-    liveDemoVisibility || (liveDemoUrl ? "Available" : "Unavailable");
+    liveDemoVisibility || (liveDemoUrl ? "available" : "unavailable");
+
+  const githubLabel = getGitHubLabel(gitVisibility);
 
   return (
     <>
@@ -104,7 +107,9 @@ const ProjectDetail = () => {
           <S.BgGlow aria-hidden="true" />
 
           <S.HeroInner>
-            <S.CategoryBadge>{category || "Uncategorized"}</S.CategoryBadge>
+            <S.CategoryBadge>
+              {capitalizeFirstLetter(category) || "Uncategorized"}
+            </S.CategoryBadge>
             <S.HeroTitle id="detail-title">{title}</S.HeroTitle>
             <S.HeroDescription>{description}</S.HeroDescription>
 
@@ -133,29 +138,23 @@ const ProjectDetail = () => {
                 label="Live Demo"
                 icon={FiExternalLink}
                 variant="primary"
-                statusText={liveVisibility === "Coming Soon" ? "Soon" : ""}
+                statusText={liveVisibility === "coming_soon" ? "Soon" : ""}
                 tooltipText={
-                  liveVisibility === "Coming Soon" ? "Coming Soon" : ""
+                  liveVisibility === "coming_soon" ? "Coming Soon" : ""
                 }
               />
 
+              {/* GitHub Button – no statusText, label already conveys the state */}
               <ProjectLinkButton
                 url={githubUrl}
                 visibility={gitVisibility}
-                label={getGitHubLabel(gitVisibility)}
+                label={githubLabel}
                 icon={FaGithub}
                 variant="ghost"
-                statusText={
-                  gitVisibility === "Private"
-                    ? "Private"
-                    : gitVisibility === "None"
-                      ? "None"
-                      : ""
-                }
                 tooltipText={
-                  gitVisibility === "Private"
+                  gitVisibility === "private"
                     ? "This repository is private and cannot be viewed publicly."
-                    : gitVisibility === "None"
+                    : gitVisibility === "none"
                       ? "No GitHub repository is available for this project."
                       : ""
                 }

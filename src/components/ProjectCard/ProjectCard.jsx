@@ -36,6 +36,7 @@ const ProjectCard = ({ project, index }) => {
     liveDemoVisibility || (fallbackLive ? "available" : "unavailable");
 
   const formattedCategory = capitalizeFirstLetter(category);
+  const githubLabel = getGitHubLabel(gitVisibility);
 
   const handleCardClick = () => navigate(`/projects/${slug}`);
   const handleKeyDown = (e) => {
@@ -105,19 +106,13 @@ const ProjectCard = ({ project, index }) => {
               }
             />
 
+            {/* GitHub Button – no statusText, label already conveys the state */}
             <ProjectLinkButton
               url={fallbackGitHub}
               visibility={gitVisibility}
-              label={getGitHubLabel(gitVisibility)}
+              label={githubLabel}
               icon={FaGithub}
               variant="ghost"
-              statusText={
-                gitVisibility === "private"
-                  ? "Private"
-                  : gitVisibility === "none"
-                    ? "None"
-                    : ""
-              }
               tooltipText={
                 gitVisibility === "private"
                   ? "This repository is private and cannot be viewed publicly."
