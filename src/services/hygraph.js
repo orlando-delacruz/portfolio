@@ -1,10 +1,10 @@
-import { GraphQLClient } from 'graphql-request';
+import { GraphQLClient } from "graphql-request";
 
 const endpoint = import.meta.env.VITE_HYGRAPH_ENDPOINT;
 const token = import.meta.env.VITE_HYGRAPH_ACCESS_TOKEN;
 
 if (!endpoint || !token) {
-  throw new Error('Missing Hygraph environment variables.');
+  throw new Error("Missing Hygraph environment variables.");
 }
 
 export const hygraphClient = new GraphQLClient(endpoint, {
@@ -28,8 +28,8 @@ export const fetchTechnologiesWithCategories = async () => {
     const data = await hygraphClient.request(query);
     return data.technologies;
   } catch (error) {
-    console.error('GraphQL Error:', error);
-    throw new Error('Could not load technologies.', { cause: error });
+    console.error("GraphQL Error:", error);
+    throw new Error("Could not load technologies.", { cause: error });
   }
 };
 
@@ -38,7 +38,7 @@ export const fetchTechnologies = fetchTechnologiesWithCategories;
 export const fetchTechnologyCategories = async () => {
   const query = `
     query TechnologyCategories {
-      technologies { category }
+      technologies(first: 100) { category }
     }
   `;
   try {
@@ -46,8 +46,8 @@ export const fetchTechnologyCategories = async () => {
     const categories = data.technologies.map((t) => t.category).filter(Boolean);
     return [...new Set(categories)];
   } catch (error) {
-    console.error('GraphQL Error:', error);
-    throw new Error('Could not load technology categories.', { cause: error });
+    console.error("GraphQL Error:", error);
+    throw new Error("Could not load technology categories.", { cause: error });
   }
 };
 
@@ -68,7 +68,7 @@ export const fetchFeaturedProjects = async () => {
         liveDemoVisibility
         caseStudySlug
         thumbnail { url }
-        technologies { ... on Technology { name } }
+        technologies(first: 100) { ... on Technology { name } }
       }
     }
   `;
@@ -76,8 +76,8 @@ export const fetchFeaturedProjects = async () => {
     const data = await hygraphClient.request(query);
     return data.projects;
   } catch (error) {
-    console.error('GraphQL Error:', error);
-    throw new Error('Could not load featured projects.', { cause: error });
+    console.error("GraphQL Error:", error);
+    throw new Error("Could not load featured projects.", { cause: error });
   }
 };
 
@@ -96,17 +96,16 @@ export const fetchAllProjects = async () => {
         liveDemoVisibility
         caseStudySlug
         thumbnail { url }
-        technologies { ... on Technology { name } }
+        technologies(first: 100) { ... on Technology { name } }
       }
     }
   `;
   try {
     const data = await hygraphClient.request(query);
-    console.log("GraphQL projects:", data.projects);
     return data.projects;
   } catch (error) {
-    console.error('GraphQL Error:', error);
-    throw new Error('Could not load projects.', { cause: error });
+    console.error("GraphQL Error:", error);
+    throw new Error("Could not load projects.", { cause: error });
   }
 };
 
@@ -130,8 +129,8 @@ export const fetchProjectBySlug = async (slug) => {
         liveDemoVisibility
         caseStudySlug
         thumbnail { url }
-        screenshots { url }
-        technologies { ... on Technology { name slug } }
+        screenshots(first: 100) { url }
+        technologies(first: 100) { ... on Technology { name slug } }
       }
     }
   `;
@@ -139,8 +138,8 @@ export const fetchProjectBySlug = async (slug) => {
     const data = await hygraphClient.request(query, { slug });
     return data.project;
   } catch (error) {
-    console.error('GraphQL Error:', error);
-    throw new Error('Could not load project.', { cause: error });
+    console.error("GraphQL Error:", error);
+    throw new Error("Could not load project.", { cause: error });
   }
 };
 
@@ -155,8 +154,8 @@ export const fetchProjectCategories = async () => {
     const categories = data.projects.map((p) => p.category).filter(Boolean);
     return [...new Set(categories)];
   } catch (error) {
-    console.error('GraphQL Error:', error);
-    throw new Error('Could not load project categories.', { cause: error });
+    console.error("GraphQL Error:", error);
+    throw new Error("Could not load project categories.", { cause: error });
   }
 };
 
@@ -181,8 +180,8 @@ export const fetchFeaturedBlogPost = async () => {
     const data = await hygraphClient.request(query);
     return data.blogPosts[0] || null;
   } catch (error) {
-    console.error('GraphQL Error:', error);
-    throw new Error('Could not load featured blog post.', { cause: error });
+    console.error("GraphQL Error:", error);
+    throw new Error("Could not load featured blog post.", { cause: error });
   }
 };
 
@@ -206,8 +205,8 @@ export const fetchAllBlogPosts = async () => {
     const data = await hygraphClient.request(query);
     return data.blogPosts;
   } catch (error) {
-    console.error('GraphQL Error:', error);
-    throw new Error('Could not load blog posts.', { cause: error });
+    console.error("GraphQL Error:", error);
+    throw new Error("Could not load blog posts.", { cause: error });
   }
 };
 
@@ -231,7 +230,7 @@ export const fetchBlogPostBySlug = async (slug) => {
     const data = await hygraphClient.request(query, { slug });
     return data.blogPost;
   } catch (error) {
-    console.error('GraphQL Error:', error);
-    throw new Error('Could not load blog post.', { cause: error });
+    console.error("GraphQL Error:", error);
+    throw new Error("Could not load blog post.", { cause: error });
   }
 };
