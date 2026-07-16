@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { motion } from "framer-motion";
 import theme from "../../../styles/theme";
 
 export const SectionWrapper = styled.section`
@@ -9,7 +10,15 @@ export const SectionWrapper = styled.section`
   background-color: ${theme.colors.primaryDark};
 `;
 
-export const ContentGrid = styled.div`
+export const AccentLine = styled(motion.div)`
+  width: 64px;
+  height: 2px;
+  background-color: ${theme.colors.primary};
+  transform-origin: left center;
+  margin-top: -30px;
+`;
+
+export const ContentGrid = styled(motion.div)`
   width: 100%;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -25,7 +34,7 @@ export const ContentGrid = styled.div`
   }
 `;
 
-export const ServiceCard = styled.div`
+export const ServiceCard = styled(motion.div)`
   padding: 28px 20px;
   display: flex;
   flex-direction: column;
@@ -35,11 +44,17 @@ export const ServiceCard = styled.div`
   border: 1px solid transparent;
   border-radius: 15px;
   height: 100%;
-  transition: border-color 0.2s ease, transform 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 
   &:hover {
     border-color: rgba(${theme.colors.primaryRgb}, 0.35);
-    transform: translateY(-3px);
+    box-shadow: 0 14px 28px -14px rgba(0, 0, 0, 0.5);
+  }
+
+  .icon-wrap {
+    display: inline-flex;
   }
 `;
 
@@ -79,4 +94,12 @@ export const ServiceTag = styled.span`
   background-color: rgba(${theme.colors.primaryRgb}, 0.12);
   color: ${theme.colors.primary};
   letter-spacing: 0.02em;
+`;
+
+export const EmptyState = styled(motion.p)`
+  text-align: center;
+  color: ${theme.colors.gray};
+  font-size: ${theme.typography.size.sm};
+  padding: 40px 0;
+  opacity: 0.6;
 `;
