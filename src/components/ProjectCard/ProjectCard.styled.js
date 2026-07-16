@@ -1,5 +1,5 @@
-import styled, { keyframes } from 'styled-components';
-import theme from '../../styles/theme';
+import styled, { keyframes } from "styled-components";
+import theme from "../../styles/theme";
 
 const shimIn = keyframes`
   from { opacity: 0; transform: translateY(20px); }
@@ -13,7 +13,9 @@ export const CardWrapper = styled.article`
   display: flex;
   flex-direction: column;
   height: 100%;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
   animation: ${shimIn} 0.45s ease both;
   animation-delay: ${({ $index }) => `${$index * 0.09}s`};
   cursor: pointer;
@@ -26,7 +28,8 @@ export const CardWrapper = styled.article`
 
   &:hover {
     transform: translateY(-5px);
-    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.4),
+    box-shadow:
+      0 20px 48px rgba(0, 0, 0, 0.4),
       0 0 0 1px rgba(${theme.colors.primaryRgb}, 0.18);
   }
 `;
@@ -69,7 +72,7 @@ export const CardHead = styled.div`
   gap: 0.375rem;
 
   .card-title {
-    font-size: ${theme.typography.heading.h3};
+    font-size: ${theme.typography.heading.h5};
     font-weight: ${theme.typography.weight.semibold};
     line-height: 1.2;
   }
@@ -77,17 +80,12 @@ export const CardHead = styled.div`
   .meta {
     display: flex;
     align-items: center;
-    flex-wrap: nowrap;
-    gap: 0.6rem;
+    flex-wrap: wrap;
+    gap: 0.4rem;
     font-size: ${theme.typography.size.xs};
     color: rgba(255, 255, 255, 0.5);
     margin: 0;
-    min-width: 0; /* allows shrinking */
-
-    .meta-wrapper {
-      display: flex;
-      gap: 5px;
-    }
+    min-width: 0;
 
     .sep {
       opacity: 0.35;
@@ -97,13 +95,25 @@ export const CardHead = styled.div`
 
     .category {
       color: ${theme.colors.primary};
-      font-weight: ${theme.typography.weight.medium};
+      font-weight: ${theme.typography.weight.semibold};
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
-    /* Duration also should not wrap */
+    .label {
+      color: rgba(255, 255, 255, 0.4);
+      font-weight: ${theme.typography.weight.medium};
+    }
+
+    & > div {
+      display: flex;
+      align-items: center;
+      gap: 0.15rem;
+      flex-shrink: 0;
+      min-width: 0;
+    }
+
     & > div:last-child dd {
       white-space: nowrap;
       overflow: hidden;

@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import theme from '../../../styles/theme';
+import styled from "styled-components";
+import theme from "../../../styles/theme";
 
 export const SectionWrapper = styled.section`
   display: flex;
@@ -11,12 +11,15 @@ export const SectionWrapper = styled.section`
 
 export const ContentGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  column-gap: 2.188rem;
-  row-gap: 2.188rem;
+  grid-template-columns: 1fr;
+  gap: 2.188rem;
   width: 100%;
 
-  @media ${theme.media.tablet} {
-    grid-template-columns: 1fr;
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 1200px) {
+    grid-template-columns: repeat(3, 1fr);
   }
 `;
