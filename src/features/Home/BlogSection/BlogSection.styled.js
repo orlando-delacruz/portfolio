@@ -1,16 +1,20 @@
+// BlogSection.styled.js
 import styled, { css } from "styled-components";
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import theme from "../../../styles/theme";
-// Shared card styles (border, hover, focus)
+
+const MotionLink = motion(Link);
+
 const cardStyles = css`
   display: flex;
   border-radius: 20px;
   border: 1px solid ${theme.colors.primary};
   background-color: ${theme.colors.sectionBackground};
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  transition: box-shadow 0.2s ease-in-out;
   cursor: pointer;
 
   &:hover {
-    transform: translateY(-4px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
   }
 
@@ -36,7 +40,7 @@ export const ContentWrapper = styled.div`
   width: 100%;
 `;
 
-export const ContentGrid = styled.div`
+export const ContentGrid = styled(motion.div)`
   display: grid;
   grid-template-columns: 1fr 1.5fr;
   gap: 35px;
@@ -52,21 +56,50 @@ export const LeftContent = styled.div`
   width: 100%;
 `;
 
-export const MainBlogCard = styled.div`
+export const MainBlogCard = styled(MotionLink)`
   ${cardStyles}
   flex-direction: column;
   padding: 10px;
   gap: 10px;
+
+  ${({ $featured }) =>
+    $featured &&
+    css`
+      box-shadow:
+        0 0 0 1px rgba(${theme.colors.primaryRgb}, 0.25),
+        0 24px 48px -28px rgba(${theme.colors.primaryRgb}, 0.45);
+    `}
+`;
+
+export const MainBlogThumbnailWrap = styled.div`
+  position: relative;
+  width: 100%;
+  max-width: 490px;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: ${theme.colors.secondary};
 `;
 
 export const MainBlogThumbnail = styled.img`
   width: 100%;
-  max-width: 490px;
   height: auto;
-  border-radius: 10px;
   object-fit: cover;
   aspect-ratio: 490 / 250;
-  background-color: ${theme.colors.secondary};
+  display: block;
+`;
+
+export const FeaturedBadge = styled(motion.span)`
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background-color: ${theme.colors.primary};
+  color: ${theme.colors.white};
+  font-size: ${theme.typography.size.xs};
+  font-weight: ${theme.typography.weight.semibold};
+  letter-spacing: 0.02em;
 `;
 
 export const MainBlogBody = styled.div`
@@ -138,9 +171,10 @@ export const RightContent = styled.div`
   width: 100%;
 `;
 
-export const SecondaryBlogCard = styled.div`
+export const SecondaryBlogCard = styled(MotionLink)`
   ${cardStyles}
   flex-direction: row;
+  align-items: center;
   padding: 10px;
   gap: 10px;
   align-items: stretch;
@@ -150,19 +184,28 @@ export const SecondaryBlogCard = styled.div`
   }
 `;
 
-export const SecondaryBlogThumbnail = styled.img`
+export const SecondaryBlogThumbnailWrap = styled.div`
+  position: relative;
   width: 200px;
   min-width: 200px;
-  height: auto;
-  border-radius: 10px;
-  object-fit: cover;
   aspect-ratio: 200 / 117;
+  border-radius: 10px;
+  overflow: hidden;
   background-color: ${theme.colors.secondary};
 
   @media ${theme.media.mobile} {
     width: 100%;
     min-width: unset;
   }
+`;
+
+export const SecondaryBlogThumbnail = styled.img`
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 `;
 
 export const SecondaryBlogBody = styled.div`
@@ -226,4 +269,12 @@ export const SecondaryBlogBody = styled.div`
     overflow: hidden;
     text-overflow: ellipsis;
   }
+`;
+
+export const EmptyState = styled(motion.p)`
+  text-align: center;
+  color: ${theme.colors.gray};
+  font-size: ${theme.typography.size.sm};
+  padding: 40px 0;
+  opacity: 0.6;
 `;
