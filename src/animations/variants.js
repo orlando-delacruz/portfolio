@@ -168,6 +168,16 @@ export const iconHover = {
   tap: { scale: 0.94, transition: { duration: 0.1, ease: "easeOut" } },
 };
 
+export const cardIn = {
+  hidden: { opacity: 0, y: 30, scale: 0.98 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: duration.item, ease: ease.standard },
+  },
+};
+
 // Subtle lift on hover for cards/images/panels. Only animates `y`
 // (transform) — pair with a plain CSS box-shadow/border transition
 // for the rest of the "lift" effect so Motion and CSS never fight

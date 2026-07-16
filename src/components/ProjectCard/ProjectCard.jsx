@@ -4,7 +4,14 @@ import { GoDotFill } from "react-icons/go";
 import ProjectLinkButton from "../ProjectLinkButton";
 import { getGitHubLabel } from "../../utils/githubUtils";
 import { capitalizeFirstLetter } from "../../utils/stringUtils";
+import { cardIn, hoverLift } from "../../animations";
 import * as S from "./ProjectCard.styled";
+
+const cardMotion = {
+  ...cardIn,
+  hover: hoverLift.hover,
+  tap: { scale: 0.98, transition: { duration: 0.1, ease: "easeOut" } },
+};
 
 const ProjectCard = ({ project, index }) => {
   const navigate = useNavigate();
@@ -49,12 +56,14 @@ const ProjectCard = ({ project, index }) => {
 
   return (
     <S.CardWrapper
-      $index={index}
       aria-label={title}
       role="link"
       tabIndex={0}
       onClick={handleCardClick}
       onKeyDown={handleKeyDown}
+      variants={cardMotion}
+      whileHover="hover"
+      whileTap="tap"
     >
       <S.Thumbnail>
         <img
@@ -106,7 +115,6 @@ const ProjectCard = ({ project, index }) => {
               }
             />
 
-            {/* GitHub Button – no statusText, label already conveys the state */}
             <ProjectLinkButton
               url={fallbackGitHub}
               visibility={gitVisibility}

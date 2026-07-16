@@ -1,9 +1,11 @@
 import styled from "styled-components";
+import { motion } from "framer-motion";
 import { FaArrowRight } from "react-icons/fa";
 import theme from "../../../styles/theme";
 import { Link } from "react-router-dom";
+import { buttonHover, viewport } from "../../../animations";
 
-const ViewAllLink = styled(Link)`
+const ViewAllLink = styled(motion.create(Link))`
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -32,9 +34,19 @@ const ViewAllLink = styled(Link)`
     border-radius: 3.125rem;
   }
 `;
+
 const ViewAll = ({ link, label, "aria-label": ariaLabel }) => {
   return (
-    <ViewAllLink to={link} aria-label={ariaLabel || label}>
+    <ViewAllLink
+      to={link}
+      aria-label={ariaLabel || label}
+      variants={buttonHover}
+      initial="hidden"
+      whileInView="visible"
+      whileHover="hover"
+      whileTap="tap"
+      viewport={viewport(0.4)}
+    >
       <FaArrowRight aria-hidden="true" />
       {label}
     </ViewAllLink>

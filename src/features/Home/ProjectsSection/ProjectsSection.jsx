@@ -4,6 +4,7 @@ import ViewAll from "../../../components/Buttons/ViewAll";
 import ProjectCard from "../../../components/ProjectCard";
 import Loading from "../../../components/Loading";
 import { fetchFeaturedProjects } from "../../../services/hygraph";
+import { staggerContainer, fadeIn, viewport } from "../../../animations";
 import * as S from "./ProjectsSection.styled";
 
 const ProjectsSection = ({ id }) => {
@@ -39,9 +40,9 @@ const ProjectsSection = ({ id }) => {
   if (error) {
     return (
       <S.SectionWrapper id={id}>
-        <p style={{ color: "rgba(255,255,255,0.5)", textAlign: "center" }}>
+        <S.ErrorState variants={fadeIn} initial="hidden" animate="visible">
           {error}
-        </p>
+        </S.ErrorState>
       </S.SectionWrapper>
     );
   }
@@ -49,9 +50,9 @@ const ProjectsSection = ({ id }) => {
   if (projects.length === 0) {
     return (
       <S.SectionWrapper id={id}>
-        <p style={{ color: "rgba(255,255,255,0.4)", textAlign: "center" }}>
+        <S.EmptyState variants={fadeIn} initial="hidden" animate="visible">
           No featured projects yet. Please mark projects as featured in Hygraph.
-        </p>
+        </S.EmptyState>
       </S.SectionWrapper>
     );
   }
@@ -65,7 +66,13 @@ const ProjectsSection = ({ id }) => {
         arialabel="projects-heading"
       />
 
-      <S.ContentGrid role="list">
+      <S.ContentGrid
+        role="list"
+        variants={staggerContainer(0.1)}
+        initial="hidden"
+        whileInView="visible"
+        viewport={viewport(0.15)}
+      >
         {projects.map((project, index) => (
           <ProjectCard key={project.slug} project={project} index={index} />
         ))}

@@ -1,23 +1,15 @@
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
+import { motion } from "framer-motion";
 import theme from "../../styles/theme";
 
-const shimIn = keyframes`
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
-`;
-
-export const CardWrapper = styled.article`
+export const CardWrapper = styled(motion.article)`
   border-radius: 1.25rem;
   overflow: hidden;
   background-color: ${theme.colors.secondary};
   display: flex;
   flex-direction: column;
   height: 100%;
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
-  animation: ${shimIn} 0.45s ease both;
-  animation-delay: ${({ $index }) => `${$index * 0.09}s`};
+  transition: box-shadow 0.25s ease;
   cursor: pointer;
 
   &:focus-visible {
@@ -27,7 +19,6 @@ export const CardWrapper = styled.article`
   }
 
   &:hover {
-    transform: translateY(-5px);
     box-shadow:
       0 20px 48px rgba(0, 0, 0, 0.4),
       0 0 0 1px rgba(${theme.colors.primaryRgb}, 0.18);
