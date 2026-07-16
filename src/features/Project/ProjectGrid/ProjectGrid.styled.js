@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import theme from '../../../styles/theme';
+import styled from "styled-components";
+import theme from "../../../styles/theme";
 
 export const GridSection = styled.section`
   background-color: ${theme.colors.sectionBackground};
@@ -14,12 +14,16 @@ export const ResultCount = styled.p`
 
 export const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr;
   gap: 2.188rem;
   align-items: stretch;
 
-  @media ${theme.media.tablet} {
-    grid-template-columns: 1fr;
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 1200px) {
+    grid-template-columns: repeat(3, 1fr);
   }
 `;
 

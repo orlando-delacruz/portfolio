@@ -3,6 +3,7 @@ import { FaExternalLinkAlt, FaGithub } from "react-icons/fa";
 import { GoDotFill } from "react-icons/go";
 import ProjectLinkButton from "../ProjectLinkButton";
 import { getGitHubLabel } from "../../utils/githubUtils";
+import { capitalizeFirstLetter } from "../../utils/stringUtils";
 import * as S from "./ProjectCard.styled";
 
 const ProjectCard = ({ project, index }) => {
@@ -29,11 +30,12 @@ const ProjectCard = ({ project, index }) => {
   const fallbackGitHub = links?.github || githubUrl;
   const fallbackLive = links?.live || liveDemoUrl;
 
-  // Use githubVisibility directly; fallback based on URL existence
   const gitVisibility =
-    githubVisibility || (fallbackGitHub ? "Public" : "None");
+    githubVisibility || (fallbackGitHub ? "public" : "none");
   const liveVisibility =
-    liveDemoVisibility || (fallbackLive ? "Available" : "Unavailable");
+    liveDemoVisibility || (fallbackLive ? "available" : "unavailable");
+
+  const formattedCategory = capitalizeFirstLetter(category);
 
   const handleCardClick = () => navigate(`/projects/${slug}`);
   const handleKeyDown = (e) => {
@@ -69,14 +71,18 @@ const ProjectCard = ({ project, index }) => {
         <S.CardHead>
           <h3 className="card-title">{title}</h3>
           <dl className="meta" aria-label={`${title} metadata`}>
-            <div className="meta-wrapper">
-              <dt className="sr-only">Category</dt>
-              <dd className="category">{category}</dd>
+            <div>
+              <dd>
+                <span className="label">Category: </span>
+                <span className="category">{formattedCategory}</span>
+              </dd>
             </div>
             <GoDotFill className="sep" aria-hidden="true" />
-            <div className="meta-wrapper">
-              <dt className="sr-only">Duration</dt>
-              <dd>{duration}</dd>
+            <div>
+              <dd>
+                <span className="label">Duration: </span>
+                <span>{duration}</span>
+              </dd>
             </div>
           </dl>
         </S.CardHead>
@@ -93,9 +99,9 @@ const ProjectCard = ({ project, index }) => {
               label="Live Demo"
               icon={FaExternalLinkAlt}
               variant="primary"
-              statusText={liveVisibility === "Coming Soon" ? "Soon" : ""}
+              statusText={liveVisibility === "coming_soon" ? "Soon" : ""}
               tooltipText={
-                liveVisibility === "Coming Soon" ? "Coming Soon" : ""
+                liveVisibility === "coming_soon" ? "Coming Soon" : ""
               }
             />
 
@@ -106,16 +112,16 @@ const ProjectCard = ({ project, index }) => {
               icon={FaGithub}
               variant="ghost"
               statusText={
-                gitVisibility === "Private"
+                gitVisibility === "private"
                   ? "Private"
-                  : gitVisibility === "None"
+                  : gitVisibility === "none"
                     ? "None"
                     : ""
               }
               tooltipText={
-                gitVisibility === "Private"
+                gitVisibility === "private"
                   ? "This repository is private and cannot be viewed publicly."
-                  : gitVisibility === "None"
+                  : gitVisibility === "none"
                     ? "No GitHub repository is available for this project."
                     : ""
               }
