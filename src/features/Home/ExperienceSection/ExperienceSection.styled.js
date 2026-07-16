@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { motion } from "framer-motion";
 import theme from "../../../styles/theme";
 
 export const SectionWrapper = styled.section`
@@ -8,27 +9,27 @@ export const SectionWrapper = styled.section`
   gap: 50px;
 `;
 
-export const Timeline = styled.ol`
+export const Timeline = styled(motion.ol)`
   display: flex;
   flex-direction: column;
   width: 100%;
   max-width: 720px;
   list-style: none;
   position: relative;
-
-  &::before {
-    content: "";
-    position: absolute;
-    left: 7px;
-    top: 0;
-    bottom: 0;
-    width: 5px;
-    background-color: rgba(${theme.colors.primaryRgb}, 0.5);
-    border-radius: 2px;
-  }
 `;
 
-export const TimelineEntry = styled.li`
+export const TimelineLine = styled(motion.div)`
+  position: absolute;
+  left: 7px;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  background-color: rgba(${theme.colors.primaryRgb}, 0.5);
+  border-radius: 2px;
+  transform-origin: top;
+`;
+
+export const TimelineEntry = styled(motion.li)`
   display: flex;
   gap: 24px;
   padding-bottom: 32px;
@@ -49,7 +50,7 @@ export const DotCol = styled.div`
   padding-top: 6px;
 `;
 
-export const Dot = styled.div`
+export const Dot = styled(motion.div)`
   width: 20px;
   height: 20px;
   border-radius: 100%;
@@ -58,7 +59,7 @@ export const Dot = styled.div`
   flex-shrink: 0;
 `;
 
-export const JourneyCard = styled.div`
+export const JourneyCard = styled(motion.div)`
   flex: 1;
   background-color: ${theme.colors.secondary};
   border: 1px solid transparent;
@@ -67,10 +68,13 @@ export const JourneyCard = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
-  transition: border-color 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 
   &:hover {
     border-color: rgba(${theme.colors.primaryRgb}, 0.35);
+    box-shadow: 0 14px 26px -14px rgba(0, 0, 0, 0.5);
   }
 
   @media ${theme.media.mobile} {
@@ -78,7 +82,7 @@ export const JourneyCard = styled.div`
   }
 `;
 
-export const DateBadge = styled.div`
+export const DateBadge = styled(motion.div)`
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -92,21 +96,21 @@ export const DateBadge = styled.div`
   letter-spacing: 0.02em;
 `;
 
-export const Position = styled.h3`
+export const Position = styled(motion.h3)`
   font-size: ${theme.typography.size.lg};
   font-weight: ${theme.typography.weight.semibold};
   color: ${theme.colors.white};
   margin: 4px 0 0;
 `;
 
-export const Company = styled.p`
+export const Company = styled(motion.p)`
   font-size: ${theme.typography.size.sm};
   font-weight: ${theme.typography.weight.regular};
   color: ${theme.colors.gray};
   margin: 0;
 `;
 
-export const CardBody = styled.p`
+export const CardBody = styled(motion.p)`
   font-size: ${theme.typography.size.sm};
   color: ${theme.colors.gray};
   line-height: 1.65;
