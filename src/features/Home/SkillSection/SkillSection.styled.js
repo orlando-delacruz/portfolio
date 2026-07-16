@@ -1,14 +1,15 @@
-import styled, { css } from 'styled-components';
-import theme from '../../../styles/theme';
+import styled, { css } from "styled-components";
+import { motion } from "framer-motion";
+import theme from "../../../styles/theme";
 
-export const SectionWrapper = styled.section`
+export const SectionWrapper = styled(motion.section)`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 50px;
 `;
 
-export const SkillNavigation = styled.nav`
+export const SkillNavigation = styled(motion.nav)`
   display: flex;
   justify-content: center;
 `;
@@ -23,22 +24,27 @@ export const TabList = styled.ul`
 `;
 
 export const TabButton = styled.button`
+  position: relative;
   padding: 8px 20px;
   border-radius: 8px;
   font-size: ${theme.typography.size.sm};
   font-weight: ${theme.typography.weight.medium};
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition: color 0.2s ease;
   color: ${theme.colors.gray};
   cursor: pointer;
+  overflow: hidden;
+
+  .tab-label {
+    position: relative;
+    z-index: 1;
+  }
 
   ${({ $active }) =>
     $active
       ? css`
-          background-color: ${theme.colors.primary};
           color: ${theme.colors.white};
         `
       : css`
-          background-color: transparent;
           color: ${theme.colors.gray};
 
           &:hover {
@@ -53,6 +59,14 @@ export const TabButton = styled.button`
   }
 `;
 
+export const ActiveIndicator = styled(motion.span)`
+  position: absolute;
+  inset: 0;
+  background-color: ${theme.colors.primary};
+  border-radius: 8px;
+  z-index: 0;
+`;
+
 export const TabPanel = styled.div`
   width: 100%;
   min-height: 200px;
@@ -64,7 +78,7 @@ export const TabPanel = styled.div`
   }
 `;
 
-export const ContentGrid = styled.div`
+export const ContentGrid = styled(motion.div)`
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 35px;
@@ -80,7 +94,7 @@ export const ContentGrid = styled.div`
   }
 `;
 
-export const SkillCard = styled.div`
+export const SkillCard = styled(motion.article)`
   padding: 16px 10px;
   background-color: ${theme.colors.secondary};
   border-radius: 10px;
@@ -89,11 +103,17 @@ export const SkillCard = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  transition: border-color 0.2s ease, transform 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 
   &:hover {
     border-color: rgba(${theme.colors.primaryRgb}, 0.4);
-    transform: translateY(-2px);
+    box-shadow: 0 12px 24px -12px rgba(0, 0, 0, 0.45);
+  }
+
+  .icon-wrap {
+    display: inline-flex;
   }
 
   img.icon {
@@ -123,7 +143,7 @@ export const SkillCard = styled.div`
   }
 `;
 
-export const EmptyState = styled.p`
+export const EmptyState = styled(motion.p)`
   text-align: center;
   color: ${theme.colors.gray};
   font-size: ${theme.typography.size.sm};

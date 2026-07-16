@@ -1,3 +1,4 @@
+// src/animations/variants.js
 import { ease, duration, stagger } from "./transitions";
 
 /* ---------- Generic entrance variants ---------- */

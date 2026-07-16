@@ -1,3 +1,4 @@
+// src/animations/transitions.js
 // Centralized timing tokens. Variants import from here so every
 // entrance/hover animation across the site shares the same feel,
 // and global timing can be retuned in one place.

@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import SectionHeading from "../../../components/SectionHeading";
 import Loading from "../../../components/Loading";
 import { fetchTechnologiesWithCategories } from "../../../services/hygraph";
@@ -6,6 +7,16 @@ import {
   getDisplayLabel,
   getSortedCategories,
 } from "../../../utils/categoryUtils";
+import {
+  fadeUp,
+  fadeIn,
+  staggerContainer,
+  cardIn,
+  hoverLift,
+  iconHover,
+  stagger,
+  viewport,
+} from "../../../animations";
 import * as S from "./SkillSection.styled";
 
 const heading = {
@@ -20,6 +31,7 @@ const SkillSection = ({ id }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [activeCategory, setActiveCategory] = useState("");
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     const loadTechnologies = async () => {
@@ -28,7 +40,6 @@ const SkillSection = ({ id }) => {
         const data = await fetchTechnologiesWithCategories();
         setTechnologies(data);
 
-        // Set first available category as active
         if (data.length > 0) {
           const categories = getSortedCategories(data.map((t) => t.category));
           if (categories.length > 0) {
@@ -44,7 +55,6 @@ const SkillSection = ({ id }) => {
     loadTechnologies();
   }, []);
 
-  // Group technologies by category
   const groupedTechnologies = useMemo(() => {
     const groups = {};
     technologies.forEach((tech) => {
@@ -57,7 +67,6 @@ const SkillSection = ({ id }) => {
     return groups;
   }, [technologies]);
 
-  // Get sorted categories
   const categories = useMemo(() => {
     return getSortedCategories(Object.keys(groupedTechnologies));
   }, [groupedTechnologies]);
@@ -81,6 +90,24 @@ const SkillSection = ({ id }) => {
     },
     [categories],
   );
+
+  // Card hover: hoverLift covers the y-lift; scale is composed in
+  // since the shared variant doesn't define one. Skipped entirely
+  // under reduced motion.
+  const cardWhileHover = shouldReduceMotion
+    ? undefined
+    : { ...hoverLift.hover, scale: 1.03 };
+
+  // Icon hover: iconHover covers scale/y; a small rotation is
+  // composed in for this one spot per the "2-4deg max" guidance.
+  const iconWhileHover = shouldReduceMotion
+    ? undefined
+    : { ...iconHover.hover, rotate: 3 };
+
+  const gridVariants = shouldReduceMotion
+    ? fadeIn
+    : staggerContainer(stagger.group);
+  const itemVariants = shouldReduceMotion ? fadeIn : cardIn;
 
   if (loading) {
     return (
@@ -111,7 +138,13 @@ const SkillSection = ({ id }) => {
   }
 
   return (
-    <S.SectionWrapper id={id}>
+    <S.SectionWrapper
+      id={id}
+      variants={staggerContainer(stagger.section, 0.1)}
+      initial="hidden"
+      whileInView="visible"
+      viewport={viewport(0.25)}
+    >
       <SectionHeading
         pretitle={heading.pretitle}
         title={heading.title}
@@ -119,7 +152,13 @@ const SkillSection = ({ id }) => {
         arialabel={heading.ariaLabel}
       />
 
-      <S.SkillNavigation aria-label="Skill categories">
+      <S.SkillNavigation
+        aria-label="Skill categories"
+        variants={shouldReduceMotion ? fadeIn : fadeUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={viewport(0.3)}
+      >
         <S.TabList role="tablist">
           {categories.map((category, index) => {
             const isActive = category === activeCategory;
@@ -137,7 +176,17 @@ const SkillSection = ({ id }) => {
                 onKeyDown={(e) => handleKeyDown(e, index)}
                 tabIndex={isActive ? 0 : -1}
               >
-                {displayLabel}
+                {isActive && (
+                  <S.ActiveIndicator
+                    layoutId="activeTabPill"
+                    transition={
+                      shouldReduceMotion
+                        ? { duration: 0 }
+                        : { type: "spring", stiffness: 380, damping: 32 }
+                    }
+                  />
+                )}
+                <span className="tab-label">{displayLabel}</span>
               </S.TabButton>
             );
           })}
@@ -151,19 +200,36 @@ const SkillSection = ({ id }) => {
         tabIndex={0}
       >
         {activeSkills.length > 0 ? (
-          <S.ContentGrid>
+          <S.ContentGrid
+            key={activeCategory}
+            variants={gridVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewport(0.25)}
+          >
             {activeSkills.map((skill) => (
-              <S.SkillCard key={skill.slug} as="article">
+              <S.SkillCard
+                key={skill.slug}
+                variants={itemVariants}
+                whileHover={cardWhileHover}
+                whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
+              >
                 {skill.icon?.url ? (
-                  <img
-                    className="icon"
-                    src={skill.icon.url}
-                    alt=""
-                    aria-hidden="true"
-                    loading="lazy"
-                    width={50}
-                    height={50}
-                  />
+                  <motion.span
+                    className="icon-wrap"
+                    whileHover={iconWhileHover}
+                    whileTap={shouldReduceMotion ? undefined : iconHover.tap}
+                  >
+                    <img
+                      className="icon"
+                      src={skill.icon.url}
+                      alt=""
+                      aria-hidden="true"
+                      loading="lazy"
+                      width={50}
+                      height={50}
+                    />
+                  </motion.span>
                 ) : (
                   <div className="icon-placeholder" aria-hidden="true" />
                 )}
@@ -172,7 +238,15 @@ const SkillSection = ({ id }) => {
             ))}
           </S.ContentGrid>
         ) : (
-          <S.EmptyState>No skills listed for this category yet.</S.EmptyState>
+          <S.EmptyState
+            key={`${activeCategory}-empty`}
+            variants={fadeIn}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewport(0.2)}
+          >
+            No skills listed for this category yet.
+          </S.EmptyState>
         )}
       </S.TabPanel>
     </S.SectionWrapper>
