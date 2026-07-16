@@ -1,8 +1,9 @@
 import styled from "styled-components";
+import { motion } from "framer-motion";
 import theme from "../../../styles/theme";
 import { Link } from "react-router-dom";
 
-export const AboutWrapper = styled.section`
+export const AboutWrapper = styled(motion.section)`
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 35px;
@@ -18,32 +19,39 @@ export const LeftContent = styled.div`
   align-items: center;
   justify-content: center;
 `;
-export const ImageWrapper = styled.div`
+export const ImageWrapper = styled(motion.div)`
   max-width: 638px;
   width: 100%;
   max-height: 430px;
   height: 100%;
   border: 2px solid ${theme.colors.primary};
   border-radius: 20px;
-  transition: all 0.3s ease;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
 
   .about-image {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    transition: all 0.3s ease;
-
-    &:hover {
-      transform: scale(1.06);
-    }
+    transition: transform 0.3s ease;
   }
 
   &:hover {
-    border: 2px solid ${theme.colors.primaryLight};
+    border-color: ${theme.colors.primaryLight};
+    box-shadow: 0 12px 40px rgba(${theme.colors.primaryRgb}, 0.25);
+  }
+
+  &:hover .about-image {
+    transform: scale(1.06);
   }
 `;
 
-export const RightContent = styled(LeftContent)`
+export const RightContent = styled(motion.div)`
+  display: flex;
+  flex-direction: column;
   gap: 35px;
   justify-content: start;
   align-items: start;
@@ -53,7 +61,7 @@ export const RightContent = styled(LeftContent)`
   }
 `;
 
-export const Heading = styled.div`
+export const Heading = styled(motion.div)`
   display: flex;
   flex-direction: column;
 
@@ -76,19 +84,19 @@ export const Heading = styled.div`
   }
 `;
 
-export const Description = styled.div`
+export const Description = styled(motion.div)`
   display: flex;
   flex-direction: column;
   gap: 35px;
 `;
 
-export const ActionButton = styled(Link)`
+export const ActionButton = styled(motion.create(Link))`
   color: ${theme.colors.white};
   background-color: ${theme.colors.primary};
   border-radius: 50px;
   padding: 10px 20px;
   font-size: ${theme.typography.size.body};
-  transition: all 0.3s ease;
+  transition: background-color 0.3s ease;
 
   &:hover {
     background-color: ${theme.colors.primaryLight};
