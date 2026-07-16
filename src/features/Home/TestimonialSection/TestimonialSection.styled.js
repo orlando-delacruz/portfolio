@@ -1,10 +1,7 @@
-import styled, { keyframes } from "styled-components";
+// TestimonialSection.styled.js
+import styled from "styled-components";
+import { motion } from "framer-motion";
 import theme from "../../../styles/theme";
-
-const fadeInUp = keyframes`
-  from { opacity: 0; transform: translateY(10px); }
-  to   { opacity: 1; transform: translateY(0); }
-`;
 
 export const SectionWrapper = styled.section`
   display: flex;
@@ -22,12 +19,11 @@ export const ContentWrapper = styled.div`
   width: 100%;
 `;
 
-export const ContentGrid = styled.div`
+export const ContentGrid = styled(motion.div)`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 28px;
   width: 100%;
-  animation: ${fadeInUp} 0.35s ease both;
 
   @media ${theme.media.tablet} {
     grid-template-columns: repeat(2, 1fr);
@@ -40,30 +36,22 @@ export const ContentGrid = styled.div`
   }
 `;
 
-export const TestimonialCard = styled.article`
+export const TestimonialCard = styled(motion.article)`
   display: flex;
   flex-direction: column;
   gap: 20px;
   padding: 24px;
   border-radius: 20px;
   background: ${theme.colors.secondary};
-  will-change: transform, box-shadow;
   border: 1px solid transparent;
-  transition: all 0.3s ease;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
   cursor: default;
 
   &:hover {
-    transform: translateY(-6px);
     box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
-    border: 1px solid ${theme.colors.primary};
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    will-change: auto;
-    transition: none;
-    &:hover {
-      transform: none;
-    }
+    border-color: ${theme.colors.primary};
   }
 `;
 
@@ -74,8 +62,8 @@ export const CardHeader = styled.div`
   position: relative;
 `;
 
-export const QuoteIcon = styled.div`
-padding: 10px;
+export const QuoteIcon = styled(motion.div)`
+  padding: 10px;
   background-color: ${theme.colors.primaryDark};
   border-radius: 50%;
   display: flex;
@@ -92,7 +80,7 @@ padding: 10px;
   }
 `;
 
-export const Profile = styled.img`
+export const Profile = styled(motion.img)`
   width: 58px;
   height: 58px;
   border-radius: 50%;
@@ -113,7 +101,7 @@ export const ProfileDetails = styled.div`
   gap: 2px;
 `;
 
-export const Name = styled.h3`
+export const Name = styled(motion.h3)`
   font-size: ${theme.typography.size.md};
   font-weight: ${theme.typography.weight.semibold};
   white-space: nowrap;
@@ -121,7 +109,7 @@ export const Name = styled.h3`
   text-overflow: ellipsis;
 `;
 
-export const Position = styled.p`
+export const Position = styled(motion.p)`
   font-size: ${theme.typography.size.sm};
   color: rgba(255, 255, 255, 0.6);
   white-space: nowrap;
@@ -129,7 +117,7 @@ export const Position = styled.p`
   text-overflow: ellipsis;
 `;
 
-export const Ratings = styled.div`
+export const Ratings = styled(motion.div)`
   display: flex;
   align-items: center;
   gap: 3px;
@@ -140,7 +128,11 @@ export const Ratings = styled.div`
   }
 `;
 
-export const Quote = styled.p`
+export const StarWrap = styled(motion.span)`
+  display: inline-flex;
+`;
+
+export const Quote = styled(motion.p)`
   font-size: ${theme.typography.size.sm};
   line-height: 1.7;
   color: rgba(255, 255, 255, 0.8);
@@ -186,7 +178,7 @@ export const ActionButtons = styled.div`
   flex-wrap: wrap;
 `;
 
-export const NavButton = styled.button`
+export const NavButton = styled(motion.button)`
   padding: 20px;
   border: none;
   border-radius: 50%;
@@ -197,17 +189,15 @@ export const NavButton = styled.button`
   background: ${theme.colors.primary};
   color: ${theme.colors.white};
   flex-shrink: 0;
-  transition: all 0.2s ease;
+  transition: background-color 0.2s ease;
 
   &:hover:not(:disabled) {
-    transform: scale(1.1);
     background-color: ${theme.colors.primaryLight};
   }
 
   &:disabled {
     opacity: 0.35;
     cursor: not-allowed;
-    transform: none;
   }
 
   &:focus-visible {
@@ -219,8 +209,12 @@ export const NavButton = styled.button`
     font-size: 1rem;
     pointer-events: none;
   }
+`;
 
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
+export const EmptyState = styled(motion.p)`
+  text-align: center;
+  color: ${theme.colors.gray};
+  font-size: ${theme.typography.size.sm};
+  padding: 40px 0;
+  opacity: 0.6;
 `;
