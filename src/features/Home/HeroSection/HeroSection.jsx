@@ -1,5 +1,13 @@
 import * as S from "./HeroSection.styled";
 import heroData from "../../../data/pages/Home/heroData";
+import {
+  staggerContainer,
+  fadeUp,
+  heroImageIn,
+  buttonHover,
+  iconHover,
+  defaultViewport,
+} from "../../../animations";
 
 const {
   heroImage,
@@ -19,22 +27,32 @@ const SecondaryIcon = secondaryButton.icon;
 const HeroSection = ({ id }) => {
   return (
     <S.HeroWrapper id={id}>
-      <S.HeroContainer>
-
+      <S.HeroContainer
+        variants={staggerContainer()}
+        initial="hidden"
+        whileInView="visible"
+        viewport={defaultViewport}
+      >
         {/* LEFT SIDE */}
-        <S.LeftContent>
-          <S.Heading>
-            <S.Badge>{role}</S.Badge>
+        <S.LeftContent variants={staggerContainer()}>
+          <S.Heading variants={staggerContainer(undefined, 0)}>
+            <S.Badge variants={fadeUp}>{role}</S.Badge>
 
-            <S.Title>
+            <S.Title variants={fadeUp}>
               {title} <span>{highlightTitle}</span>
             </S.Title>
 
-            <S.SubTitle>{subtitle}</S.SubTitle>
+            <S.SubTitle variants={fadeUp}>{subtitle}</S.SubTitle>
           </S.Heading>
 
-          <S.ActionButtons>
-            <S.PrimaryButton href={primaryButton.link}>
+          <S.ActionButtons variants={fadeUp}>
+            <S.PrimaryButton
+              href={primaryButton.link}
+              variants={buttonHover}
+              initial="rest"
+              whileHover="hover"
+              whileTap="tap"
+            >
               <PrimaryIcon />
               {primaryButton.label}
             </S.PrimaryButton>
@@ -43,13 +61,17 @@ const HeroSection = ({ id }) => {
               to={secondaryButton.link}
               target="_blank"
               rel="noopener noreferrer"
+              variants={buttonHover}
+              initial="rest"
+              whileHover="hover"
+              whileTap="tap"
             >
               <SecondaryIcon />
               {secondaryButton.label}
             </S.SecondaryButton>
           </S.ActionButtons>
 
-          <S.SocialLinkWrapper>
+          <S.SocialLinkWrapper variants={fadeUp}>
             {socialLinks.map(({ id, icon: Icon, link, label }) => (
               <S.SocialLink
                 key={id}
@@ -57,6 +79,10 @@ const HeroSection = ({ id }) => {
                 aria-label={label}
                 target="_blank"
                 rel="noopener noreferrer"
+                variants={iconHover}
+                initial="rest"
+                whileHover="hover"
+                whileTap="tap"
               >
                 <Icon aria-hidden="true" />
               </S.SocialLink>
@@ -66,7 +92,7 @@ const HeroSection = ({ id }) => {
 
         {/* RIGHT SIDE */}
         <S.RightContent>
-          <S.HeroImageWrapper>
+          <S.HeroImageWrapper variants={heroImageIn}>
             <img
               className="hero-image"
               src={heroImage}
@@ -75,15 +101,12 @@ const HeroSection = ({ id }) => {
               height={240}
               fetchPriority="high"
               loading="eager"
-              decoding="async" />
+              decoding="async"
+            />
           </S.HeroImageWrapper>
 
-          {/* Each skill is mapped to its own floating card.
-              Position and mobile position come from heroData.
-              $index drives the alternating up/down float direction. */}
           {skills.map((skill, index) => {
             const Icon = skill.icon;
-
             return (
               <S.SkillCard
                 key={skill.id}
@@ -97,7 +120,10 @@ const HeroSection = ({ id }) => {
                 $index={index}
               >
                 <Icon
-                  style={{ color: skill.color, fontSize: "clamp(0.85rem, 2.5vw, 1.4rem)" }}
+                  style={{
+                    color: skill.color,
+                    fontSize: "clamp(0.85rem, 2.5vw, 1.4rem)",
+                  }}
                   aria-hidden="true"
                 />
                 <span>{skill.label}</span>
@@ -105,7 +131,6 @@ const HeroSection = ({ id }) => {
             );
           })}
         </S.RightContent>
-
       </S.HeroContainer>
     </S.HeroWrapper>
   );

@@ -1,4 +1,5 @@
 import styled, { keyframes } from "styled-components";
+import { motion } from "framer-motion";
 import theme from "../../../styles/theme";
 import { Link } from "react-router-dom";
 
@@ -17,7 +18,7 @@ export const HeroWrapper = styled.section`
 
 /* ================= CONTAINER ================= */
 
-export const HeroContainer = styled.div`
+export const HeroContainer = styled(motion.div)`
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -31,7 +32,7 @@ export const HeroContainer = styled.div`
 
 /* ================= LEFT SIDE ================= */
 
-export const LeftContent = styled.div`
+export const LeftContent = styled(motion.div)`
   display: flex;
   flex-direction: column;
   gap: 35px;
@@ -45,7 +46,7 @@ export const LeftContent = styled.div`
 
 /* ================= HEADING ================= */
 
-export const Heading = styled.div`
+export const Heading = styled(motion.div)`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -54,7 +55,7 @@ export const Heading = styled.div`
 
 /* ================= BADGE ================= */
 
-export const Badge = styled.span`
+export const Badge = styled(motion.span)`
   background-color: ${theme.colors.primary};
   padding: 5px 15px;
   border-radius: 50px;
@@ -67,7 +68,7 @@ export const Badge = styled.span`
 
 /* ================= TITLE ================= */
 
-export const Title = styled.h1`
+export const Title = styled(motion.h1)`
   font-size: ${theme.typography.heading.h1};
   font-weight: ${theme.typography.weight.semibold};
   text-align: center;
@@ -82,13 +83,13 @@ export const Title = styled.h1`
 
 /* ================= SUBTITLE ================= */
 
-export const SubTitle = styled.p`
+export const SubTitle = styled(motion.p)`
   text-align: center;
 `;
 
 /* ================= BUTTONS ================= */
 
-export const ActionButtons = styled.div`
+export const ActionButtons = styled(motion.div)`
   display: flex;
   gap: 24px;
   flex-wrap: nowrap;
@@ -99,12 +100,11 @@ export const ActionButtons = styled.div`
   }
 `;
 
-export const PrimaryButton = styled.a`
+export const PrimaryButton = styled(motion.a)`
   padding: 15px 30px;
   background-color: ${theme.colors.primary};
   border-radius: 50px;
   font-size: ${theme.typography.size.lg};
-  transition: all 0.2s ease;
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -117,7 +117,6 @@ export const PrimaryButton = styled.a`
 
   &:hover {
     background-color: ${theme.colors.primaryLight};
-    transform: scale(1.05);
   }
 
   @media ${theme.media.mobile} {
@@ -125,12 +124,12 @@ export const PrimaryButton = styled.a`
     padding: 10px 15px;
 
     svg {
-    font-size: ${theme.typography.size.md};
-  }
+      font-size: ${theme.typography.size.md};
+    }
   }
 `;
 
-export const SecondaryButton = styled(Link)`
+export const SecondaryButton = styled(motion.create(Link))`
   padding: 15px 30px;
   border-radius: 50px;
   background-color: transparent;
@@ -138,21 +137,18 @@ export const SecondaryButton = styled(Link)`
   color: ${theme.colors.white};
   font-size: ${theme.typography.size.lg};
   cursor: pointer;
-    display: flex;
+  display: flex;
   justify-content: center;
   align-items: center;
   gap: 10px;
-  transition: all 0.2s ease;
 
   svg {
     font-size: ${theme.typography.size.xl};
   }
 
   &:hover {
-    transform: scale(1.05);
     background-color: ${theme.colors.primary};
-  border: 1px solid ${theme.colors.primary};
-
+    border: 1px solid ${theme.colors.primary};
   }
 
   @media ${theme.media.mobile} {
@@ -160,19 +156,19 @@ export const SecondaryButton = styled(Link)`
     padding: 10px 15px;
 
     svg {
-    font-size: ${theme.typography.size.md};
-  }
+      font-size: ${theme.typography.size.md};
+    }
   }
 `;
 
 /* ================= SOCIALS ================= */
 
-export const SocialLinkWrapper = styled.div`
+export const SocialLinkWrapper = styled(motion.div)`
   display: flex;
   gap: 16px;
 `;
 
-export const SocialLink = styled.a`
+export const SocialLink = styled(motion.a)`
   padding: 10px;
   border: 1px solid ${theme.colors.primary};
   border-radius: 50%;
@@ -180,13 +176,11 @@ export const SocialLink = styled.a`
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: all 0.2s ease-in-out;
   font-size: ${theme.typography.size.xl};
 
   &:hover {
     background-color: rgba(${theme.colors.primaryRgb}, 0.1);
     color: ${theme.colors.white};
-    transform: scale(1.05);
   }
 `;
 
@@ -205,7 +199,7 @@ export const RightContent = styled.div`
 
 /* ================= IMAGE ================= */
 
-export const HeroImageWrapper = styled.div`
+export const HeroImageWrapper = styled(motion.div)`
   width: 100%;
   max-width: 638px;
 
@@ -216,16 +210,14 @@ export const HeroImageWrapper = styled.div`
   }
 `;
 
-/* ================= FLOAT ANIMATIONS ================= */
+/* ================= FLOAT ANIMATIONS (SkillCard only) ================= */
 
-/* Even-indexed cards (0, 2, 4) — float UP first */
 const floatUp = keyframes`
   0%   { transform: translateY(0px); }
   50%  { transform: translateY(-10px); }
   100% { transform: translateY(0px); }
 `;
 
-/* Odd-indexed cards (1, 3) — float DOWN first, opposite phase */
 const floatDown = keyframes`
   0%   { transform: translateY(0px); }
   50%  { transform: translateY(10px); }
@@ -237,12 +229,9 @@ const floatDown = keyframes`
 export const SkillCard = styled.div`
   position: absolute;
 
-  /* Desktop positions from heroData */
   top: ${({ $top }) => $top ?? "0"};
   left: ${({ $left }) => $left ?? "0"};
 
-  /* Padding, gap, font-size all use clamp() for fluid scaling
-     between mobile and desktop without hard breakpoint jumps */
   padding: clamp(5px, 1.5vw, 10px) clamp(8px, 2vw, 14px);
   gap: clamp(4px, 1vw, 8px);
   font-size: clamp(0.6rem, 1.8vw, ${theme.typography.size.sm});
@@ -260,15 +249,11 @@ export const SkillCard = styled.div`
   white-space: nowrap;
   z-index: 10;
 
-  /* Even cards float up, odd cards float down — creates natural
-     alternating movement so cards feel independent of each other.
-     animation-delay staggers the start time on top of that. */
-  animation: ${({ $index }) => ($index % 2 === 0 ? floatUp : floatDown)} 3s ease-in-out infinite;
+  animation: ${({ $index }) => ($index % 2 === 0 ? floatUp : floatDown)} 3s
+    ease-in-out infinite;
   animation-delay: ${({ $index }) => ($index ?? 0) * 0.4}s;
 
-  /* On mobile: switch to tighter mobilePosition values from heroData */
-
-   @media ${theme.media.tablet} {
+  @media ${theme.media.tablet} {
     top: ${({ $tabletTop }) => $tabletTop ?? "0"};
     left: ${({ $tabletLeft }) => $tabletLeft ?? "0"};
   }

@@ -17,6 +17,7 @@ If you are developing a production application, we recommend using TypeScript wi
 
 ```
 orlando-portfolio
+├─ .env
 ├─ eslint.config.js
 ├─ index.html
 ├─ package.json
@@ -35,62 +36,62 @@ orlando-portfolio
 │  │  │  ├─ inter-v20-latin-500.woff2
 │  │  │  ├─ inter-v20-latin-600.woff2
 │  │  │  └─ inter-v20-latin-regular.woff2
-│  │  ├─ images
-│  │  │  ├─ about-image.webp
-│  │  │  ├─ blog
-│  │  │  │  ├─ blog-1.webp
-│  │  │  │  ├─ blog-2.webp
-│  │  │  │  ├─ blog-3.webp
-│  │  │  │  └─ blog-4.webp
-│  │  │  ├─ cta-vector.webp
-│  │  │  ├─ cta.webp
-│  │  │  ├─ footer.webp
-│  │  │  ├─ hero-image.webp
-│  │  │  ├─ logo.webp
-│  │  │  ├─ pages
-│  │  │  │  └─ about
-│  │  │  │     └─ about-hero.webp
-│  │  │  ├─ profile-filler.webp
-│  │  │  ├─ projects
-│  │  │  │  ├─ project-1.webp
-│  │  │  │  ├─ project-2.webp
-│  │  │  │  ├─ project-3.webp
-│  │  │  │  └─ project-4.webp
-│  │  │  ├─ services
-│  │  │  │  ├─ backend-learning.webp
-│  │  │  │  ├─ frontend-development.webp
-│  │  │  │  ├─ responsive-design.webp
-│  │  │  │  └─ ui-implementation.webp
-│  │  │  └─ skills
-│  │  │     ├─ adaptability.webp
-│  │  │     ├─ ant-design.webp
-│  │  │     ├─ attention-to-detail.webp
-│  │  │     ├─ bootstrap.webp
-│  │  │     ├─ canva.webp
-│  │  │     ├─ chrome.webp
-│  │  │     ├─ clickup.webp
-│  │  │     ├─ communication.webp
-│  │  │     ├─ css.webp
-│  │  │     ├─ discord.webp
-│  │  │     ├─ git.webp
-│  │  │     ├─ github.webp
-│  │  │     ├─ graphql.webp
-│  │  │     ├─ html.webp
-│  │  │     ├─ javascript.webp
-│  │  │     ├─ laravel.webp
-│  │  │     ├─ lighthouse.webp
-│  │  │     ├─ php.webp
-│  │  │     ├─ problem-solving.webp
-│  │  │     ├─ react.webp
-│  │  │     ├─ rest.webp
-│  │  │     ├─ styled-components.webp
-│  │  │     ├─ tailwind.webp
-│  │  │     ├─ teamwork.webp
-│  │  │     ├─ time-management.webp
-│  │  │     ├─ vite.webp
-│  │  │     └─ vscode.webp
-│  │  ├─ logo.png
-│  │  └─ logo.webp
+│  │  └─ images
+│  │     ├─ about-image.webp
+│  │     ├─ blog
+│  │     │  ├─ blog-1.webp
+│  │     │  ├─ blog-2.webp
+│  │     │  ├─ blog-3.webp
+│  │     │  └─ blog-4.webp
+│  │     ├─ cta-vector.webp
+│  │     ├─ cta.webp
+│  │     ├─ footer.webp
+│  │     ├─ hero-image.webp
+│  │     ├─ logo.webp
+│  │     ├─ pages
+│  │     │  └─ about
+│  │     │     └─ about-hero.webp
+│  │     ├─ profile-filler.webp
+│  │     ├─ projects
+│  │     │  ├─ project-1.webp
+│  │     │  ├─ project-2.webp
+│  │     │  ├─ project-3.webp
+│  │     │  └─ project-4.webp
+│  │     ├─ services
+│  │     │  ├─ backend-learning.webp
+│  │     │  ├─ frontend-development.webp
+│  │     │  ├─ responsive-design.webp
+│  │     │  └─ ui-implementation.webp
+│  │     └─ skills
+│  │        ├─ adaptability.webp
+│  │        ├─ ant-design.webp
+│  │        ├─ attention-to-detail.webp
+│  │        ├─ bootstrap.webp
+│  │        ├─ canva.webp
+│  │        ├─ chrome.webp
+│  │        ├─ clickup.webp
+│  │        ├─ communication.webp
+│  │        ├─ css.webp
+│  │        ├─ discord.webp
+│  │        ├─ git.webp
+│  │        ├─ github.webp
+│  │        ├─ graphql.webp
+│  │        ├─ html.webp
+│  │        ├─ hygraph.png
+│  │        ├─ hygraph.webp
+│  │        ├─ javascript.webp
+│  │        ├─ laravel.webp
+│  │        ├─ lighthouse.webp
+│  │        ├─ php.webp
+│  │        ├─ problem-solving.webp
+│  │        ├─ react.webp
+│  │        ├─ REST.webp
+│  │        ├─ styled-components.webp
+│  │        ├─ tailwind.webp
+│  │        ├─ teamwork.webp
+│  │        ├─ time-management.webp
+│  │        ├─ vite.webp
+│  │        └─ vscode.webp
 │  ├─ components
 │  │  ├─ BreadCrumb
 │  │  │  ├─ BreadCrumb.jsx
@@ -109,15 +110,35 @@ orlando-portfolio
 │  │  │  ├─ Footer.jsx
 │  │  │  ├─ Footer.styled.js
 │  │  │  └─ index.js
+│  │  ├─ ImageLightbox
+│  │  │  ├─ ImageLightbox.jsx
+│  │  │  ├─ ImageLightbox.styled.js
+│  │  │  └─ index.js
 │  │  ├─ Layout
 │  │  │  ├─ index.js
 │  │  │  ├─ Layout.jsx
 │  │  │  └─ Layout.styled.js
+│  │  ├─ Loading
+│  │  │  ├─ index.js
+│  │  │  ├─ Loading.jsx
+│  │  │  └─ Loading.styled.js
 │  │  ├─ Navbar
 │  │  │  ├─ index.js
 │  │  │  ├─ Navbar.jsx
 │  │  │  ├─ Navbar.styled.js
 │  │  │  └─ useActiveSection.js
+│  │  ├─ ProjectCard
+│  │  │  ├─ index.js
+│  │  │  ├─ ProjectCard.jsx
+│  │  │  └─ ProjectCard.styled.js
+│  │  ├─ ProjectLinkButton
+│  │  │  ├─ index.js
+│  │  │  ├─ ProjectLinkButton.jsx
+│  │  │  └─ ProjectLinkButton.styled.js
+│  │  ├─ RichText
+│  │  │  ├─ index.js
+│  │  │  ├─ RichText.jsx
+│  │  │  └─ RichText.styled.js
 │  │  └─ SectionHeading
 │  │     ├─ index.js
 │  │     ├─ SectionHeading.jsx
@@ -134,6 +155,10 @@ orlando-portfolio
 │  │  │  │  ├─ quickFacts.data.js
 │  │  │  │  ├─ story.data.js
 │  │  │  │  └─ whatIDo.data.js
+│  │  │  ├─ Contact
+│  │  │  │  ├─ contactInfo.data.js
+│  │  │  │  ├─ faq.data.js
+│  │  │  │  └─ hero.data.js
 │  │  │  ├─ Home
 │  │  │  │  ├─ aboutData.js
 │  │  │  │  ├─ experienceData.js
@@ -186,6 +211,10 @@ orlando-portfolio
 │  │  │     ├─ Hero.styled.js
 │  │  │     └─ index.js
 │  │  ├─ BlogDetail
+│  │  │  ├─ Author
+│  │  │  │  ├─ Author.jsx
+│  │  │  │  ├─ Author.styled.js
+│  │  │  │  └─ index.js
 │  │  │  ├─ Content
 │  │  │  │  ├─ Content.jsx
 │  │  │  │  ├─ Content.styled.js
@@ -195,6 +224,23 @@ orlando-portfolio
 │  │  │     ├─ Hero.styled.js
 │  │  │     └─ index.js
 │  │  ├─ Contact
+│  │  │  ├─ ContactForm
+│  │  │  │  ├─ ContactForm.jsx
+│  │  │  │  ├─ ContactForm.styled.js
+│  │  │  │  └─ index.js
+│  │  │  ├─ ContactInfo
+│  │  │  │  ├─ ContactInfo.jsx
+│  │  │  │  ├─ ContactInfo.styled.js
+│  │  │  │  └─ index.js
+│  │  │  ├─ FAQ
+│  │  │  │  ├─ FAQ.jsx
+│  │  │  │  ├─ FAQ.styled.js
+│  │  │  │  └─ index.js
+│  │  │  ├─ Hero
+│  │  │  │  ├─ Hero.jsx
+│  │  │  │  ├─ Hero.styled.js
+│  │  │  │  └─ index.js
+│  │  │  └─ index.js
 │  │  ├─ Home
 │  │  │  ├─ AboutSection
 │  │  │  │  ├─ AboutSection.jsx
@@ -248,11 +294,16 @@ orlando-portfolio
 │  │     │  ├─ index.js
 │  │     │  ├─ ProjectDetail.jsx
 │  │     │  └─ ProjectDetail.styled.js
-│  │     └─ ProjectGrid
+│  │     ├─ ProjectGrid
+│  │     │  ├─ index.js
+│  │     │  ├─ ProjectGrid.jsx
+│  │     │  └─ ProjectGrid.styled.js
+│  │     └─ Screenshots
 │  │        ├─ index.js
-│  │        ├─ ProjectCard.jsx
-│  │        ├─ ProjectGrid.jsx
-│  │        └─ ProjectGrid.styled.js
+│  │        ├─ Screenshots.jsx
+│  │        └─ Screenshots.styled.js
+│  ├─ hooks
+│  │  └─ useSectionNavigation.js
 │  ├─ main.jsx
 │  ├─ pages
 │  │  ├─ AboutPage
@@ -260,11 +311,15 @@ orlando-portfolio
 │  │  │  └─ index.js
 │  │  ├─ BlogDetailPage
 │  │  │  ├─ BlogDetailPage.jsx
+│  │  │  ├─ BlogDetailPage.styled.js
 │  │  │  └─ index.js
 │  │  ├─ BlogPage
 │  │  │  ├─ BlogPage.jsx
 │  │  │  └─ index.js
 │  │  ├─ ComingSoon.jsx
+│  │  ├─ ContactPage
+│  │  │  ├─ ContactPage.jsx
+│  │  │  └─ index.js
 │  │  ├─ HomePage
 │  │  │  ├─ HomePage.jsx
 │  │  │  └─ index.js
@@ -277,14 +332,19 @@ orlando-portfolio
 │  ├─ routes
 │  │  └─ AppRoutes.jsx
 │  ├─ services
+│  │  ├─ emailService.js
+│  │  └─ hygraph.js
 │  ├─ styles
 │  │  ├─ fonts.css
 │  │  ├─ global.js
 │  │  ├─ theme.css
 │  │  └─ theme.js
 │  └─ utils
+│     ├─ categoryUtils.js
 │     ├─ convert-images.mjs
-│     └─ ScrollToTop.jsx
+│     ├─ githubUtils.js
+│     ├─ ScrollToTop.jsx
+│     └─ stringUtils.js
 ├─ vercel.json
 ├─ vite.config.js
 └─ yarn.lock
