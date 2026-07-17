@@ -18,11 +18,36 @@ const footerData = {
     "Web developer focused on building responsive and scalable modern web applications.",
 
   socialLinks: [
-    { id: "social-github", href: "https://github.com/orlando-delacruz", icon: FaGithub, label: "Visit my GitHub profile" },
-    { id: "social-linkedin", href: "https://www.linkedin.com/in/orlando-jr-dela-cruz-127998273/", icon: FaLinkedin, label: "Visit my LinkedIn profile" },
-    { id: "social-mail", href: "mailto:orlando.delacruz.dev@gmail.com", icon: IoIosMail, label: "Send me an email" },
-    { id: "social-phone", href: "tel:+639095984478", icon: FaPhone, label: "Call me" },
-    { id: "social-facebook", href: "https://web.facebook.com/orlando.arcangel/", icon: FaFacebook, label: "Visit my Facebook profile" },
+    {
+      id: "social-github",
+      href: "https://github.com/orlando-delacruz",
+      icon: FaGithub,
+      label: "Visit my GitHub profile",
+    },
+    {
+      id: "social-linkedin",
+      href: "https://www.linkedin.com/in/orlando-jr-dela-cruz-127998273/",
+      icon: FaLinkedin,
+      label: "Visit my LinkedIn profile",
+    },
+    {
+      id: "social-mail",
+      href: "mailto:orlando.delacruz.dev@gmail.com",
+      icon: IoIosMail,
+      label: "Send me an email",
+    },
+    {
+      id: "social-phone",
+      href: "tel:+639095984478",
+      icon: FaPhone,
+      label: "Call me",
+    },
+    {
+      id: "social-facebook",
+      href: "https://web.facebook.com/orlando.arcangel/",
+      icon: FaFacebook,
+      label: "Visit my Facebook profile",
+    },
   ],
 
   quickLinksTitle: "Quick Links",
@@ -30,14 +55,34 @@ const footerData = {
   quickLinks: [
     { id: "quick-home", href: "/", label: "Home", type: "page" },
     { id: "quick-about", href: "/about", label: "About", type: "page" },
-    { id: "quick-projects", href: "/projects", label: "Projects", type: "page" },
+    {
+      id: "quick-projects",
+      href: "/projects",
+      label: "Projects",
+      type: "page",
+    },
     { id: "quick-blogs", href: "/blogs", label: "Blogs", type: "page" },
     { id: "quick-contact", href: "/contact", label: "Contact", type: "page" },
     // Section links (only work on Home, but we handle cross-page via hook)
     { id: "quick-skills", href: "#skills", label: "Skills", type: "section" },
-    { id: "quick-services", href: "#services", label: "Services", type: "section" },
-    { id: "quick-testimonials", href: "#testimonials", label: "Testimonials", type: "section" },
-    { id: "quick-experience", href: "#experience", label: "Experience", type: "section" },
+    {
+      id: "quick-services",
+      href: "#services",
+      label: "Services",
+      type: "section",
+    },
+    {
+      id: "quick-testimonials",
+      href: "#testimonials",
+      label: "Testimonials",
+      type: "section",
+    },
+    {
+      id: "quick-experience",
+      href: "#experience",
+      label: "Experience",
+      type: "section",
+    },
   ],
 
   // ═══════════════════════════════════════════════════════════
@@ -54,9 +99,24 @@ const footerData = {
 
   contactTitle: "Contact Us",
   contactLinks: [
-    { id: "contact-location", href: "https://maps.google.com/?q=San+Antonio+Quezon+Philippines", icon: FaLocationDot, label: "Brgy. Bagong Niing, San Antonio, Quezon" },
-    { id: "contact-phone", href: "tel:+639095984478", icon: FaPhone, label: "09095984478" },
-    { id: "contact-mail", href: "mailto:orlando.delacruz.dev@gmail.com", icon: IoIosMail, label: "orlando.delacruz.dev@gmail.com" },
+    {
+      id: "contact-location",
+      href: "https://maps.google.com/?q=San+Antonio+Quezon+Philippines",
+      icon: FaLocationDot,
+      label: "Brgy. Bagong Niing, San Antonio, Quezon",
+    },
+    {
+      id: "contact-phone",
+      href: "tel:+639095984478",
+      icon: FaPhone,
+      label: "09095984478",
+    },
+    {
+      id: "contact-mail",
+      href: "mailto:orlando.delacruz.dev@gmail.com",
+      icon: IoIosMail,
+      label: "orlando.delacruz.dev@gmail.com",
+    },
   ],
 };
 

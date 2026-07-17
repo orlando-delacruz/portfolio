@@ -9,6 +9,7 @@ import ServiceSection from "../../features/Home/ServiceSection";
 import ExperienceSection from "../../features/Home/ExperienceSection";
 import TestimonialSection from "../../features/Home/TestimonialSection";
 import BlogSection from "../../features/Home/BlogSection";
+import { FAQ, ContactForm } from "../../features/Contact";
 
 const HomePage = () => {
   const location = useLocation();
@@ -38,6 +39,8 @@ const HomePage = () => {
       <ExperienceSection id="experience" />
       <TestimonialSection id="testimonials" />
       <BlogSection id="blogs" />
+      <ContactForm id="contact" />
+      <FAQ id="faqs" />
     </Layout>
   );
 };

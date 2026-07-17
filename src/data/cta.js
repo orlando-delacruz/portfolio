@@ -3,7 +3,7 @@ import CtaImage from "../assets/images/cta.webp";
 const ctaData = {
   title: "Let's Build Something Amazing Together",
   description:
-    "I'm currently open to internship opportunities, freelance projects, collaborations, and junior web developer roles.",
+    "I'm currently open to freelance projects, collaborations, and junior web developer roles.",
 
   primaryButton: {
     href: "mailto:orlando.delacruz.dev@gmail.com",

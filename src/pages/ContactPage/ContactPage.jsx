@@ -1,6 +1,6 @@
-import SEO from '../../components/common/SEO';
-import Layout from '../../components/Layout';
-import { Hero, ContactInfo, ContactForm, FAQ } from '../../features/Contact';
+import SEO from "../../components/common/SEO";
+import Layout from "../../components/Layout";
+import { Hero, ContactInfo, ContactForm, FAQ } from "../../features/Contact";
 
 const ContactPage = () => {
   return (
@@ -13,8 +13,8 @@ const ContactPage = () => {
 
       <Layout>
         <Hero />
-        <ContactInfo />
         <ContactForm />
+        <ContactInfo />
         <FAQ />
       </Layout>
     </>

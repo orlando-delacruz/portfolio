@@ -1,9 +1,6 @@
 const hero = {
   breadcrumb: {
-    items: [
-      { label: "Home", href: "/" },
-      { label: "Projects" },
-    ],
+    items: [{ label: "Home", href: "/" }, { label: "Projects" }],
   },
 
   pretitle: "PROJECTS",
@@ -19,13 +16,13 @@ const hero = {
   stats: [
     {
       id: "stat-1",
-      value: "4+",
+      value: "10+",
       label: "Projects Completed",
-      ariaLabel: "4 or more projects completed",
+      ariaLabel: "10 or more projects completed",
     },
     {
       id: "stat-2",
-      value: "10+",
+      value: "24+",
       label: "Technologies Used",
       ariaLabel: "10 or more technologies used",
     },
