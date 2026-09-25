@@ -45,6 +45,13 @@ const TestimonialCard = ({
     setIsClamped(el.scrollHeight > el.clientHeight);
   }, [quote]);
 
+  const initials = (name || "?")
+    .split(" ")
+    .map((part) => part[0])
+    .join("")
+    .toUpperCase()
+    .slice(0, 2);
+
   return (
     <S.TestimonialCard
       itemScope
@@ -65,16 +72,25 @@ const TestimonialCard = ({
           <ImQuotesRight />
         </S.QuoteIcon>
 
-        <S.Profile
-          src={profile}
-          alt={`${name} profile picture`}
-          loading="lazy"
-          decoding="async"
-          width={58}
-          height={58}
-          variants={shouldReduceMotion ? fadeIn : scaleIn}
-          whileHover={shouldReduceMotion ? undefined : iconHover.hover}
-        />
+        {profile ? (
+          <S.Profile
+            src={profile}
+            alt={`${name} profile picture`}
+            loading="lazy"
+            decoding="async"
+            width={58}
+            height={58}
+            variants={shouldReduceMotion ? fadeIn : scaleIn}
+            whileHover={shouldReduceMotion ? undefined : iconHover.hover}
+          />
+        ) : (
+          <S.AvatarFallback
+            aria-hidden="true"
+            variants={shouldReduceMotion ? fadeIn : scaleIn}
+          >
+            {initials}
+          </S.AvatarFallback>
+        )}
 
         <S.Details>
           <S.ProfileDetails>

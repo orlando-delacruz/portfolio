@@ -72,7 +72,7 @@ export const AuthorInfo = styled.div`
   }
 `;
 
-export const AuthorName = styled.h3`
+export const AuthorName = styled.p`
   font-size: ${theme.typography.size.lg};
   font-weight: ${theme.typography.weight.semibold};
   color: ${theme.colors.white};
@@ -88,8 +88,8 @@ export const AuthorRole = styled.p`
 
 export const AuthorBio = styled.p`
   font-size: ${theme.typography.size.sm};
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.7;
+  color: ${theme.colors.textSecondary};
   margin: 0.25rem 0 0 0;
   max-width: 600px;
 

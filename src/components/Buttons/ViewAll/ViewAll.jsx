@@ -8,7 +8,9 @@ import { buttonHover, viewport } from "../../../animations";
 const ViewAllLink = styled(motion.create(Link))`
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
+  min-height: 44px;
   color: ${theme.colors.white};
   font-weight: ${theme.typography.weight.medium};
   font-size: ${theme.typography.size.sm};
@@ -47,8 +49,8 @@ const ViewAll = ({ link, label, "aria-label": ariaLabel }) => {
       whileTap="tap"
       viewport={viewport(0.4)}
     >
-      <FaArrowRight aria-hidden="true" />
       {label}
+      <FaArrowRight aria-hidden="true" />
     </ViewAllLink>
   );
 };

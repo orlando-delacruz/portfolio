@@ -79,29 +79,6 @@ export const HeroInner = styled.div`
   max-width: 820px;
 `;
 
-export const BackLink = styled.div`
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: ${theme.typography.size.sm};
-  color: rgba(255, 255, 255, 0.55);
-  margin-bottom: 0.5rem;
-  cursor: pointer;
-  width: fit-content;
-  text-decoration: none;
-  transition: color 0.2s ease;
-
-  &:hover { color: ${theme.colors.white}; }
-
-  &:focus-visible {
-    outline: 2px solid ${theme.colors.primary};
-    outline-offset: 3px;
-    border-radius: 4px;
-  }
-
-  svg { font-size: 0.85rem; }
-`;
-
 export const CategoryBadge = styled.span`
   display: inline-flex;
   align-items: center;
@@ -131,7 +108,7 @@ export const HeroTitle = styled.h1`
 export const HeroDescription = styled.p`
   font-size: ${theme.typography.size.md};
   line-height: 1.75;
-  color: rgba(255, 255, 255, 0.65);
+  color: ${theme.colors.textSecondary};
   max-width: 680px;
   animation: ${fadeUp} 0.5s ease both;
   animation-delay: 0.2s;
@@ -156,12 +133,12 @@ export const MetaPill = styled.div`
   gap: 0.5rem;
   padding: 0.5rem 1rem;
   background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid ${theme.colors.borderSubtle};
   border-radius: 50px;
   font-size: ${theme.typography.size.sm};
 
   .label {
-    color: rgba(255, 255, 255, 0.4);
+    color: ${theme.colors.textMuted};
     font-size: ${theme.typography.size.xs};
   }
 
@@ -217,11 +194,11 @@ export const HeroCTA = styled.div`
 
   .btn-ghost {
     background: transparent;
-    color: rgba(255, 255, 255, 0.7);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: ${theme.colors.textSecondary};
+    border: 1px solid ${theme.colors.borderStrong};
 
     &:hover {
-      border-color: rgba(255, 255, 255, 0.35);
+      border-color: ${theme.colors.textMuted};
       color: ${theme.colors.white};
       background: rgba(255, 255, 255, 0.06);
     }
@@ -251,7 +228,7 @@ export const ScreenshotWrapper = styled.figure`
   margin: 0;
   border-radius: 1.25rem;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid ${theme.colors.borderSubtle};
   box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
 
   img {
@@ -306,100 +283,6 @@ export const SectionHeading = styled.h2`
   margin-bottom: 1.25rem;
 `;
 
-/* ─── Body text ───────────────────────────────────────────── */
-export const BodyText = styled.p`
-  font-size: ${theme.typography.size.body};
-  line-height: 1.8;
-  color: rgba(255, 255, 255, 0.65);
-`;
-
-/* ─── Highlights list ─────────────────────────────────────── */
-export const HighlightList = styled.ul`
-  display: flex;
-  flex-direction: column;
-  gap: 0.625rem;
-  list-style: none;
-`;
-
-export const HighlightItem = styled.li`
-  display: flex;
-  align-items: center;
-  gap: 0.625rem;
-  font-size: ${theme.typography.size.body};
-  color: rgba(255, 255, 255, 0.8);
-
-  svg {
-    color: ${theme.colors.primary};
-    font-size: 0.9rem;
-    flex-shrink: 0;
-  }
-`;
-
-/* ─── Tech stack grid ─────────────────────────────────────── */
-export const TechGrid = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.625rem;
-`;
-
-export const TechRow = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 0.75rem 1rem;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  border-radius: 10px;
-  transition: background 0.2s ease;
-
-  &:hover {
-    background: rgba(${theme.colors.primaryRgb}, 0.06);
-    border-color: rgba(${theme.colors.primaryRgb}, 0.18);
-  }
-
-  .tech-name {
-    font-size: ${theme.typography.size.sm};
-    font-weight: ${theme.typography.weight.semibold};
-    font-family: ui-monospace, "Fira Code", monospace;
-    color: ${theme.colors.primary};
-    min-width: 140px;
-    flex-shrink: 0;
-  }
-
-  .tech-purpose {
-    font-size: ${theme.typography.size.sm};
-    color: rgba(255, 255, 255, 0.5);
-    line-height: 1.5;
-  }
-`;
-
-/* ─── Challenges ──────────────────────────────────────────── */
-export const ChallengeList = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-`;
-
-export const ChallengeCard = styled.div`
-  padding: 1.5rem;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-left: 3px solid ${theme.colors.primary};
-  border-radius: 0 12px 12px 0;
-
-  h3 {
-    font-size: ${theme.typography.size.body};
-    font-weight: ${theme.typography.weight.semibold};
-    margin-bottom: 0.625rem;
-  }
-
-  p {
-    font-size: ${theme.typography.size.sm};
-    line-height: 1.75;
-    color: rgba(255, 255, 255, 0.6);
-  }
-`;
-
 /* ─── Not found state ─────────────────────────────────────── */
 export const NotFound = styled.div`
   display: flex;
@@ -417,7 +300,7 @@ export const NotFound = styled.div`
   }
 
   p {
-    color: rgba(255, 255, 255, 0.5);
+    color: ${theme.colors.textMuted};
     font-size: ${theme.typography.size.body};
   }
 `;
@@ -441,6 +324,7 @@ export const TechBadge = styled.span`
 
   &:hover {
     background: rgba(${theme.colors.primaryRgb}, 0.25);
-    transform: translateY(-2px);
+    box-shadow: ${theme.elevation.cardHover};
+    transform: translateY(${theme.motion.hoverLift}px);
   }
 `;

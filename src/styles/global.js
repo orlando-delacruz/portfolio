@@ -48,9 +48,32 @@ const GlobalStyle = createGlobalStyle`
         font-weight: ${theme.typography.weight.regular};
     }
 
+    ::selection {
+        background-color: ${theme.colors.primary};
+        color: ${theme.colors.white};
+    }
+
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: ${theme.colors.background};
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: ${theme.colors.secondary};
+        border-radius: 8px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: ${theme.colors.primary};
+    }
+
     a {
         text-decoration: none;
         color: inherit;
+        text-underline-offset: 3px;
     }
 
     ul {

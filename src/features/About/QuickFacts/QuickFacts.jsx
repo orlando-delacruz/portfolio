@@ -1,21 +1,42 @@
-import quickFactsData from "../../../data/pages/About/quickFacts.data";
+import useCmsQuery from "../../../hooks/useCmsQuery";
+import { fetchQuickFacts } from "../../../services/hygraph";
+import { QueryError, SectionSkeleton } from "../../../components/QueryState";
 import * as S from "./QuickFacts.styled";
 
 const QuickFacts = () => {
-  const { heading, cards } = quickFactsData;
+  const { data: cards, loading, error, retry , ref } = useCmsQuery(fetchQuickFacts, { defer: true });
+
+  if (loading) {
+    return (
+      <S.Section ref={ref} aria-label="Loading quick facts">
+        <SectionSkeleton label="Loading quick facts..." lines={2} />
+      </S.Section>
+    );
+  }
+
+  if (error || !cards) {
+    return (
+      <S.Section ref={ref} aria-label="Quick facts">
+        <QueryError
+          message={error || "Quick facts are not published yet."}
+          onRetry={retry}
+        />
+      </S.Section>
+    );
+  }
 
   return (
-    <S.Section aria-labelledby="quick-facts-heading">
+    <S.Section ref={ref} aria-labelledby="quick-facts-heading">
       <S.Header>
-        <S.Heading id="quick-facts-heading">{heading}</S.Heading>
+        <S.Heading id="quick-facts-heading">Quick Facts</S.Heading>
         <S.HeadingAccent aria-hidden="true" />
       </S.Header>
 
       <S.Grid role="list" aria-label="Quick facts about me">
-        {cards.map(({ id, label, value }) => (
-          <S.Card key={id} role="listitem">
+        {cards.map(({ label, value }, index) => (
+          <S.Card key={label} role="listitem">
             <S.CardNumber aria-hidden="true">
-              {String(id).padStart(2, "0")}
+              {String(index + 1).padStart(2, "0")}
             </S.CardNumber>
             <S.CardLabel>{label}</S.CardLabel>
             <S.CardValue>{value}</S.CardValue>

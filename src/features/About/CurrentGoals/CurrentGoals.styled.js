@@ -151,12 +151,12 @@ export const TextBlock = styled.div`
 
 export const Paragraph = styled.p`
   font-size: ${theme.typography.size.body};
-  color: rgba(255, 255, 255, 0.62);
+  color: ${theme.colors.textSecondary};
   line-height: 1.85;
   margin: 0;
 
   &:first-of-type {
-    color: rgba(255, 255, 255, 0.78);
+    color: ${theme.colors.textSecondary};
   }
 `;
 
@@ -203,7 +203,7 @@ export const Tag = styled.li`
   cursor: default;
 
   /* staggered pop-in */
-  animation: ${tagPop} 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation: ${tagPop} 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
   animation-delay: ${({ $index }) => 0.3 + $index * 0.07}s;
 
   &:hover {

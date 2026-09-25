@@ -1,19 +1,50 @@
 import SectionHeading from "../../../components/SectionHeading/SectionHeading";
-import storyData from "../../../data/pages/About/story.data";
+import useCmsQuery from "../../../hooks/useCmsQuery";
+import { fetchAboutStory } from "../../../services/hygraph";
+import { QueryError, SectionSkeleton } from "../../../components/QueryState";
+import HygraphRichText from "../../../components/RichText";
 import * as S from "./Story.styled";
 
 const Story = () => {
-  const { pretitle, heading, headingHighlight, image, paragraphs } = storyData;
+  const { data: story, loading, error, retry , ref } = useCmsQuery(fetchAboutStory, { defer: true });
+
+  if (loading) {
+    return (
+      <S.Section ref={ref} aria-label="Loading story">
+        <SectionSkeleton label="Loading story..." lines={4} />
+      </S.Section>
+    );
+  }
+
+  if (error || !story) {
+    return (
+      <S.Section ref={ref} aria-label="Story">
+        <QueryError
+          message={error || "Story content is not published yet."}
+          onRetry={retry}
+        />
+      </S.Section>
+    );
+  }
+
+  const {
+    pretitle,
+    title: heading,
+    highlight: headingHighlight,
+    image,
+    imageAlt,
+    paragraphs,
+  } = story;
 
   return (
-    <S.Section aria-labelledby="story-heading">
+    <S.Section ref={ref} aria-labelledby="story-heading">
       <S.Container>
         <S.ImageWrapper>
           <S.Image
-            src={image.src}
-            alt={image.alt}
-            width={600}
-            height={700}
+            src={image?.url}
+            alt={imageAlt || "About me"}
+            width={image?.width || 600}
+            height={image?.height || 700}
             loading="lazy"
             decoding="async"
           />
@@ -26,13 +57,12 @@ const Story = () => {
               title={heading}
               highlight={headingHighlight}
               arialabel="story-heading"
+              id="story-heading"
             />
           </S.HeadingWrapper>
 
           <S.Paragraphs>
-            {paragraphs.map((text, index) => (
-              <S.Paragraph key={index}>{text}</S.Paragraph>
-            ))}
+            <HygraphRichText content={paragraphs?.raw} />
           </S.Paragraphs>
         </S.Content>
       </S.Container>

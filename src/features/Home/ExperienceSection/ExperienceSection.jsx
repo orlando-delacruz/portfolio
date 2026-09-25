@@ -1,6 +1,8 @@
 import SectionHeading from "../../../components/SectionHeading";
 import * as S from "./ExperienceSection.styled";
-import experienceData from "../../../data/pages/Home/experienceData";
+import useCmsQuery from "../../../hooks/useCmsQuery";
+import { fetchExperienceSection } from "../../../services/hygraph";
+import { QueryError, SectionSkeleton } from "../../../components/QueryState";
 import {
   fadeUp,
   cardIn,
@@ -13,8 +15,6 @@ import {
   viewport,
 } from "../../../animations";
 import { useReducedMotion } from "framer-motion";
-
-const { heading, experience } = experienceData;
 
 const timelineEntryVariants = {
   hidden: fadeUp.hidden,
@@ -53,17 +53,41 @@ const dotInReduced = {
 const ExperienceSection = ({ id }) => {
   const shouldReduceMotion = useReducedMotion();
 
+  const { data, loading, error, retry , ref } = useCmsQuery(fetchExperienceSection, { defer: true });
+
   const entryVariants = shouldReduceMotion ? fadeIn : timelineEntryVariants;
   const cardVariants = shouldReduceMotion ? fadeIn : journeyCardVariants;
   const dotVariants = shouldReduceMotion ? dotInReduced : dotIn;
 
+  if (loading) {
+    return (
+      <S.SectionWrapper ref={ref} id={id}>
+        <SectionSkeleton label="Loading experience..." lines={3} />
+      </S.SectionWrapper>
+    );
+  }
+
+  if (error || !data?.heading) {
+    return (
+      <S.SectionWrapper ref={ref} id={id}>
+        <QueryError
+          message={error || "Experience content is not published yet."}
+          onRetry={retry}
+        />
+      </S.SectionWrapper>
+    );
+  }
+
+  const { experience, heading } = data;
+
   return (
-    <S.SectionWrapper id={id}>
+    <S.SectionWrapper ref={ref} id={id}>
       <SectionHeading
         pretitle={heading.pretitle}
         title={heading.title}
         highlight={heading.highlight}
-        aria-label={heading.ariaLabel}
+        aria-label="experience-heading"
+        id="experience-heading"
       />
 
       <S.Timeline
@@ -91,35 +115,33 @@ const ExperienceSection = ({ id }) => {
           }
         />
 
-        {experience.map(
-          ({ id: entryId, date, position, company, description }) => (
-            <S.TimelineEntry key={entryId} variants={entryVariants}>
-              <S.DotCol aria-hidden="true">
-                <S.Dot variants={dotVariants} />
-              </S.DotCol>
+        {experience.map(({ slug, date, position, company, description }) => (
+          <S.TimelineEntry key={slug} variants={entryVariants}>
+            <S.DotCol aria-hidden="true">
+              <S.Dot variants={dotVariants} />
+            </S.DotCol>
 
-              <S.JourneyCard
-                as="article"
-                variants={cardVariants}
-                whileHover={shouldReduceMotion ? undefined : hoverLift.hover}
-              >
-                <S.DateBadge variants={shouldReduceMotion ? fadeIn : fadeUp}>
-                  <time>{date}</time>
-                </S.DateBadge>
+            <S.JourneyCard
+              as="article"
+              variants={cardVariants}
+              whileHover={shouldReduceMotion ? undefined : hoverLift.hover}
+            >
+              <S.DateBadge variants={shouldReduceMotion ? fadeIn : fadeUp}>
+                <time>{date}</time>
+              </S.DateBadge>
 
-                <S.Position variants={shouldReduceMotion ? fadeIn : fadeUp}>
-                  {position}
-                </S.Position>
-                <S.Company variants={shouldReduceMotion ? fadeIn : fadeUp}>
-                  {company}
-                </S.Company>
-                <S.CardBody variants={shouldReduceMotion ? fadeIn : fadeUp}>
-                  {description}
-                </S.CardBody>
-              </S.JourneyCard>
-            </S.TimelineEntry>
-          ),
-        )}
+              <S.Position variants={shouldReduceMotion ? fadeIn : fadeUp}>
+                {position}
+              </S.Position>
+              <S.Company variants={shouldReduceMotion ? fadeIn : fadeUp}>
+                {company}
+              </S.Company>
+              <S.CardBody variants={shouldReduceMotion ? fadeIn : fadeUp}>
+                {description}
+              </S.CardBody>
+            </S.JourneyCard>
+          </S.TimelineEntry>
+        ))}
       </S.Timeline>
     </S.SectionWrapper>
   );

@@ -1,11 +1,8 @@
 import styled from "styled-components";
 import theme from "../../styles/theme";
-import footerData from "../../data/footer";
-
-const { footerBg } = footerData;
 
 export const FooterWrapper = styled.footer`
-  padding-top: 112px;
+  padding-top: 64px;
 
   @media ${theme.media.tablet} {
     padding-top: 50px;
@@ -13,7 +10,7 @@ export const FooterWrapper = styled.footer`
 `;
 
 export const FooterContent = styled.section`
-  background: url(${footerBg}) center / cover no-repeat;
+  background: url(${({ $bg }) => $bg}) center / cover no-repeat;
   width: 100%;
   height: 100%;
   position: relative;
@@ -124,12 +121,23 @@ export const FooterSocials = styled.div`
 `;
 
 export const SocialLink = styled.a`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
   color: ${theme.colors.primary};
   font-size: ${theme.typography.size.lg};
   transition: opacity 0.2s ease;
 
   &:hover {
     opacity: 0.75;
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${theme.colors.primary};
+    outline-offset: 2px;
+    border-radius: 8px;
   }
 `;
 

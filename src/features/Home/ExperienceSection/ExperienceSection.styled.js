@@ -23,8 +23,8 @@ export const TimelineLine = styled(motion.div)`
   left: 7px;
   top: 0;
   bottom: 0;
-  width: 5px;
-  background-color: rgba(${theme.colors.primaryRgb}, 0.5);
+  width: 3px;
+  background-color: rgba(${theme.colors.primaryRgb}, 0.75);
   border-radius: 2px;
   transform-origin: top;
 `;
@@ -62,20 +62,12 @@ export const Dot = styled(motion.div)`
 export const JourneyCard = styled(motion.div)`
   flex: 1;
   background-color: ${theme.colors.secondary};
-  border: 1px solid transparent;
+  border: 1px solid ${theme.colors.borderSubtle};
   border-radius: 16px;
   padding: 24px 28px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s ease;
-
-  &:hover {
-    border-color: rgba(${theme.colors.primaryRgb}, 0.35);
-    box-shadow: 0 14px 26px -14px rgba(0, 0, 0, 0.5);
-  }
+  gap: 12px;
 
   @media ${theme.media.mobile} {
     padding: 18px 20px;
@@ -105,16 +97,16 @@ export const Position = styled(motion.h3)`
 
 export const Company = styled(motion.p)`
   font-size: ${theme.typography.size.sm};
-  font-weight: ${theme.typography.weight.regular};
-  color: ${theme.colors.gray};
+  font-weight: ${theme.typography.weight.medium};
+  color: ${theme.colors.textSecondary};
   margin: 0;
 `;
 
 export const CardBody = styled(motion.p)`
   font-size: ${theme.typography.size.sm};
-  color: ${theme.colors.gray};
-  line-height: 1.65;
+  color: ${theme.colors.textMuted};
+  line-height: 1.7;
   margin: 8px 0 0;
   padding-top: 12px;
-  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  border-top: 1px solid ${theme.colors.borderSubtle};
 `;

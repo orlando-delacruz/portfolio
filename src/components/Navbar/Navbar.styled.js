@@ -128,6 +128,8 @@ export const CloseButton = styled.button`
     display: flex;
     align-items: center;
     justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
     color: ${theme.colors.white};
     opacity: 0.7;
     transition: opacity 0.2s ease;
@@ -138,6 +140,12 @@ export const CloseButton = styled.button`
 
     &:hover {
         opacity: 1;
+    }
+
+    &:focus-visible {
+        outline: 2px solid ${theme.colors.primary};
+        outline-offset: 2px;
+        border-radius: 8px;
     }
 `;
 
@@ -189,6 +197,12 @@ export const NavLink = styled.a`
         color: ${theme.colors.primary};
     }
 
+    &:focus-visible {
+        outline: 2px solid ${theme.colors.primary};
+        outline-offset: 4px;
+        border-radius: 4px;
+    }
+
     @media ${theme.media.tablet} {
         display: block;
         padding: 12px 16px;
@@ -216,8 +230,9 @@ export const NavLink = styled.a`
 `;
 
 export const NavButton = styled.button`
-    background: linear-gradient(to right, ${theme.colors.primary}, #153784);
+    background: linear-gradient(to right, ${theme.colors.primary}, ${theme.colors.primaryDark});
     padding: 10px 30px;
+    min-height: 44px;
     border-radius: 50px;
     transition: all 0.2s ease-in-out;
     white-space: nowrap;
@@ -225,6 +240,11 @@ export const NavButton = styled.button`
     &:hover {
         transform: translateY(-2px);
         opacity: 0.9;
+    }
+
+    &:focus-visible {
+        outline: 2px solid ${theme.colors.primary};
+        outline-offset: 3px;
     }
 
     @media ${theme.media.tablet} {
@@ -235,6 +255,8 @@ export const NavButton = styled.button`
 export const MenuButton = styled.button`
     display: none;
     color: ${theme.colors.white};
+    min-width: 44px;
+    min-height: 44px;
 
     svg {
         font-size: 32px;
@@ -243,6 +265,12 @@ export const MenuButton = styled.button`
 
     &:hover svg {
         color: ${theme.colors.primary};
+    }
+
+    &:focus-visible {
+        outline: 2px solid ${theme.colors.primary};
+        outline-offset: 2px;
+        border-radius: 8px;
     }
 
     @media ${theme.media.tablet} {

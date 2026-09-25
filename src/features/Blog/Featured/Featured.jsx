@@ -1,45 +1,29 @@
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FiArrowRight } from "react-icons/fi";
 import { GoDotFill } from "react-icons/go";
+import useCmsQuery from "../../../hooks/useCmsQuery";
 import { fetchFeaturedBlogPost } from "../../../services/hygraph";
-import Loading from "../../../components/Loading";
+import { QueryError, SectionSkeleton } from "../../../components/QueryState";
 import * as S from "./Featured.styled";
 
 const Featured = () => {
-  const [post, setPost] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const loadFeatured = async () => {
-      try {
-        setLoading(true);
-        const data = await fetchFeaturedBlogPost();
-        setPost(data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-    loadFeatured();
-  }, []);
+  const { data: post, loading, error, retry, ref } = useCmsQuery(fetchFeaturedBlogPost, { defer: true });
 
   if (loading) {
     return (
-      <S.FeaturedSection>
-        <Loading fullPage text="Loading featured article..." />
+      <S.FeaturedSection ref={ref}>
+        <SectionSkeleton label="Loading featured article..." lines={2} />
       </S.FeaturedSection>
     );
   }
 
   if (error || !post) {
     return (
-      <S.FeaturedSection>
-        <p style={{ color: "rgba(255,255,255,0.4)", textAlign: "center" }}>
-          No featured article available.
-        </p>
+      <S.FeaturedSection ref={ref}>
+        <QueryError
+          message={error || "No featured article available."}
+          onRetry={retry}
+        />
       </S.FeaturedSection>
     );
   }
@@ -49,7 +33,7 @@ const Featured = () => {
   const thumbnailUrl = thumbnail?.url || "/images/placeholder.webp";
 
   return (
-    <S.FeaturedSection aria-labelledby="featured-article-heading">
+    <S.FeaturedSection ref={ref} aria-labelledby="featured-article-heading">
       <S.SectionLabel aria-hidden="true">Featured</S.SectionLabel>
       <S.Card>
         <S.Thumbnail>

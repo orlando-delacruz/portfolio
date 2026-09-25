@@ -1,46 +1,64 @@
 import SectionHeading from "../../../components/SectionHeading/SectionHeading";
 import * as S from "./MyApproach.styled";
-import {
-  approachCards,
-  approachHeading,
-  approachDescription,
-} from "../../../data/pages/About/myApproach.data";
+import useCmsQuery from "../../../hooks/useCmsQuery";
+import { fetchApproachSection } from "../../../services/hygraph";
+import { getIcon } from "../../../utils/iconMap";
+import { QueryError, SectionSkeleton } from "../../../components/QueryState";
+import HygraphRichText from "../../../components/RichText";
 
 const MyApproach = () => {
   const headingId = "my-approach-heading";
 
+  const { data, loading, error, retry , ref } = useCmsQuery(fetchApproachSection, { defer: true });
+
+  if (loading) {
+    return (
+      <S.Section ref={ref} id="my-approach" aria-label="Loading my approach">
+        <SectionSkeleton label="Loading my approach..." lines={3} />
+      </S.Section>
+    );
+  }
+
+  if (error || !data?.heading) {
+    return (
+      <S.Section ref={ref} id="my-approach" aria-label="My approach">
+        <QueryError
+          message={error || "Approach content is not published yet."}
+          onRetry={retry}
+        />
+      </S.Section>
+    );
+  }
+
+  const { cards, intro, heading } = data;
+
   return (
-    <S.Section id="my-approach" aria-labelledby={headingId}>
+    <S.Section ref={ref} id="my-approach" aria-labelledby={headingId}>
       <S.Layout>
         {/* ── Left: heading + description ─────────────────── */}
         <S.Left>
           <SectionHeading
-            pretitle={approachHeading.pretitle}
-            title={approachHeading.title}
-            highlight={approachHeading.highlight}
-            arialabel={approachHeading.ariaLabel}
+            pretitle={heading.pretitle}
+            title={heading.title}
+            highlight={heading.highlight}
+            arialabel={headingId}
             id={headingId}
           />
 
           <S.Divider />
 
           <S.TextBlock>
-            {approachDescription.map((para, i) => (
-              <S.Paragraph key={i}>{para}</S.Paragraph>
-            ))}
+            <HygraphRichText content={intro?.paragraphs?.raw} />
           </S.TextBlock>
         </S.Left>
 
-        {/* ── Right: value cards ───────────────────────────── */}
-        <S.Right
-          role="list"
-          aria-label="Core approach values"
-        >
-          {approachCards.map((card, index) => {
-            const Icon = card.icon;
+        {/* ── Right: value cards ──────────────────────────── */}
+        <S.Right role="list" aria-label="Core approach values">
+          {cards.map((card, index) => {
+            const Icon = getIcon(card.iconKey);
             return (
               <S.Card
-                key={card.id}
+                key={card.slug}
                 role="article"
                 aria-label={card.title}
                 $index={index}

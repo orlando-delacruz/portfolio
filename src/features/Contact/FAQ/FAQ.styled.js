@@ -11,7 +11,7 @@ export const Section = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 56px;
+  gap: 50px;
 `;
 
 export const Accordion = styled.ul`
@@ -98,17 +98,27 @@ export const Indicator = styled.span`
 `;
 
 export const AnswerWrapper = styled.div`
-  max-height: ${({ $height }) => ($height ? `${$height}px` : '0')};
+  display: grid;
+  grid-template-rows: ${({ $isOpen }) => ($isOpen ? '1fr' : '0fr')};
+  transition: grid-template-rows 0.3s cubic-bezier(0.22, 1, 0.36, 1);
   overflow: hidden;
-  transition: max-height 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+
+  > * {
+    overflow: hidden;
+    min-height: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
 `;
 
 export const AnswerText = styled.div`
   padding: 0 24px 20px 24px;
   font-size: ${theme.typography.size.sm};
   line-height: 1.75;
-  color: rgba(255, 255, 255, 0.6);
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  color: ${theme.colors.textSecondary};
+  border-top: 1px solid ${theme.colors.borderSubtle};
 
   @media ${theme.media.mobile} {
     padding: 0 18px 16px 18px;

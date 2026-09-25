@@ -6,10 +6,14 @@ export const CardWrapper = styled(motion.article)`
   border-radius: 1.25rem;
   overflow: hidden;
   background-color: ${theme.colors.secondary};
+  border: 1px solid ${theme.colors.borderSubtle};
   display: flex;
   flex-direction: column;
   height: 100%;
-  transition: box-shadow 0.25s ease;
+  transition:
+    box-shadow 0.25s ease,
+    transform 0.25s ease,
+    border-color 0.25s ease;
   cursor: pointer;
 
   &:focus-visible {
@@ -19,9 +23,9 @@ export const CardWrapper = styled(motion.article)`
   }
 
   &:hover {
-    box-shadow:
-      0 20px 48px rgba(0, 0, 0, 0.4),
-      0 0 0 1px rgba(${theme.colors.primaryRgb}, 0.18);
+    border-color: rgba(${theme.colors.primaryRgb}, 0.4);
+    box-shadow: ${theme.elevation.cardHover};
+    transform: translateY(${theme.motion.hoverLift}px);
   }
 `;
 
@@ -74,7 +78,7 @@ export const CardHead = styled.div`
     flex-wrap: wrap;
     gap: 0.4rem;
     font-size: ${theme.typography.size.xs};
-    color: rgba(255, 255, 255, 0.5);
+    color: ${theme.colors.textMuted};
     margin: 0;
     min-width: 0;
 
@@ -93,7 +97,7 @@ export const CardHead = styled.div`
     }
 
     .label {
-      color: rgba(255, 255, 255, 0.4);
+      color: ${theme.colors.textMuted};
       font-weight: ${theme.typography.weight.medium};
     }
 
@@ -116,7 +120,7 @@ export const CardHead = styled.div`
 export const CardBody = styled.p`
   font-size: ${theme.typography.size.body};
   line-height: 1.7;
-  color: rgba(255, 255, 255, 0.65);
+  color: ${theme.colors.textSecondary};
   flex: 1;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -127,7 +131,7 @@ export const CardBody = styled.p`
 
 export const Divider = styled.hr`
   border: none;
-  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  border-top: 1px solid ${theme.colors.borderSubtle};
   margin: 0;
 `;
 

@@ -9,13 +9,18 @@ const MotionLink = motion(Link);
 const cardStyles = css`
   display: flex;
   border-radius: 20px;
-  border: 1px solid ${theme.colors.primary};
-  background-color: ${theme.colors.sectionBackground};
-  transition: box-shadow 0.2s ease-in-out;
+  border: 1px solid ${theme.colors.borderSubtle};
+  background-color: ${theme.colors.secondary};
+  transition:
+    box-shadow 0.2s ease-in-out,
+    transform 0.2s ease-in-out,
+    border-color 0.2s ease-in-out;
   cursor: pointer;
 
   &:hover {
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    border-color: rgba(${theme.colors.primaryRgb}, 0.4);
+    box-shadow: ${theme.elevation.card};
+    transform: translateY(${theme.motion.hoverLift}px);
   }
 
   &:focus-visible {
@@ -105,7 +110,7 @@ export const FeaturedBadge = styled(motion.span)`
 export const MainBlogBody = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 16px;
   padding: 20px;
 
   .card-head {
@@ -116,7 +121,7 @@ export const MainBlogBody = styled.div`
     .date {
       font-size: ${theme.typography.size.sm};
       font-weight: ${theme.typography.weight.medium};
-      color: ${theme.colors.gray};
+      color: ${theme.colors.textMuted};
       letter-spacing: 0.3px;
     }
 
@@ -153,8 +158,8 @@ export const MainBlogBody = styled.div`
   .card-description {
     font-size: ${theme.typography.size.body};
     font-weight: ${theme.typography.weight.regular};
-    color: ${theme.colors.gray};
-    line-height: 1.5;
+    color: ${theme.colors.textSecondary};
+    line-height: 1.6;
     margin: 0;
     display: -webkit-box;
     -webkit-line-clamp: 3;
@@ -223,7 +228,7 @@ export const SecondaryBlogBody = styled.div`
     .date {
       font-size: ${theme.typography.size.xs};
       font-weight: ${theme.typography.weight.semibold};
-      color: ${theme.colors.gray};
+      color: ${theme.colors.textMuted};
     }
 
     .title-wrapper {
@@ -260,8 +265,8 @@ export const SecondaryBlogBody = styled.div`
   .card-description {
     font-size: ${theme.typography.size.sm};
     font-weight: ${theme.typography.weight.regular};
-    color: ${theme.colors.gray};
-    line-height: 1.5;
+    color: ${theme.colors.textSecondary};
+    line-height: 1.6;
     margin: 0;
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -273,8 +278,46 @@ export const SecondaryBlogBody = styled.div`
 
 export const EmptyState = styled(motion.p)`
   text-align: center;
-  color: ${theme.colors.gray};
+  color: ${theme.colors.textMuted};
   font-size: ${theme.typography.size.sm};
   padding: 40px 0;
-  opacity: 0.6;
+`;
+
+export const SkeletonGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 35px;
+  width: 100%;
+  min-height: 320px;
+
+  @media ${theme.media.tablet} {
+    grid-template-columns: 1fr;
+  }
+`;
+
+export const SkeletonCard = styled.div`
+  min-height: 320px;
+  border-radius: 20px;
+  border: 1px solid ${theme.colors.borderSubtle};
+  background: linear-gradient(
+    100deg,
+    ${theme.colors.secondary} 40%,
+    rgba(255, 255, 255, 0.04) 50%,
+    ${theme.colors.secondary} 60%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.4s ease-in-out infinite;
+
+  @keyframes skeleton-shimmer {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 `;

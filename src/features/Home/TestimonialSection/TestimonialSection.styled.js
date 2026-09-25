@@ -88,6 +88,21 @@ export const Profile = styled(motion.img)`
   flex-shrink: 0;
 `;
 
+export const AvatarFallback = styled(motion.div)`
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(${theme.colors.primaryRgb}, 0.12);
+  border: 1px solid rgba(${theme.colors.primaryRgb}, 0.35);
+  color: ${theme.colors.primary};
+  font-size: ${theme.typography.size.md};
+  font-weight: ${theme.typography.weight.semibold};
+`;
+
 export const Details = styled.div`
   display: flex;
   flex-direction: column;

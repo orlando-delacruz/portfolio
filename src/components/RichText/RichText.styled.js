@@ -109,7 +109,7 @@ export const H6 = styled.h6`
 export const Paragraph = styled.p`
   font-size: ${theme.typography.size.body};
   line-height: 1.8;
-  color: rgba(255, 255, 255, 0.7);
+  color: ${theme.colors.textSecondary};
   margin: 0;
 `;
 
@@ -118,19 +118,20 @@ export const Paragraph = styled.p`
 export const Blockquote = styled.blockquote`
   padding: 1rem 1.5rem;
   margin: 0;
-  border-left: 4px solid ${theme.colors.primary};
+  border: 1px solid ${theme.colors.borderSubtle};
+  border-top: 2px solid ${theme.colors.primary};
   background: rgba(${theme.colors.primaryRgb}, 0.06);
-  border-radius: 0 8px 8px 0;
+  border-radius: 12px;
 
   p {
     margin: 0;
-    color: rgba(255, 255, 255, 0.75);
+    color: ${theme.colors.textSecondary};
     font-size: ${theme.typography.size.md};
     font-style: italic;
   }
 
   ${Paragraph} {
-    color: rgba(255, 255, 255, 0.75);
+    color: ${theme.colors.textSecondary};
     font-size: ${theme.typography.size.md};
     font-style: italic;
   }
@@ -140,7 +141,7 @@ export const Blockquote = styled.blockquote`
 
 export const HorizontalRule = styled.hr`
   border: none;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid ${theme.colors.borderSubtle};
   margin: 1rem 0;
 `;
 
@@ -179,7 +180,7 @@ export const OrderedList = styled.ol`
 export const ListItem = styled.li`
   font-size: ${theme.typography.size.body};
   line-height: 1.75;
-  color: rgba(255, 255, 255, 0.7);
+  color: ${theme.colors.textSecondary};
   margin-bottom: 0.25rem;
 
   &:last-child {
@@ -193,7 +194,7 @@ export const CodeBlock = styled.div`
   border-radius: 10px;
   overflow: hidden;
   background: ${theme.colors.secondary};
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  border: 1px solid ${theme.colors.borderSubtle};
 
   pre {
     padding: 1.25rem;
@@ -206,7 +207,7 @@ export const CodeBlock = styled.div`
     font-family: ui-monospace, 'Fira Code', monospace;
     font-size: ${theme.typography.size.sm};
     line-height: 1.7;
-    color: rgba(255, 255, 255, 0.8);
+    color: ${theme.colors.textSecondary};
     white-space: pre-wrap;
     word-break: break-word;
   }
@@ -220,7 +221,7 @@ export const RichImage = styled.img`
   border-radius: 12px;
   display: block;
   margin: 0.5rem 0;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid ${theme.colors.borderSubtle};
 
   @media ${theme.media.mobile} {
     border-radius: 8px;

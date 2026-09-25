@@ -52,8 +52,12 @@ export const Spinner = styled.div`
 
 export const LoadingText = styled.p`
   font-size: ${theme.typography.size.sm};
-  color: rgba(255, 255, 255, 0.5);
+  color: ${theme.colors.textMuted};
   animation: ${pulse} 1.5s ease-in-out infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 `;
 
 // Optional: Skeleton loader for cards (for future use)

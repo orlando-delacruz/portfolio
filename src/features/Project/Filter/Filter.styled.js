@@ -29,7 +29,7 @@ export const SearchWrapper = styled.div`
     left: 14px;
     top: 50%;
     transform: translateY(-50%);
-    color: rgba(255, 255, 255, 0.35);
+    color: ${theme.colors.textMuted};
     font-size: 15px;
     pointer-events: none;
   }
@@ -37,9 +37,10 @@ export const SearchWrapper = styled.div`
 
 export const SearchInput = styled.input`
   width: 100%;
+  min-height: 44px;
   padding: 0.625rem 1rem 0.625rem 2.5rem;
   background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid ${theme.colors.borderSubtle};
   border-radius: 50px;
   color: ${theme.colors.white};
   font-family: inherit;
@@ -48,7 +49,7 @@ export const SearchInput = styled.input`
   transition: border-color 0.2s ease, background 0.2s ease;
 
   &::placeholder {
-    color: rgba(255, 255, 255, 0.3);
+    color: ${theme.colors.textMuted};
   }
 
   &:focus {
@@ -68,7 +69,8 @@ export const TabRow = styled.div`
 
 /* ─── Individual tab button ───────────────────────────────── */
 export const TabBtn = styled.button`
-  padding: 0.5rem 1.125rem;
+  padding: 0.625rem 1.125rem;
+  min-height: 44px;
   border-radius: 50px;
   font-size: ${theme.typography.size.sm};
   font-weight: ${theme.typography.weight.medium};
@@ -76,18 +78,18 @@ export const TabBtn = styled.button`
   cursor: pointer;
   border: 1px solid
     ${({ $active }) =>
-    $active ? theme.colors.primary : "rgba(255,255,255,0.12)"};
+    $active ? theme.colors.primary : theme.colors.borderStrong};
   background: ${({ $active }) =>
     $active
       ? theme.colors.primary
       : "rgba(255,255,255,0.04)"};
   color: ${({ $active }) =>
-    $active ? theme.colors.white : "rgba(255,255,255,0.6)"};
+    $active ? theme.colors.white : theme.colors.textMuted};
   transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease,
     transform 0.15s ease;
 
   &:hover:not([aria-pressed="true"]) {
-    border-color: rgba(255, 255, 255, 0.3);
+    border-color: ${theme.colors.textMuted};
     color: ${theme.colors.white};
     background: rgba(255, 255, 255, 0.08);
   }

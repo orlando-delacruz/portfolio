@@ -12,6 +12,9 @@ export const SectionWrapper = styled(motion.section)`
 export const SkillNavigation = styled(motion.nav)`
   display: flex;
   justify-content: center;
+  width: 100%;
+  overflow-x: auto;
+  padding-bottom: 4px;
 `;
 
 export const TabList = styled.ul`
@@ -21,11 +24,15 @@ export const TabList = styled.ul`
   padding: 4px;
   border-radius: 12px;
   list-style: none;
+  max-width: 100%;
+  overflow-x: auto;
 `;
 
 export const TabButton = styled.button`
   position: relative;
-  padding: 8px 20px;
+  padding: 10px 20px;
+  min-height: 44px;
+  white-space: nowrap;
   border-radius: 8px;
   font-size: ${theme.typography.size.sm};
   font-weight: ${theme.typography.weight.medium};
@@ -69,7 +76,7 @@ export const ActiveIndicator = styled(motion.span)`
 
 export const TabPanel = styled.div`
   width: 100%;
-  min-height: 200px;
+  min-height: 280px;
 
   &:focus-visible {
     outline: 2px solid ${theme.colors.primary};
@@ -80,17 +87,18 @@ export const TabPanel = styled.div`
 
 export const ContentGrid = styled(motion.div)`
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 35px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 24px;
   width: 100%;
 
   @media ${theme.media.tablet} {
     grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
   }
 
   @media ${theme.media.mobile} {
     grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    gap: 16px;
   }
 `;
 
@@ -109,7 +117,8 @@ export const SkillCard = styled(motion.article)`
 
   &:hover {
     border-color: rgba(${theme.colors.primaryRgb}, 0.4);
-    box-shadow: 0 12px 24px -12px rgba(0, 0, 0, 0.45);
+    box-shadow: ${theme.elevation.card};
+    transform: translateY(${theme.motion.hoverLift}px);
   }
 
   .icon-wrap {
@@ -139,7 +148,7 @@ export const SkillCard = styled(motion.article)`
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
-    color: ${theme.colors.gray};
+    color: ${theme.colors.textSecondary};
   }
 `;
 

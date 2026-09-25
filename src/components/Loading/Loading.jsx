@@ -13,8 +13,8 @@ const Loading = ({
   fullPage = false,
 }) => {
   return (
-    <S.SpinnerWrapper $fullPage={fullPage}>
-      <S.Spinner $size={size} aria-label="Loading" />
+    <S.SpinnerWrapper $fullPage={fullPage} role="status" aria-live="polite">
+      <S.Spinner $size={size} aria-hidden="true" />
       {text && <S.LoadingText>{text}</S.LoadingText>}
     </S.SpinnerWrapper>
   );

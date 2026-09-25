@@ -49,7 +49,7 @@ export const Grid = styled.ul`
   grid-template-columns: repeat(4, 1fr);
   gap: 1px;
   background-color: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid ${theme.colors.borderSubtle};
   border-radius: 8px;
   overflow: hidden;
 
@@ -135,7 +135,7 @@ export const CardNumber = styled.span`
 export const CardLabel = styled.p`
   font-size: ${theme.typography.size.sm};
   font-weight: ${theme.typography.weight.medium};
-  color: rgba(255, 255, 255, 0.4);
+  color: ${theme.colors.textMuted};
   text-transform: uppercase;
   letter-spacing: 0.1em;
 `;

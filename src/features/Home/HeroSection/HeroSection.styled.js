@@ -1,7 +1,6 @@
 import styled, { keyframes } from "styled-components";
 import { motion } from "framer-motion";
 import theme from "../../../styles/theme";
-import { Link } from "react-router-dom";
 
 /* ================= HERO WRAPPER ================= */
 
@@ -36,11 +35,14 @@ export const LeftContent = styled(motion.div)`
   display: flex;
   flex-direction: column;
   gap: 35px;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
+  text-align: left;
 
   @media ${theme.media.tablet} {
     order: 2;
+    align-items: center;
+    text-align: center;
   }
 `;
 
@@ -49,8 +51,12 @@ export const LeftContent = styled(motion.div)`
 export const Heading = styled(motion.div)`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   gap: 10px;
+
+  @media ${theme.media.tablet} {
+    align-items: center;
+  }
 `;
 
 /* ================= BADGE ================= */
@@ -71,20 +77,32 @@ export const Badge = styled(motion.span)`
 export const Title = styled(motion.h1)`
   font-size: ${theme.typography.heading.h1};
   font-weight: ${theme.typography.weight.semibold};
-  text-align: center;
+  text-align: left;
   line-height: 1.2;
+  text-wrap: balance;
 
   span {
-    background: linear-gradient(to right, ${theme.colors.primary}, #547fdf);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: ${theme.colors.primary};
+  }
+
+  @media ${theme.media.tablet} {
+    text-align: center;
   }
 `;
 
 /* ================= SUBTITLE ================= */
 
 export const SubTitle = styled(motion.p)`
-  text-align: center;
+  text-align: left;
+  max-width: 60ch;
+  color: ${theme.colors.textSecondary};
+  font-size: ${theme.typography.size.md};
+  line-height: 1.65;
+
+  @media ${theme.media.tablet} {
+    text-align: center;
+    max-width: 55ch;
+  }
 `;
 
 /* ================= BUTTONS ================= */
@@ -102,11 +120,13 @@ export const ActionButtons = styled(motion.div)`
 
 export const PrimaryButton = styled(motion.a)`
   padding: 15px 30px;
+  min-height: 44px;
   background-color: ${theme.colors.primary};
+  border: 1px solid ${theme.colors.primary};
   border-radius: 50px;
   font-size: ${theme.typography.size.lg};
   cursor: pointer;
-  display: flex;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
   gap: 10px;
@@ -129,15 +149,16 @@ export const PrimaryButton = styled(motion.a)`
   }
 `;
 
-export const SecondaryButton = styled(motion.create(Link))`
+export const SecondaryButton = styled(motion.a)`
   padding: 15px 30px;
+  min-height: 44px;
   border-radius: 50px;
   background-color: transparent;
   border: 1px solid ${theme.colors.white};
   color: ${theme.colors.white};
   font-size: ${theme.typography.size.lg};
   cursor: pointer;
-  display: flex;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
   gap: 10px;
@@ -147,8 +168,8 @@ export const SecondaryButton = styled(motion.create(Link))`
   }
 
   &:hover {
-    background-color: ${theme.colors.primary};
-    border: 1px solid ${theme.colors.primary};
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: ${theme.colors.white};
   }
 
   @media ${theme.media.mobile} {
@@ -169,11 +190,12 @@ export const SocialLinkWrapper = styled(motion.div)`
 `;
 
 export const SocialLink = styled(motion.a)`
-  padding: 10px;
+  width: 44px;
+  height: 44px;
   border: 1px solid ${theme.colors.primary};
   border-radius: 50%;
   color: ${theme.colors.primary};
-  display: flex;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
   font-size: ${theme.typography.size.xl};
@@ -202,10 +224,11 @@ export const RightContent = styled.div`
 export const HeroImageWrapper = styled(motion.div)`
   width: 100%;
   max-width: 638px;
+  aspect-ratio: 372 / 240;
 
   .hero-image {
     width: 100%;
-    height: auto;
+    height: 100%;
     object-fit: contain;
   }
 `;
@@ -249,9 +272,13 @@ export const SkillCard = styled.div`
   white-space: nowrap;
   z-index: 10;
 
-  animation: ${({ $index }) => ($index % 2 === 0 ? floatUp : floatDown)} 3s
+  animation: ${({ $index }) => ($index % 2 === 0 ? floatUp : floatDown)} 5s
     ease-in-out infinite;
-  animation-delay: ${({ $index }) => ($index ?? 0) * 0.4}s;
+  animation-delay: ${({ $index }) => ($index ?? 0) * 0.6}s;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 
   @media ${theme.media.tablet} {
     top: ${({ $tabletTop }) => $tabletTop ?? "0"};

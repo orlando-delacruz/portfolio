@@ -3,7 +3,9 @@ import { AnimatePresence, useReducedMotion } from "framer-motion";
 import SectionHeading from "../../../components/SectionHeading";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import * as S from "./TestimonialSection.styled";
-import testimonialsData from "../../../data/pages/Home/testimonialsData";
+import useCmsQuery from "../../../hooks/useCmsQuery";
+import { fetchTestimonialsSection } from "../../../services/hygraph";
+import { QueryError, SectionSkeleton } from "../../../components/QueryState";
 import useTestimonialSlider from "./useTestimonialSlider";
 import TestimonialCard from "./TestimonialCard";
 import {
@@ -16,8 +18,7 @@ import {
   viewport,
 } from "../../../animations";
 
-const { heading, testimonials } = testimonialsData;
-const CARDS_PER_VIEW = 6;
+const CARDS_PER_VIEW = 3;
 
 // Local composition: page-level crossfade for slider navigation.
 // Needs a spring (per spec) and staggerChildren for the cards inside —
@@ -58,6 +59,53 @@ const cardVariants = {
 
 const TestimonialSection = () => {
   const shouldReduceMotion = useReducedMotion();
+
+  const { data, loading, error, retry , ref } = useCmsQuery(fetchTestimonialsSection, { defer: true });
+
+  const finalGridVariants = shouldReduceMotion ? fadeIn : gridVariants;
+  const finalCardVariants = shouldReduceMotion ? fadeIn : cardVariants;
+
+  if (loading) {
+    return (
+      <S.SectionWrapper ref={ref} id="testimonials">
+        <SectionSkeleton label="Loading testimonials..." lines={3} />
+      </S.SectionWrapper>
+    );
+  }
+
+  if (error || !data?.heading) {
+    return (
+      <S.SectionWrapper ref={ref} id="testimonials">
+        <QueryError
+          message={error || "Testimonials content is not published yet."}
+          onRetry={retry}
+        />
+      </S.SectionWrapper>
+    );
+  }
+
+  const { testimonials, heading } = data;
+
+  return (
+    <TestimonialSlider
+      testimonials={testimonials}
+      heading={heading}
+      shouldReduceMotion={shouldReduceMotion}
+      finalGridVariants={finalGridVariants}
+      finalCardVariants={finalCardVariants}
+      sectionRef={ref}
+    />
+  );
+};
+
+const TestimonialSlider = ({
+  testimonials,
+  heading,
+  shouldReduceMotion,
+  finalGridVariants,
+  finalCardVariants,
+  sectionRef,
+}) => {
   const {
     totalSlides,
     currentIndex,
@@ -69,17 +117,15 @@ const TestimonialSection = () => {
     isLast,
   } = useTestimonialSlider(testimonials, CARDS_PER_VIEW);
 
-  const finalGridVariants = shouldReduceMotion ? fadeIn : gridVariants;
-  const finalCardVariants = shouldReduceMotion ? fadeIn : cardVariants;
-
   if (!testimonials.length) {
     return (
-      <S.SectionWrapper id="testimonials">
+      <S.SectionWrapper ref={sectionRef} id="testimonials">
         <SectionHeading
           pretitle={heading.pretitle}
           title={heading.title}
           highlight={heading.highlight}
-          ariaLabel={heading.ariaLabel}
+          ariaLabel="testimonials-heading"
+          id="testimonials-heading"
         />
         <S.EmptyState
           variants={fadeIn}
@@ -94,7 +140,7 @@ const TestimonialSection = () => {
   }
 
   return (
-    <S.SectionWrapper
+    <S.SectionWrapper ref={sectionRef}
       id="testimonials"
       aria-labelledby="testimonial-heading"
       onKeyDown={handleKeyDown}
@@ -104,7 +150,7 @@ const TestimonialSection = () => {
         pretitle={heading.pretitle}
         title={heading.title}
         highlight={heading.highlight}
-        ariaLabel={heading.ariaLabel}
+        ariaLabel={heading.ariaLabel || "testimonials-heading"}
       />
 
       <S.ContentWrapper>
@@ -121,9 +167,13 @@ const TestimonialSection = () => {
           >
             {visibleTestimonials.map((testimonial) => (
               <TestimonialCard
-                key={testimonial.id}
+                key={testimonial.name}
                 variants={finalCardVariants}
-                {...testimonial}
+                profile={testimonial.avatar?.url}
+                name={testimonial.name}
+                position={testimonial.position}
+                quote={testimonial.quote}
+                rating={testimonial.rating}
               />
             ))}
           </S.ContentGrid>

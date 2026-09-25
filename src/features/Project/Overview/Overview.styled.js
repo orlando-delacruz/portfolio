@@ -111,7 +111,7 @@ export const Right = styled.div`
 export const Body = styled.p`
   font-size: ${theme.typography.size.md};
   line-height: 1.8;
-  color: rgba(255, 255, 255, 0.65);
+  color: ${theme.colors.textSecondary};
   opacity: 0;
   animation: ${fadeUp} 0.55s ease forwards;
   animation-delay: ${({ $delay }) => $delay ?? "0.25s"};

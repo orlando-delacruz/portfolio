@@ -1,8 +1,10 @@
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import SectionHeading from "../../../components/SectionHeading";
 import Loading from "../../../components/Loading";
-import { fetchTechnologiesWithCategories } from "../../../services/hygraph";
+import useCmsQuery from "../../../hooks/useCmsQuery";
+import { fetchSkillsSection } from "../../../services/hygraph";
+import { QueryError } from "../../../components/QueryState";
 import {
   getDisplayLabel,
   getSortedCategories,
@@ -19,41 +21,13 @@ import {
 } from "../../../animations";
 import * as S from "./SkillSection.styled";
 
-const heading = {
-  pretitle: "Skills & Technologies",
-  title: "My Tech",
-  highlight: "Stack",
-  ariaLabel: "skills and technologies",
-};
-
 const SkillSection = ({ id }) => {
-  const [technologies, setTechnologies] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [activeCategory, setActiveCategory] = useState("");
+  const [categoryOverride, setActiveCategory] = useState(null);
   const shouldReduceMotion = useReducedMotion();
 
-  useEffect(() => {
-    const loadTechnologies = async () => {
-      try {
-        setLoading(true);
-        const data = await fetchTechnologiesWithCategories();
-        setTechnologies(data);
-
-        if (data.length > 0) {
-          const categories = getSortedCategories(data.map((t) => t.category));
-          if (categories.length > 0) {
-            setActiveCategory(categories[0]);
-          }
-        }
-      } catch (err) {
-        setError(err.message || "Failed to load technologies");
-      } finally {
-        setLoading(false);
-      }
-    };
-    loadTechnologies();
-  }, []);
+  const { data, loading, error, retry , ref } = useCmsQuery(fetchSkillsSection, { defer: true });
+  const technologies = useMemo(() => data?.technologies || [], [data]);
+  const heading = data?.heading;
 
   const groupedTechnologies = useMemo(() => {
     const groups = {};
@@ -70,6 +44,10 @@ const SkillSection = ({ id }) => {
   const categories = useMemo(() => {
     return getSortedCategories(Object.keys(groupedTechnologies));
   }, [groupedTechnologies]);
+
+  // Default to the first category; user selection overrides it.
+  // Derived during render — no effect needed.
+  const activeCategory = categoryOverride ?? categories[0] ?? "";
 
   const activeSkills = useMemo(() => {
     return groupedTechnologies[activeCategory] || [];
@@ -111,34 +89,47 @@ const SkillSection = ({ id }) => {
 
   if (loading) {
     return (
-      <S.SectionWrapper id={id}>
+      <S.SectionWrapper ref={ref} id={id}>
         <Loading fullPage text="Loading skills..." />
       </S.SectionWrapper>
     );
   }
 
-  if (error) {
+  if (error || !heading) {
     return (
-      <S.SectionWrapper id={id}>
-        <p style={{ color: "rgba(255,255,255,0.5)", textAlign: "center" }}>
-          Failed to load skills. Please try again later.
-        </p>
+      <S.SectionWrapper ref={ref} id={id}>
+        <QueryError
+          message={error || "Skills content is not published yet."}
+          onRetry={retry}
+        />
       </S.SectionWrapper>
     );
   }
 
   if (categories.length === 0) {
     return (
-      <S.SectionWrapper id={id}>
-        <p style={{ color: "rgba(255,255,255,0.4)", textAlign: "center" }}>
+      <S.SectionWrapper ref={ref} id={id}>
+        <SectionHeading
+          pretitle={heading.pretitle}
+          title={heading.title}
+          highlight={heading.highlight}
+          arialabel="skills-heading"
+          id="skills-heading"
+        />
+        <S.EmptyState
+          variants={fadeIn}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewport(0.2)}
+        >
           No skills found. Please add technologies with categories in Hygraph.
-        </p>
+        </S.EmptyState>
       </S.SectionWrapper>
     );
   }
 
   return (
-    <S.SectionWrapper
+    <S.SectionWrapper ref={ref}
       id={id}
       variants={staggerContainer(stagger.section, 0.1)}
       initial="hidden"
@@ -149,7 +140,8 @@ const SkillSection = ({ id }) => {
         pretitle={heading.pretitle}
         title={heading.title}
         highlight={heading.highlight}
-        arialabel={heading.ariaLabel}
+        arialabel="skills-heading"
+        id="skills-heading"
       />
 
       <S.SkillNavigation

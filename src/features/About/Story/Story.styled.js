@@ -105,7 +105,7 @@ export const Paragraphs = styled.div`
 
 export const Paragraph = styled.p`
   font-size: ${theme.typography.size.body};
-  color: rgba(255, 255, 255, 0.7);
+  color: ${theme.colors.textSecondary};
   line-height: 1.75;
   font-weight: ${theme.typography.weight.regular};
 `;

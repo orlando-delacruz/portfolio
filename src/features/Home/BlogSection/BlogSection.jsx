@@ -1,11 +1,12 @@
 // BlogSection.jsx
-import { useState, useEffect } from "react";
+import { useCallback } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import * as S from "./BlogSection.styled";
 import SectionHeading from "../../../components/SectionHeading";
 import ViewAll from "../../../components/Buttons/ViewAll";
-import Loading from "../../../components/Loading";
-import { fetchAllBlogPosts } from "../../../services/hygraph";
+import useCmsQuery from "../../../hooks/useCmsQuery";
+import { fetchBlogSectionPosts } from "../../../services/hygraph";
+import { QueryError } from "../../../components/QueryState";
 import {
   fadeIn,
   cardIn,
@@ -17,58 +18,61 @@ import {
 } from "../../../animations";
 
 const BlogSection = ({ id }) => {
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const shouldReduceMotion = useReducedMotion();
 
-  useEffect(() => {
-    const loadPosts = async () => {
-      try {
-        setLoading(true);
-        const data = await fetchAllBlogPosts();
-        const sorted = [...data].sort((a, b) => {
-          if (a.isFeatured && !b.isFeatured) return -1;
-          if (!a.isFeatured && b.isFeatured) return 1;
-          if (a.isFeatured && b.isFeatured) {
-            if (a.sortingOrder !== b.sortingOrder) {
-              return (a.sortingOrder || 0) - (b.sortingOrder || 0);
-            }
-            return new Date(b.date) - new Date(a.date);
-          }
-          return new Date(b.date) - new Date(a.date);
-        });
-        setPosts(sorted.slice(0, 3));
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
+  const fetchData = useCallback(async () => {
+    const { posts, heading } = await fetchBlogSectionPosts();
+    const sorted = [...posts].sort((a, b) => {
+      if (a.isFeatured && !b.isFeatured) return -1;
+      if (!a.isFeatured && b.isFeatured) return 1;
+      if (a.isFeatured && b.isFeatured) {
+        if (a.sortingOrder !== b.sortingOrder) {
+          return (a.sortingOrder || 0) - (b.sortingOrder || 0);
+        }
+        return new Date(b.date) - new Date(a.date);
       }
-    };
-    loadPosts();
+      return new Date(b.date) - new Date(a.date);
+    });
+    return { posts: sorted.slice(0, 3), heading };
   }, []);
+
+  const { data, loading, error, retry , ref } = useCmsQuery(fetchData, { defer: true });
+  const posts = data?.posts || [];
+  const heading = data?.heading;
 
   if (loading) {
     return (
-      <S.SectionWrapper id={id}>
-        <Loading fullPage text="Loading blog posts..." />
+      <S.SectionWrapper ref={ref} id={id}>
+        <S.SkeletonGrid aria-label="Loading blog posts">
+          {[0, 1, 2].map((key) => (
+            <S.SkeletonCard key={key} aria-hidden="true" />
+          ))}
+        </S.SkeletonGrid>
       </S.SectionWrapper>
     );
   }
 
-  if (error) {
+  if (error || !heading) {
     return (
-      <S.SectionWrapper id={id}>
-        <p style={{ color: "rgba(255,255,255,0.5)", textAlign: "center" }}>
-          Failed to load blog posts. Please try again later.
-        </p>
+      <S.SectionWrapper ref={ref} id={id}>
+        <QueryError
+          message={error || "Blog content is not published yet."}
+          onRetry={retry}
+        />
       </S.SectionWrapper>
     );
   }
 
   if (posts.length === 0) {
     return (
-      <S.SectionWrapper id={id}>
+      <S.SectionWrapper ref={ref} id={id}>
+        <SectionHeading
+          pretitle={heading.pretitle}
+          title={heading.title}
+          highlight={heading.highlight}
+          arialabel="blog-section-heading"
+          id="blog-section-heading"
+        />
         <S.EmptyState
           variants={fadeIn}
           initial="hidden"
@@ -88,12 +92,12 @@ const BlogSection = ({ id }) => {
   const thumbWhileHover = shouldReduceMotion ? undefined : { scale: 1.05 };
 
   return (
-    <S.SectionWrapper id={id} aria-labelledby="blog-section-heading">
+    <S.SectionWrapper ref={ref} id={id} aria-labelledby="blog-section-heading">
       <SectionHeading
-        pretitle="Blogs"
-        title="Latest Articles &"
-        highlight="Learning Journey"
-        arialabel="latest articles"
+        pretitle={heading.pretitle}
+        title={heading.title}
+        highlight={heading.highlight}
+        arialabel="blog-section-heading"
         id="blog-section-heading"
       />
 

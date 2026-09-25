@@ -75,11 +75,11 @@ export const CloseButton = styled.button`
     outline-offset: 2px;
   }
 
-  @media (max-width: 576px) {
+  @media ${theme.media.mobile} {
     top: 16px;
     right: 16px;
-    width: 36px;
-    height: 36px;
+    width: 44px;
+    height: 44px;
     font-size: 22px;
   }
 `;
@@ -122,9 +122,9 @@ export const NavButton = styled.button`
     outline-offset: 2px;
   }
 
-  @media (max-width: 576px) {
-    width: 36px;
-    height: 36px;
+  @media ${theme.media.mobile} {
+    width: 44px;
+    height: 44px;
     font-size: 18px;
     ${({ $side }) => {
     if ($side === 'prev') return `left: 12px;`;

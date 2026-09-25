@@ -44,7 +44,7 @@ export const Heading = styled.h2`
 
 export const Description = styled.p`
   font-size: ${theme.typography.size.body};
-  color: rgba(255, 255, 255, 0.55);
+  color: ${theme.colors.textMuted};
   max-width: 600px;
 `;
 
@@ -60,7 +60,7 @@ export const Grid = styled.ul`
 export const ImageWrapper = styled.li`
   border-radius: 12px;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid ${theme.colors.borderSubtle};
   transition: transform 0.25s ease, box-shadow 0.25s ease;
   background: rgba(255, 255, 255, 0.02);
   cursor: pointer;
@@ -93,6 +93,6 @@ export const ImageWrapper = styled.li`
 export const EmptyState = styled.div`
   padding: 2rem 0;
   text-align: center;
-  color: rgba(255, 255, 255, 0.35);
+  color: ${theme.colors.textMuted};
   font-size: ${theme.typography.size.sm};
 `;

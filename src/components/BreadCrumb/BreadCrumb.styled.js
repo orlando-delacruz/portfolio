@@ -40,20 +40,25 @@ export const HomeIcon = styled.span`
 
 export const NavLink = styled(Link)`
   text-decoration: none;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 6px;
+  min-height: 44px;
   color: ${theme.colors.white};
   font-size: ${theme.typography.size.sm};
   font-weight: 400;
   letter-spacing: 0.01em;
-  padding: 4px 6px;
+  padding: 8px 10px;
   border-radius: 4px;
   transition: color 0.15s ease, background 0.15s ease;
   cursor: pointer;
 
   .label {
     line-height: 1.5;
+    max-width: 32ch;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   &:hover {
@@ -63,6 +68,17 @@ export const NavLink = styled(Link)`
 
   &:active {
     background: rgba(255, 255, 255, 0.15);
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${theme.colors.primary};
+    outline-offset: 2px;
+  }
+
+  @media ${theme.media.mobile} {
+    .label {
+      max-width: 20ch;
+    }
   }
 `
 

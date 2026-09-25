@@ -76,13 +76,13 @@ export const TextBlock = styled.div`
 
 export const Paragraph = styled.p`
   font-size: ${theme.typography.size.body};
-  color: rgba(255, 255, 255, 0.6);
+  color: ${theme.colors.textSecondary};
   line-height: 1.85;
   margin: 0;
 
   /* First paragraph slightly brighter */
   &:first-of-type {
-    color: rgba(255, 255, 255, 0.75);
+    color: ${theme.colors.textSecondary};
   }
 `;
 
@@ -130,7 +130,7 @@ export const Card = styled.div`
     rgba(255, 255, 255, 0.05) 0%,
     rgba(255, 255, 255, 0.02) 100%
   );
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  border: 1px solid ${theme.colors.borderSubtle};
   transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
   overflow: hidden;
 
@@ -180,7 +180,7 @@ export const IconCircle = styled.div`
   svg {
     color: ${theme.colors.primary};
     font-size: 18px;
-    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   ${Card}:hover & {
@@ -216,7 +216,7 @@ export const CardTitle = styled.h3`
 
 export const CardContent = styled.p`
   font-size: ${theme.typography.size.sm};
-  color: rgba(255, 255, 255, 0.5);
+  color: ${theme.colors.textMuted};
   line-height: 1.65;
   margin: 0;
 `;

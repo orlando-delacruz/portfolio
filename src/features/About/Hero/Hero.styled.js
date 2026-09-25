@@ -76,5 +76,5 @@ export const Label = styled.span`
 
 export const Subheading = styled.p`
   font-size: ${theme.typography.size.body};
-  color: rgba(255, 255, 255, 0.8);
+  color: ${theme.colors.textSecondary};
 `;

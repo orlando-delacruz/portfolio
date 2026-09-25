@@ -84,7 +84,7 @@ export const Card = styled.li`
     rgba(255, 255, 255, 0.04) 0%,
     rgba(255, 255, 255, 0.01) 100%
   );
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  border: 1px solid ${theme.colors.borderSubtle};
   backdrop-filter: blur(8px);
   transition: border-color 0.3s ease, box-shadow 0.3s ease,
     transform 0.3s ease;
@@ -192,7 +192,7 @@ export const CardTitle = styled.h3`
 /* ─── Card content ────────────────────────────────────────── */
 export const CardContent = styled.p`
   font-size: ${theme.typography.size.sm};
-  color: rgba(255, 255, 255, 0.55);
+  color: ${theme.colors.textMuted};
   line-height: 1.7;
   margin: 0;
 `;

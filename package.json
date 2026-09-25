@@ -8,7 +8,9 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "convert-images": "node src/utils/convert-images.mjs"
+    "convert-images": "node src/utils/convert-images.mjs",
+    "hygraph:migrate": "node scripts/hygraph-migrate-schema.mjs",
+    "hygraph:seed": "node scripts/hygraph-seed-content.mjs"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",

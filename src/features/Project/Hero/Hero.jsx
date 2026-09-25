@@ -1,8 +1,55 @@
 import * as S from "./Hero.styled";
-import hero from "../../../data/pages/Project/hero.data";
+import useCmsQuery from "../../../hooks/useCmsQuery";
+import { fetchProjectHeroSection } from "../../../services/hygraph";
+import { QueryError, SectionSkeleton } from "../../../components/QueryState";
+
+const YEARS_STAT = {
+  id: "stat-years",
+  value: "2+",
+  label: "Years Learning & Building",
+  ariaLabel: "2 or more years learning and building",
+};
 
 const Hero = () => {
-  const { pretitle, heading, description, stats } = hero;
+  const { data, loading, error, retry } = useCmsQuery(fetchProjectHeroSection);
+
+  if (loading) {
+    return (
+      <S.HeroSection aria-label="Loading projects hero">
+        <SectionSkeleton label="Loading projects hero..." lines={3} />
+      </S.HeroSection>
+    );
+  }
+
+  if (error || !data?.hero) {
+    return (
+      <S.HeroSection aria-label="Projects hero">
+        <QueryError
+          message={error || "Projects hero is not published yet."}
+          onRetry={retry}
+        />
+      </S.HeroSection>
+    );
+  }
+
+  const { hero, counts } = data;
+  const { pretitle, headingMain, headingHighlight, description } = hero;
+
+  const stats = [
+    {
+      id: "stat-projects",
+      value: `${counts.projects}+`,
+      label: "Projects Completed",
+      ariaLabel: `${counts.projects} or more projects completed`,
+    },
+    {
+      id: "stat-tech",
+      value: `${counts.technologies}+`,
+      label: "Technologies Used",
+      ariaLabel: `${counts.technologies} or more technologies used`,
+    },
+    YEARS_STAT,
+  ];
 
   return (
     <S.HeroSection aria-labelledby="project-hero-heading">
@@ -13,8 +60,7 @@ const Hero = () => {
 
         {/* Main heading */}
         <S.Heading id="project-hero-heading">
-          {heading.main}{" "}
-          <S.Highlight>{heading.highlight}</S.Highlight>
+          {headingMain} <S.Highlight>{headingHighlight}</S.Highlight>
         </S.Heading>
 
         {/* Description */}

@@ -1,24 +1,14 @@
 import { Link } from "react-router-dom";
 import useSectionNavigation from "../../hooks/useSectionNavigation";
 import * as S from "./Footer.styled";
-import footerData from "../../data/footer";
+import useCmsQuery from "../../hooks/useCmsQuery";
+import { fetchFooterSection } from "../../services/hygraph";
+import { getIcon } from "../../utils/iconMap";
+import { QueryError, SectionSkeleton } from "../QueryState";
 
 const Footer = () => {
     const { navigateToSection, navigateToPage } = useSectionNavigation();
-
-    const {
-        logo,
-        title,
-        subtitle,
-        description,
-        socialLinks,
-        quickLinksTitle,
-        quickLinks,
-        pageLinksTitle,
-        pageLinks,
-        contactTitle,
-        contactLinks,
-    } = footerData;
+    const { data: footer, loading, error, retry, ref } = useCmsQuery(fetchFooterSection, { defer: true });
 
     const handleLinkClick = (e, href, type) => {
         e.preventDefault();
@@ -67,7 +57,8 @@ const Footer = () => {
     };
 
     // FIXED: parameter is `Icon` (capitalized) – no type annotation
-    const renderLinkWithIcon = (href, Icon, label, type = "page") => {
+    const renderLinkWithIcon = (href, iconKey, label, type = "page") => {
+        const Icon = getIcon(iconKey);
         const isSection = type === "section";
         const isExternal =
             href.startsWith("http") ||
@@ -103,9 +94,43 @@ const Footer = () => {
         );
     };
 
+    if (loading) {
+        return (
+            <S.FooterWrapper ref={ref} role="contentinfo" aria-label="Loading footer">
+                <SectionSkeleton label="Loading footer..." lines={2} />
+            </S.FooterWrapper>
+        );
+    }
+
+    if (error || !footer) {
+        return (
+            <S.FooterWrapper ref={ref} role="contentinfo" aria-label="Footer">
+                <QueryError
+                    message={error || "Footer content is not published yet."}
+                    onRetry={retry}
+                />
+            </S.FooterWrapper>
+        );
+    }
+
+    const {
+        logo,
+        logoAlt,
+        footerBg,
+        title,
+        subtitle,
+        description,
+        socials = [],
+        links = [],
+    } = footer;
+
+    const quickLinks = links.filter((l) => l.group === "quick");
+    const pageLinks = links.filter((l) => l.group === "pages");
+    const contactLinks = links.filter((l) => l.group === "contact");
+
     return (
-        <S.FooterWrapper role="contentinfo" aria-labelledby="footer-heading">
-            <S.FooterContent id="contacts">
+        <S.FooterWrapper ref={ref} role="contentinfo" aria-labelledby="footer-heading">
+            <S.FooterContent id="contacts" $bg={footerBg?.url}>
                 <S.Overlay aria-hidden="true" />
 
                 <S.ContentGrid>
@@ -113,7 +138,7 @@ const Footer = () => {
                     <S.Column1>
                         <S.Logo as={Link} to="/" aria-label={`${title} - Go to Homepage`}>
                             <S.LogoImage>
-                                <img src={logo.image} alt={logo.alt} loading="eager" decoding="async" width={45} height={45} />
+                                <img src={logo?.url} alt={logoAlt} loading="eager" decoding="async" width={45} height={45} />
                             </S.LogoImage>
                             <S.LogoDetails>
                                 <S.LogoTitle id="footer-heading">{title}</S.LogoTitle>
@@ -124,28 +149,31 @@ const Footer = () => {
                         <S.FooterDescription>{description}</S.FooterDescription>
 
                         <S.FooterSocials aria-label="Social Media Links">
-                            {socialLinks.map(({ id, href, icon: Icon, label }) => (
-                                <S.SocialLink
-                                    key={id}
-                                    href={href}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    aria-label={label}
-                                >
-                                    <Icon aria-hidden="true" />
-                                </S.SocialLink>
-                            ))}
+                            {socials.map(({ url, label, iconKey }) => {
+                                const Icon = getIcon(iconKey);
+                                return (
+                                    <S.SocialLink
+                                        key={url}
+                                        href={url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        aria-label={label}
+                                    >
+                                        <Icon aria-hidden="true" />
+                                    </S.SocialLink>
+                                );
+                            })}
                         </S.FooterSocials>
                     </S.Column1>
 
                     {/* Quick Links Column */}
                     <S.Column2 as="nav" aria-labelledby="quick-links-heading">
-                        <S.FooterTitle id="quick-links-heading">{quickLinksTitle}</S.FooterTitle>
+                        <S.FooterTitle id="quick-links-heading">Quick Links</S.FooterTitle>
                         <S.FooterLinks as="ul">
-                            {quickLinks.map(({ id, href, label, type }) => (
-                                <li key={id}>
+                            {quickLinks.map(({ label, href, linkType }) => (
+                                <li key={`${label}-${href}`}>
                                     <S.FooterLink as="span">
-                                        {renderLink(href, label, type)}
+                                        {renderLink(href, label, linkType)}
                                     </S.FooterLink>
                                 </li>
                             ))}
@@ -154,10 +182,10 @@ const Footer = () => {
 
                     {/* Page Links Column */}
                     <S.Column3 as="nav" aria-labelledby="page-links-heading">
-                        <S.FooterTitle id="page-links-heading">{pageLinksTitle}</S.FooterTitle>
+                        <S.FooterTitle id="page-links-heading">Landing Pages</S.FooterTitle>
                         <S.FooterLinks as="ul">
-                            {pageLinks.map(({ id, href, label }) => (
-                                <li key={id}>
+                            {pageLinks.map(({ label, href }) => (
+                                <li key={`${label}-${href}`}>
                                     <S.FooterLink as="span">
                                         {renderLink(href, label, "page")}
                                     </S.FooterLink>
@@ -168,12 +196,12 @@ const Footer = () => {
 
                     {/* Contact Column */}
                     <S.Column4 as="nav" aria-labelledby="contact-heading">
-                        <S.FooterTitle id="contact-heading">{contactTitle}</S.FooterTitle>
+                        <S.FooterTitle id="contact-heading">Contact Us</S.FooterTitle>
                         <S.FooterLinks as="ul">
-                            {contactLinks.map(({ id, href, icon: Icon, label }) => (
-                                <li key={id}>
+                            {contactLinks.map(({ label, href, linkType, iconKey }) => (
+                                <li key={`${label}-${href}`}>
                                     <S.FooterLink as="span">
-                                        {renderLinkWithIcon(href, Icon, label)}
+                                        {renderLinkWithIcon(href, iconKey, label, linkType)}
                                     </S.FooterLink>
                                 </li>
                             ))}

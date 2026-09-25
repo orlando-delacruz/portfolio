@@ -65,7 +65,7 @@ export const Card = styled.article`
   border-radius: 1.25rem;
   overflow: hidden;
   background-color: ${theme.colors.secondary};
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  border: 1px solid ${theme.colors.borderSubtle};
   transition: box-shadow 0.3s ease, border-color 0.3s ease;
   animation: ${fadeUp} 0.55s ease both;
   animation-delay: 0.1s;
@@ -188,7 +188,7 @@ export const Meta = styled.div`
   align-items: center;
   gap: 0.625rem;
   font-size: ${theme.typography.size.xs};
-  color: rgba(255, 255, 255, 0.45);
+  color: ${theme.colors.textMuted};
 
   .sep {
     font-size: 0.4rem;
@@ -222,7 +222,7 @@ export const Title = styled.h2`
 export const Description = styled.p`
   font-size: ${theme.typography.size.body};
   line-height: 1.75;
-  color: rgba(255, 255, 255, 0.62);
+  color: ${theme.colors.textSecondary};
   display: -webkit-box;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;

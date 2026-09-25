@@ -142,7 +142,7 @@ export const Highlight = styled.span`
 export const Description = styled.p`
   font-size: ${theme.typography.size.md};
   line-height: 1.75;
-  color: rgba(255, 255, 255, 0.65);
+  color: ${theme.colors.textSecondary};
   max-width: 620px;
   opacity: 0;
   animation: ${fadeUp} 0.6s ease forwards;
@@ -159,7 +159,7 @@ export const StatsRow = styled.div`
   align-items: stretch;
   gap: 1px;
   background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid ${theme.colors.borderSubtle};
   border-radius: 16px;
   overflow: hidden;
   margin-top: 8px;
@@ -212,7 +212,7 @@ export const StatCard = styled.article`
     justify-content: flex-start;
     gap: 16px;
     padding: 16px 20px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid ${theme.colors.borderSubtle};
     border-radius: 12px;
     background: rgba(255, 255, 255, 0.03);
     width: 100%;
@@ -234,7 +234,7 @@ export const StatValue = styled.span`
 
 export const StatLabel = styled.span`
   font-size: ${theme.typography.size.sm};
-  color: rgba(255, 255, 255, 0.55);
+  color: ${theme.colors.textMuted};
   white-space: nowrap;
   line-height: 1.4;
 `;

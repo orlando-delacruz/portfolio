@@ -106,7 +106,7 @@ export const Label = styled.label`
 `;
 
 export const RequiredStar = styled.span`
-  color: ${theme.colors.primary};
+  color: ${theme.colors.error};
   font-weight: ${theme.typography.weight.semibold};
 `;
 
@@ -115,7 +115,7 @@ export const Input = styled.input`
   border-radius: 10px;
   border: 1px solid
     ${({ $hasError }) =>
-    $hasError ? theme.colors.primary : 'rgba(255, 255, 255, 0.12)'};
+    $hasError ? theme.colors.error : 'rgba(255, 255, 255, 0.12)'};
   background: rgba(255, 255, 255, 0.05);
   color: ${theme.colors.white};
   font-family: inherit;
@@ -138,7 +138,8 @@ export const Input = styled.input`
   }
 
   &[aria-invalid='true'] {
-    border-color: ${theme.colors.primary};
+    border-color: ${theme.colors.error};
+    background: ${theme.colors.errorBackground};
   }
 `;
 
@@ -180,7 +181,7 @@ export const Textarea = styled.textarea`
   border-radius: 10px;
   border: 1px solid
     ${({ $hasError }) =>
-    $hasError ? theme.colors.primary : 'rgba(255, 255, 255, 0.12)'};
+    $hasError ? theme.colors.error : 'rgba(255, 255, 255, 0.12)'};
   background: rgba(255, 255, 255, 0.05);
   color: ${theme.colors.white};
   font-family: inherit;
@@ -205,7 +206,8 @@ export const Textarea = styled.textarea`
   }
 
   &[aria-invalid='true'] {
-    border-color: ${theme.colors.primary};
+    border-color: ${theme.colors.error};
+    background: ${theme.colors.errorBackground};
   }
 `;
 
@@ -218,7 +220,7 @@ export const CharacterCount = styled.span`
 
 export const ErrorText = styled.span`
   font-size: ${theme.typography.size.sm};
-  color: ${theme.colors.primary};
+  color: ${theme.colors.error};
   margin-top: 4px;
   animation: ${fadeUp} 0.25s ease both;
 `;

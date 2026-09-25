@@ -5,9 +5,9 @@ import theme from "../../styles/theme";
 export const Wrapper = styled(motion.div)`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: ${({ $align }) => ($align === "left" ? "flex-start" : "center")};
   justify-content: center;
-  text-align: center;
+  text-align: ${({ $align }) => ($align === "left" ? "left" : "center")};
 `;
 
 export const PreTitle = styled.div`

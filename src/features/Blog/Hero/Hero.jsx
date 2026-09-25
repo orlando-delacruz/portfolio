@@ -1,8 +1,53 @@
-import { hero } from "../../../data/blogs";
 import * as S from "./Hero.styled";
+import useCmsQuery from "../../../hooks/useCmsQuery";
+import { fetchBlogHeroSection } from "../../../services/hygraph";
+import { QueryError, SectionSkeleton } from "../../../components/QueryState";
 
 const Hero = () => {
-  const { pretitle, heading, description, stats } = hero;
+  const { data, loading, error, retry } = useCmsQuery(fetchBlogHeroSection);
+
+  if (loading) {
+    return (
+      <S.HeroSection aria-label="Loading blog hero">
+        <SectionSkeleton label="Loading blog hero..." lines={3} />
+      </S.HeroSection>
+    );
+  }
+
+  if (error || !data?.hero) {
+    return (
+      <S.HeroSection aria-label="Blog hero">
+        <QueryError
+          message={error || "Blog hero is not published yet."}
+          onRetry={retry}
+        />
+      </S.HeroSection>
+    );
+  }
+
+  const { hero, counts } = data;
+  const { pretitle, headingMain, headingHighlight, description } = hero;
+
+  const stats = [
+    {
+      id: "stat-articles",
+      value: `${counts.blogPosts}+`,
+      label: "Articles Published",
+      ariaLabel: `${counts.blogPosts} or more articles published`,
+    },
+    {
+      id: "stat-topic",
+      value: "React",
+      label: "Main Topic",
+      ariaLabel: "Main topic is React",
+    },
+    {
+      id: "stat-focus",
+      value: "Frontend",
+      label: "Primary Focus",
+      ariaLabel: "Primary focus is Frontend Development",
+    },
+  ];
 
   return (
     <S.HeroSection aria-labelledby="blog-hero-heading">
@@ -10,7 +55,7 @@ const Hero = () => {
       <S.Inner>
         <S.PreTitle aria-hidden="true">{pretitle}</S.PreTitle>
         <S.Heading id="blog-hero-heading">
-          {heading.main} <S.Highlight>{heading.highlight}</S.Highlight>
+          {headingMain} <S.Highlight>{headingHighlight}</S.Highlight>
         </S.Heading>
         <S.Description>{description}</S.Description>
         <S.StatsRow role="list" aria-label="Blog quick statistics">

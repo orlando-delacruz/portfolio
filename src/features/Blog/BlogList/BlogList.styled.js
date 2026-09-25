@@ -59,7 +59,7 @@ export const Card = styled.article`
   background-color: ${theme.colors.secondary};
   border-radius: 1.25rem;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid ${theme.colors.borderSubtle};
   transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
   animation: ${shimIn} 0.45s ease both;
   animation-delay: ${({ $index }) => `${$index * 0.08}s`};
@@ -133,14 +133,14 @@ export const CategoryBadge = styled.span`
 
 export const Duration = styled.span`
   font-size: ${theme.typography.size.xs};
-  color: rgba(255, 255, 255, 0.4);
+  color: ${theme.colors.textMuted};
   white-space: nowrap;
 `;
 
 /* ─── Date ────────────────────────────────────────────────── */
 export const DateText = styled.time`
   font-size: ${theme.typography.size.xs};
-  color: rgba(255, 255, 255, 0.4);
+  color: ${theme.colors.textMuted};
 `;
 
 /* ─── Title ───────────────────────────────────────────────── */
@@ -155,7 +155,7 @@ export const CardTitle = styled.h3`
 export const CardDescription = styled.p`
   font-size: ${theme.typography.size.sm};
   line-height: 1.7;
-  color: rgba(255, 255, 255, 0.6);
+  color: ${theme.colors.textSecondary};
   flex: 1;
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -167,7 +167,7 @@ export const CardDescription = styled.p`
 /* ─── Divider ─────────────────────────────────────────────── */
 export const Divider = styled.hr`
   border: none;
-  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  border-top: 1px solid ${theme.colors.borderSubtle};
   margin: 0;
 `;
 

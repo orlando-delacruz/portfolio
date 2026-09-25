@@ -1,5 +1,10 @@
+import { FaLaptopCode } from "react-icons/fa";
+import { MdOutlineFileDownload } from "react-icons/md";
 import * as S from "./HeroSection.styled";
-import heroData from "../../../data/pages/Home/heroData";
+import useCmsQuery from "../../../hooks/useCmsQuery";
+import { fetchHomeHeroSection } from "../../../services/hygraph";
+import { getIcon } from "../../../utils/iconMap";
+import { QueryError, SectionSkeleton } from "../../../components/QueryState";
 import {
   staggerContainer,
   fadeUp,
@@ -9,22 +14,68 @@ import {
   defaultViewport,
 } from "../../../animations";
 
-const {
-  heroImage,
-  role,
-  title,
-  highlightTitle,
-  subtitle,
-  primaryButton,
-  secondaryButton,
-  socialLinks,
-  skills,
-} = heroData;
-
-const PrimaryIcon = primaryButton.icon;
-const SecondaryIcon = secondaryButton.icon;
+// Floating-pill slots (positions stay in code; labels/colors/icons come from CMS)
+const SKILL_SLOTS = [
+  {
+    position: { top: "5%", left: "25%" },
+    tabletPosition: { top: "2%", left: "28%" },
+    mobilePosition: { top: "2%", left: "22%" },
+  },
+  {
+    position: { top: "40%", left: "5%" },
+    tabletPosition: { top: "38%", left: "20%" },
+    mobilePosition: { top: "38%", left: "10%" },
+  },
+  {
+    position: { top: "25%", left: "65%" },
+    tabletPosition: { top: "22%", left: "62%" },
+    mobilePosition: { top: "22%", left: "62%" },
+  },
+];
 
 const HeroSection = ({ id }) => {
+  const { data: hero, loading, error, retry } = useCmsQuery(fetchHomeHeroSection);
+
+  if (loading) {
+    return (
+      <S.HeroWrapper id={id}>
+        <S.HeroContainer>
+          <S.LeftContent>
+            <SectionSkeleton label="Loading hero..." lines={4} />
+          </S.LeftContent>
+          <S.RightContent>
+            <SectionSkeleton label="Loading hero image..." lines={1} />
+          </S.RightContent>
+        </S.HeroContainer>
+      </S.HeroWrapper>
+    );
+  }
+
+  if (error || !hero) {
+    return (
+      <S.HeroWrapper id={id}>
+        <QueryError
+          message={error || "Hero content is not published yet."}
+          onRetry={retry}
+        />
+      </S.HeroWrapper>
+    );
+  }
+
+  const {
+    heroImage,
+    label: role,
+    title,
+    highlightTitle,
+    subtitle,
+    primaryLabel,
+    primaryLink,
+    secondaryLabel,
+    secondaryCv,
+    socialLinks = [],
+    skills = [],
+  } = hero;
+
   return (
     <S.HeroWrapper id={id}>
       <S.HeroContainer
@@ -47,18 +98,18 @@ const HeroSection = ({ id }) => {
 
           <S.ActionButtons variants={fadeUp}>
             <S.PrimaryButton
-              href={primaryButton.link}
+              href={primaryLink}
               variants={buttonHover}
               initial="rest"
               whileHover="hover"
               whileTap="tap"
             >
-              <PrimaryIcon />
-              {primaryButton.label}
+              <FaLaptopCode aria-hidden="true" />
+              {primaryLabel}
             </S.PrimaryButton>
 
             <S.SecondaryButton
-              to={secondaryButton.link}
+              href={secondaryCv?.url}
               target="_blank"
               rel="noopener noreferrer"
               variants={buttonHover}
@@ -66,27 +117,30 @@ const HeroSection = ({ id }) => {
               whileHover="hover"
               whileTap="tap"
             >
-              <SecondaryIcon />
-              {secondaryButton.label}
+              <MdOutlineFileDownload aria-hidden="true" />
+              {secondaryLabel}
             </S.SecondaryButton>
           </S.ActionButtons>
 
           <S.SocialLinkWrapper variants={fadeUp}>
-            {socialLinks.map(({ id, icon: Icon, link, label }) => (
-              <S.SocialLink
-                key={id}
-                href={link}
-                aria-label={label}
-                target="_blank"
-                rel="noopener noreferrer"
-                variants={iconHover}
-                initial="rest"
-                whileHover="hover"
-                whileTap="tap"
-              >
-                <Icon aria-hidden="true" />
-              </S.SocialLink>
-            ))}
+            {socialLinks.map(({ platform, url, label, iconKey }) => {
+              const Icon = getIcon(iconKey);
+              return (
+                <S.SocialLink
+                  key={platform || url}
+                  href={url}
+                  aria-label={label}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  variants={iconHover}
+                  initial="rest"
+                  whileHover="hover"
+                  whileTap="tap"
+                >
+                  <Icon aria-hidden="true" />
+                </S.SocialLink>
+              );
+            })}
           </S.SocialLinkWrapper>
         </S.LeftContent>
 
@@ -95,27 +149,28 @@ const HeroSection = ({ id }) => {
           <S.HeroImageWrapper variants={heroImageIn}>
             <img
               className="hero-image"
-              src={heroImage}
+              src={heroImage?.url}
               alt={highlightTitle}
-              width={372}
-              height={240}
+              width={heroImage?.width || 372}
+              height={heroImage?.height || 240}
               fetchPriority="high"
               loading="eager"
               decoding="async"
             />
           </S.HeroImageWrapper>
 
-          {skills.map((skill, index) => {
-            const Icon = skill.icon;
+          {skills.slice(0, 3).map((skill, index) => {
+            const Icon = getIcon(skill.iconKey);
+            const slot = SKILL_SLOTS[index] || SKILL_SLOTS[0];
             return (
               <S.SkillCard
-                key={skill.id}
-                $top={skill.position.top}
-                $left={skill.position.left}
-                $mobileTop={skill.mobilePosition.top}
-                $mobileLeft={skill.mobilePosition.left}
-                $tabletTop={skill.tabletPosition.top}
-                $tabletLeft={skill.tabletPosition.left}
+                key={skill.label}
+                $top={slot.position.top}
+                $left={slot.position.left}
+                $mobileTop={slot.mobilePosition.top}
+                $mobileLeft={slot.mobilePosition.left}
+                $tabletTop={slot.tabletPosition.top}
+                $tabletLeft={slot.tabletPosition.left}
                 $color={skill.color}
                 $index={index}
               >

@@ -1,6 +1,9 @@
 import SectionHeading from "../../../components/SectionHeading/SectionHeading";
 import * as S from "./CurrentGoals.styled";
-import { currentGoalsContent } from "../../../data/pages/About/currentGoals.data";
+import useCmsQuery from "../../../hooks/useCmsQuery";
+import { fetchCurrentGoals } from "../../../services/hygraph";
+import { QueryError, SectionSkeleton } from "../../../components/QueryState";
+import HygraphRichText from "../../../components/RichText";
 
 /**
  * CurrentGoals — "Looking Ahead" full-width highlight card section.
@@ -17,11 +20,31 @@ import { currentGoalsContent } from "../../../data/pages/About/currentGoals.data
  */
 const CurrentGoals = () => {
   const headingId = "current-goals-heading";
-  const { pretitle, title, highlight, ariaLabel, paragraphs, tags } =
-    currentGoalsContent;
+  const { data: goals, loading, error, retry , ref } = useCmsQuery(fetchCurrentGoals, { defer: true });
+
+  if (loading) {
+    return (
+      <S.Section ref={ref} id="current-goals" aria-label="Loading current goals">
+        <SectionSkeleton label="Loading current goals..." lines={3} />
+      </S.Section>
+    );
+  }
+
+  if (error || !goals) {
+    return (
+      <S.Section ref={ref} id="current-goals" aria-label="Current goals">
+        <QueryError
+          message={error || "Goals content is not published yet."}
+          onRetry={retry}
+        />
+      </S.Section>
+    );
+  }
+
+  const { pretitle, title, highlight, paragraphs, tags } = goals;
 
   return (
-    <S.Section id="current-goals" aria-labelledby={headingId}>
+    <S.Section ref={ref} id="current-goals" aria-labelledby={headingId}>
       <S.Card>
         {/* ── Decorative layers ─────────────────────────── */}
         <S.BlobLeft aria-hidden="true" />
@@ -34,20 +57,18 @@ const CurrentGoals = () => {
             pretitle={pretitle}
             title={title}
             highlight={highlight}
-            arialabel={ariaLabel}
+            arialabel={headingId}
             id={headingId}
           />
 
           <S.TextBlock>
-            {paragraphs.map((para, i) => (
-              <S.Paragraph key={i}>{para}</S.Paragraph>
-            ))}
+            <HygraphRichText content={paragraphs?.raw} />
           </S.TextBlock>
 
           <S.ShimmerDivider aria-hidden="true" />
 
           <S.TagList aria-label="Technologies and topics I am currently learning">
-            {tags.map((tag, i) => (
+            {(tags || []).map((tag, i) => (
               <S.Tag key={tag} $index={i}>
                 {tag}
               </S.Tag>

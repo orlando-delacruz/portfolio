@@ -16,6 +16,24 @@
 
   --color-overlay: rgba(0, 0, 0, 0.5);
 
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #c3cad6;
+  --color-text-muted: #9aa4b5;
+
+  --color-border-subtle: rgba(255, 255, 255, 0.08);
+  --color-border-strong: rgba(255, 255, 255, 0.14);
+
+  --color-error: #ff6b6b;
+  --color-error-background: rgba(255, 107, 107, 0.12);
+
+  --elevation-card: 0 12px 32px rgba(2, 8, 26, 0.45);
+  --elevation-card-hover: 0 18px 44px rgba(2, 8, 26, 0.55), 0 0 0 1px rgba(37, 98, 234, 0.22);
+
+  --space-section: 50px;
+  --space-block: 32px;
+  --space-group: 24px;
+  --space-tight: 16px;
+
   /* Fonts */
   --font-main: "Inter", system-ui, -apple-system, "Segoe UI", Roboto,
     Helvetica, Arial, sans-serif;

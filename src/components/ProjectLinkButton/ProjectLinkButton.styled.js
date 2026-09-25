@@ -14,8 +14,10 @@ export const ButtonWrapper = styled.div`
 export const StyledButton = styled.a`
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
-  padding: 0.5rem 0.875rem;
+  min-height: 44px;
+  padding: 0.625rem 1rem;
   border-radius: 50px;
   font-size: ${theme.typography.size.xs};
   font-weight: ${theme.typography.weight.medium};
@@ -117,7 +119,7 @@ export const Tooltip = styled.div`
     border-top-color: ${theme.colors.secondary};
   }
 
-  @media (max-width: 576px) {
+  @media ${theme.media.mobile} {
     white-space: normal;
     max-width: 200px;
     transform: translateX(-50%);

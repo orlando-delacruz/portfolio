@@ -332,7 +332,7 @@ const ContactForm = () => {
               maxLength={1000}
               required
             />
-            <S.CharacterCount>
+            <S.CharacterCount aria-live="polite">
               {formData.message.length} / 1000 characters
             </S.CharacterCount>
             {hasError('message') && (

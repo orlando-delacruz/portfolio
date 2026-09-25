@@ -15,7 +15,6 @@ export const AccentLine = styled(motion.div)`
   height: 2px;
   background-color: ${theme.colors.primary};
   transform-origin: left center;
-  margin-top: -30px;
 `;
 
 export const ContentGrid = styled(motion.div)`
@@ -50,7 +49,8 @@ export const ServiceCard = styled(motion.div)`
 
   &:hover {
     border-color: rgba(${theme.colors.primaryRgb}, 0.35);
-    box-shadow: 0 14px 28px -14px rgba(0, 0, 0, 0.5);
+    box-shadow: ${theme.elevation.card};
+    transform: translateY(${theme.motion.hoverLift}px);
   }
 
   .icon-wrap {
@@ -82,7 +82,7 @@ export const CardBody = styled.p`
   font-size: ${theme.typography.size.sm};
   text-align: center;
   line-height: 1.65;
-  color: ${theme.colors.gray};
+  color: ${theme.colors.textSecondary};
   flex: 1;
 `;
 

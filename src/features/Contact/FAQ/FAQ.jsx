@@ -1,41 +1,55 @@
-import { useState, useCallback, useRef, useEffect } from "react";
+import { useState, useCallback } from "react";
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 import SectionHeading from "../../../components/SectionHeading";
-import faqData from "../../../data/pages/Contact/faq.data";
+import useCmsQuery from "../../../hooks/useCmsQuery";
+import { fetchFaqSection } from "../../../services/hygraph";
+import { QueryError, SectionSkeleton } from "../../../components/QueryState";
 import * as S from "./FAQ.styled";
 
 const FAQ = () => {
-  const { heading, items } = faqData;
   const [openId, setOpenId] = useState(null);
-  const [heights, setHeights] = useState({});
-  const contentRefs = useRef({});
+
+  const { data, loading, error, retry , ref } = useCmsQuery(fetchFaqSection, { defer: true });
 
   const toggleItem = useCallback((id) => {
     setOpenId((prev) => (prev === id ? null : id));
   }, []);
 
-  // Measure height when an item is opened
-  useEffect(() => {
-    if (openId && contentRefs.current[openId]) {
-      const height = contentRefs.current[openId].scrollHeight;
-      setHeights((prev) => ({ ...prev, [openId]: height }));
-    }
-  }, [openId]);
+  if (loading) {
+    return (
+      <S.Section ref={ref} aria-label="Loading frequently asked questions">
+        <SectionSkeleton label="Loading frequently asked questions..." lines={4} />
+      </S.Section>
+    );
+  }
+
+  if (error || !data?.heading) {
+    return (
+      <S.Section ref={ref} aria-label="Frequently asked questions">
+        <QueryError
+          message={error || "FAQ content is not published yet."}
+          onRetry={retry}
+        />
+      </S.Section>
+    );
+  }
+
+  const { items, heading } = data;
 
   return (
-    <S.Section aria-labelledby="faq-heading">
+    <S.Section ref={ref} aria-labelledby="faq-heading">
       <SectionHeading
         pretitle={heading.pretitle}
         title={heading.title}
         highlight={heading.highlight}
-        arialabel={heading.ariaLabel}
+        arialabel="faq-heading"
         id="faq-heading"
       />
 
       <S.Accordion role="list" aria-label="Frequently asked questions">
-        {items.map(({ id, question, answer }) => {
+        {items.map(({ question, answer }, index) => {
+          const id = `faq-${index}`;
           const isOpen = openId === id;
-          const height = heights[id] || 0;
 
           return (
             <S.AccordionItem key={id} role="listitem">
@@ -56,11 +70,8 @@ const FAQ = () => {
                 role="region"
                 aria-labelledby={`faq-question-${id}`}
                 $isOpen={isOpen}
-                $height={isOpen ? height : 0}
               >
-                <S.AnswerText ref={(el) => (contentRefs.current[id] = el)}>
-                  {answer}
-                </S.AnswerText>
+                <S.AnswerText>{answer}</S.AnswerText>
               </S.AnswerWrapper>
             </S.AccordionItem>
           );

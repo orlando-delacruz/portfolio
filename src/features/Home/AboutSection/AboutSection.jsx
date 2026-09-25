@@ -1,5 +1,7 @@
 import * as S from "./AboutSection.styled";
-import aboutData from "../../../data/pages/Home/aboutData";
+import useCmsQuery from "../../../hooks/useCmsQuery";
+import { fetchHomeAbout } from "../../../services/hygraph";
+import { QueryError, SectionSkeleton } from "../../../components/QueryState";
 import {
   staggerContainer,
   staggerContainerFrom,
@@ -10,19 +12,42 @@ import {
   defaultViewport,
 } from "../../../animations"; // "floating" removed
 
-const {
-  aboutimage,
-  pretitle,
-  title,
-  titleHighlight,
-  body_1,
-  body_2,
-  actionButton,
-} = aboutData;
-
 const AboutSection = ({ id }) => {
+  const { data: about, loading, error, retry , ref } = useCmsQuery(fetchHomeAbout, { defer: true });
+
+  if (loading) {
+    return (
+      <S.AboutWrapper ref={ref} id={id}>
+        <SectionSkeleton label="Loading about..." lines={4} />
+      </S.AboutWrapper>
+    );
+  }
+
+  if (error || !about) {
+    return (
+      <S.AboutWrapper ref={ref} id={id}>
+        <QueryError
+          message={error || "About content is not published yet."}
+          onRetry={retry}
+        />
+      </S.AboutWrapper>
+    );
+  }
+
+  const {
+    image,
+    imageAlt,
+    pretitle,
+    title,
+    titleHighlight,
+    body1,
+    body2,
+    ctaLabel,
+    ctaLink,
+  } = about;
+
   return (
-    <S.AboutWrapper
+    <S.AboutWrapper ref={ref}
       id={id}
       aria-labelledby="about-heading"
       variants={staggerContainer(undefined, 0)}
@@ -37,12 +62,12 @@ const AboutSection = ({ id }) => {
         >
           <img
             className="about-image"
-            src={aboutimage}
-            alt="Orlando showing UI holograms"
+            src={image?.url}
+            alt={imageAlt || "About me"}
             loading="lazy"
             decoding="async"
-            width={638}
-            height={430}
+            width={image?.width || 638}
+            height={image?.height || 430}
           />
         </S.ImageWrapper>
       </S.LeftContent>
@@ -56,17 +81,17 @@ const AboutSection = ({ id }) => {
         </S.Heading>
 
         <S.Description variants={fadeUp}>
-          <p className="body-1">{body_1}</p>
-          <p className="body-2">{body_2}</p>
+          <p className="body-1">{body1}</p>
+          <p className="body-2">{body2}</p>
         </S.Description>
 
         <S.ActionButton
-          to={actionButton.link}
+          to={ctaLink}
           variants={buttonHover}
           whileHover="hover"
           whileTap="tap"
         >
-          {actionButton.label}
+          {ctaLabel}
         </S.ActionButton>
       </S.RightContent>
     </S.AboutWrapper>

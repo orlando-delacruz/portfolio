@@ -8,7 +8,7 @@ export const GridSection = styled.section`
 
 export const ResultCount = styled.p`
   font-size: ${theme.typography.size.sm};
-  color: rgba(255, 255, 255, 0.4);
+  color: ${theme.colors.textMuted};
   margin-bottom: 1.25rem;
 `;
 
@@ -33,7 +33,7 @@ export const EmptyState = styled.div`
   align-items: center;
   gap: 0.75rem;
   padding: 5rem 0;
-  color: rgba(255, 255, 255, 0.35);
+  color: ${theme.colors.textMuted};
   text-align: center;
 
   svg {

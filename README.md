@@ -73,15 +73,66 @@ Conventions:
 - CMS is source of truth for projects, blog posts, technologies. Static `src/data/` covers hero/about/services/experience/testimonials/FAQ/CTA/footer/navbar.
 - Images are WebP-only. Run `yarn convert-images` after adding raster assets.
 
+## Design tokens (`theme.js` / `theme.css`)
+
+| Token | Value | Use |
+|---|---|---|
+| `textPrimary` | `#ffffff` | Headings, primary text |
+| `textSecondary` | `#c3cad6` | Body copy, descriptions |
+| `textMuted` | `#9aa4b5` | Meta, dates, placeholders, empty states |
+| `borderSubtle` | `rgba(255,255,255,0.08)` | Default card/input borders |
+| `borderStrong` | `rgba(255,255,255,0.14)` | Emphasized/hover borders |
+| `error` / `errorBackground` | `#ff6b6b` / tint | Form errors (never blue — blue means focus) |
+| `elevation.card` / `cardHover` | layered shadows | Card rest/hover (hover adds primary ring) |
+| `motion.hoverLift` | `-6px` | Single hover-lift distance for all cards |
+| `spacing.*` | `50/32/24/16px` | Section/block/group/tight rhythm |
+| `zIndex.*` | `0–1000` | Base/sticky/dropdown/overlay/modal/toast |
+
+Rules: no raw `rgba(255,255,255,*)` text/borders in components — use the tokens above (translucent `background` washes and decorative gradients are exempt). One hover language: `translateY(hoverLift)` + `elevation.cardHover`. Primary buttons min-height 44px. FAQ accordion animates via `grid-template-rows`, never `max-height`.
+
 ## CMS & content
 
-Hygraph models queried in `src/services/hygraph.js`:
+All page content (except `src/data/navbar.js`) comes from Hygraph.
+Sections fetch via `src/services/hygraph.js` + `src/hooks/useCmsQuery.js`,
+show `SectionSkeleton` while loading and `QueryError` + retry on failure.
+Icons resolve through `src/utils/iconMap.js` (`iconKey` string → component).
 
-- `projects` (featured, all, by slug, categories)
-- `blogPosts` (featured, all, by slug)
-- `technologies` (with categories)
+Hygraph models queried — 14 custom models (plan limit is 20 total
+including the 5 pre-existing: `Project, Technology, BlogPost,
+BlogCategory, Author`). Shared models discriminate rows via
+`key`/`section`/`placement`:
 
-Rich-text fields (`overview/highlights/challenges/content.raw`) render via
+- `projects`, `blogPosts`, `technologies` (as before)
+- `sectionHeading` (`key` unique, `pretitle`, `title`, `highlight`) — keys:
+  `home-projects, home-blog, home-skills, home-services, home-experience,
+  home-testimonials, about-whatido, about-approach, contact-info, contact-faq`
+- `pageHero` (`key` unique: `home|about|project|blog|contact`; optional
+  `pretitle, label, title, highlightTitle, headingMain, highlight,
+  subtitle, description, subheading, primaryLabel, primaryLink,
+  secondaryLabel, imageAlt` + assets `image, background, secondaryCv`)
+- `socialLink` (`platform?, label, url?, color?, iconKey`,
+  `placement`: `hero-socials|hero-skills|footer-socials`, `order`)
+- `homeAbout`, `experience` (`slug, date, position, company, description,
+  order`), `testimonial` (`name, position, quote, rating, avatar, order`)
+- `featureCard` (`slug` unique, `section`:
+  `home-services|about-whatido|about-approach`, `title, description?,
+  content?, tag?, iconKey, order`)
+- `contentBlock` (`key` unique:
+  `about-story|approach-intro|current-goals|project-overview`; optional
+  `pretitle, title, highlight, headingMain, headingHighlight, imageAlt,
+  paragraphs` RichText, `tags` Json, asset `image`)
+- `quickFact` (`label, value, order`), `contactChannel` (`slug, title,
+  value, href, description, iconKey, order`),
+  `faqItem` (`question, answer, order`)
+- `footerContent`, `footerLink` (`label, href,
+  linkType: page|section|external, group: quick|pages|contact, iconKey,
+  order`), `ctaContent`
+- Stats are **derived** via `*Connection { aggregate { count } }`, never stored.
+- Schema managed by `scripts/hygraph-migrate-schema.mjs`, content by
+  `scripts/hygraph-seed-content.mjs` (`yarn hygraph:migrate` /
+  `yarn hygraph:seed`, both support `--dry-run`).
+
+Rich-text fields (`*.raw`) render via
 `@graphcms/rich-text-react-renderer` in `src/components/RichText/`.
 
 ## SEO & deployment

@@ -15,6 +15,42 @@ const theme = {
     black: "#222222",
 
     overlay: "rgba(0, 0, 0, 0.5)",
+
+    textPrimary: "#ffffff",
+    textSecondary: "#c3cad6",
+    textMuted: "#9aa4b5",
+
+    borderSubtle: "rgba(255, 255, 255, 0.08)",
+    borderStrong: "rgba(255, 255, 255, 0.14)",
+
+    error: "#ff6b6b",
+    errorBackground: "rgba(255, 107, 107, 0.12)",
+  },
+
+  elevation: {
+    card: "0 12px 32px rgba(2, 8, 26, 0.45)",
+    cardHover: "0 18px 44px rgba(2, 8, 26, 0.55), 0 0 0 1px rgba(37, 98, 234, 0.22)",
+    popover: "0 20px 55px rgba(2, 8, 26, 0.6)",
+  },
+
+  motion: {
+    hoverLift: -6,
+  },
+
+  spacing: {
+    section: "50px",
+    block: "32px",
+    group: "24px",
+    tight: "16px",
+  },
+
+  zIndex: {
+    base: 0,
+    sticky: 10,
+    dropdown: 20,
+    overlay: 40,
+    modal: 100,
+    toast: 1000,
   },
 
   typography: {

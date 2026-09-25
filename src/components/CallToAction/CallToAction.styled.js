@@ -2,7 +2,7 @@ import styled from "styled-components";
 import theme from "../../styles/theme";
 
 export const CtaWrapper = styled.section`
-  min-height: 564px;
+  min-height: unset;
 `;
 
 export const CtaContent = styled.div`
@@ -68,8 +68,9 @@ export const ActionButtons = styled.div`
 export const PrimaryButton = styled.a`
   background-color: ${theme.colors.primary};
   padding: 15px 30px;
+  min-height: 44px;
   border-radius: 50px;
-  display: flex;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
   border: 1px solid ${theme.colors.primary};
@@ -92,7 +93,7 @@ export const PrimaryButton = styled.a`
   }
 
   @media ${theme.media.mobile} {
-    padding: 10px 20px;
+    padding: 12px 24px;
     font-size: ${theme.typography.size.sm};
   }
 `;
