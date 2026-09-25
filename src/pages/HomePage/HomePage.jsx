@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import SEO from "../../components/common/SEO";
 import HeroSection from "../../features/Home/HeroSection";
-import AboutSection from "../../features/Home/AboutSection";
 import ProjectsSection from "../../features/Home/ProjectsSection";
 import SkillSection from "../../features/Home/SkillSection";
 import ServiceSection from "../../features/Home/ServiceSection";
@@ -38,7 +37,6 @@ const HomePage = () => {
       />
 
       <HeroSection id="home" />
-      <AboutSection id="about" />
       <ProjectsSection id="projects" />
       <SkillSection id="skills" />
       <ServiceSection id="services" />
