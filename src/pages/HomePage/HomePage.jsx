@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import Layout from "../../components/Layout";
+import SEO from "../../components/common/SEO";
 import HeroSection from "../../features/Home/HeroSection";
 import AboutSection from "../../features/Home/AboutSection";
 import ProjectsSection from "../../features/Home/ProjectsSection";
@@ -30,7 +30,13 @@ const HomePage = () => {
   }, [location]);
 
   return (
-    <Layout>
+    <>
+      <SEO
+        title="Orlando Dela Cruz | Front-End Web Developer"
+        description="Orlando Dela Cruz is a front-end web developer building responsive, accessible, and modern web applications using React, JavaScript, Tailwind CSS, and Styled Components."
+        path="/"
+      />
+
       <HeroSection id="home" />
       <AboutSection id="about" />
       <ProjectsSection id="projects" />
@@ -41,7 +47,7 @@ const HomePage = () => {
       <BlogSection id="blogs" />
       <ContactForm id="contact" />
       <FAQ id="faqs" />
-    </Layout>
+    </>
   );
 };
 

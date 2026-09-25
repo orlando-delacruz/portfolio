@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
+import SEO from "../../components/common/SEO";
 import { fetchBlogPostBySlug } from "../../services/hygraph";
 import HygraphRichText from "../../components/RichText";
 import Loading from "../../components/Loading";
-import CallToAction from "../../components/CallToAction";
 import Author from "../../features/BlogDetail/Author";
 import * as S from "./BlogDetailPage.styled";
 
@@ -61,10 +60,12 @@ const BlogDetailPage = () => {
 
   return (
     <>
-      <Helmet>
-        <title>{`${title} | Orlando Dela Cruz`}</title>
-        <meta name="description" content={post.excerpt} />
-      </Helmet>
+      <SEO
+        title={`${title} | Orlando Dela Cruz`}
+        description={post.excerpt}
+        path={`/blogs/${slug}`}
+        image={thumbnail?.url || "/images/preview.webp"}
+      />
 
       <S.PageWrapper>
         {/* Hero */}
@@ -101,8 +102,6 @@ const BlogDetailPage = () => {
           {/* Author Section */}
           {author && <Author author={author} />}
         </S.ContentSection>
-
-        <CallToAction />
       </S.PageWrapper>
     </>
   );

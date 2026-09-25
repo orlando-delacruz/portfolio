@@ -5,7 +5,6 @@ import QuickFacts from "../../features/About/QuickFacts";
 import WhatIDo from "../../features/About/WhatIDo";
 import MyApproach from "../../features/About/MyApproach";
 import CurrentGoals from "../../features/About/CurrentGoals";
-import CallToAction from "../../components/CallToAction";
 
 const AboutPage = () => {
   return (
@@ -22,7 +21,6 @@ const AboutPage = () => {
       <WhatIDo />
       <MyApproach />
       <CurrentGoals />
-      <CallToAction />
     </>
   );
 };

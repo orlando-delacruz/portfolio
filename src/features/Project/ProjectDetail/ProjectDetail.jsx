@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
+import SEO from "../../../components/common/SEO";
 import { FiExternalLink, FiClock, FiCalendar, FiUser } from "react-icons/fi";
 import { FaGithub } from "react-icons/fa";
 import BreadCrumb from "../../../components/BreadCrumb/BreadCrumb";
@@ -90,10 +90,12 @@ const ProjectDetail = () => {
 
   return (
     <>
-      <Helmet>
-        <title>{`${title} — Case Study | Orlando Dela Cruz`}</title>
-        <meta name="description" content={description} />
-      </Helmet>
+      <SEO
+        title={`${title} — Case Study | Orlando Dela Cruz`}
+        description={description}
+        path={`/projects/${slug}`}
+        image={thumbnail?.url || "/images/preview.webp"}
+      />
 
       <S.DetailPage>
         <S.HeroBanner aria-labelledby="detail-title">

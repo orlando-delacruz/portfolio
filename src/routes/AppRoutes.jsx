@@ -7,7 +7,6 @@ import ProjectDetailPage from "../pages/ProjectDetailPage";
 import BlogPage from "../pages/BlogPage";
 import BlogDetailPage from "../pages/BlogDetailPage";
 import ContactPage from "../pages/ContactPage";
-// import ComingSoon from "../pages/ComingSoon";
 
 export default function AppRoutes() {
   return (

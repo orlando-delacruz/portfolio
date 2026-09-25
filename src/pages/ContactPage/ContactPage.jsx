@@ -1,5 +1,4 @@
 import SEO from "../../components/common/SEO";
-import Layout from "../../components/Layout";
 import { Hero, ContactInfo, ContactForm, FAQ } from "../../features/Contact";
 
 const ContactPage = () => {
@@ -11,12 +10,10 @@ const ContactPage = () => {
         path="/contact"
       />
 
-      <Layout>
-        <Hero />
-        <ContactForm />
-        <ContactInfo />
-        <FAQ />
-      </Layout>
+      <Hero />
+      <ContactForm />
+      <ContactInfo />
+      <FAQ />
     </>
   );
 };

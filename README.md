@@ -1,352 +1,104 @@
-# React + Vite
+# Orlando Dela Cruz — Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Personal portfolio for **Orlando Dela Cruz, Front-End Web Developer**.
+Live: https://orlandodelacruz.vercel.app/
 
-Currently, two official plugins are available:
+Responsive React SPA showcasing skills, projects, experience, blog, and contact —
+with Hygraph CMS for dynamic content and EmailJS for the contact form.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Tech stack
 
-## React Compiler
+| Area | Choice |
+|---|---|
+| App | React 19 + Vite 8 + React Router 7 |
+| Styling | styled-components 6 + CSS vars (`theme.js` / `theme.css`) + Ant Design 6 (selective) |
+| Motion | Framer Motion 12 (shared `src/animations/`) |
+| CMS | Hygraph + `graphql-request` |
+| Email | `@emailjs/browser` |
+| SEO | `react-helmet-async` via `src/components/common/SEO.jsx` |
+| Icons | `react-icons` |
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Getting started
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-
+```bash
+yarn install
+yarn dev        # local dev
+yarn build      # production build -> dist/
+yarn preview    # preview production build
+yarn lint       # eslint .
+yarn convert-images  # sharp WebP conversion (src/utils/convert-images.mjs)
 ```
-orlando-portfolio
-├─ .env
-├─ eslint.config.js
-├─ index.html
-├─ package.json
-├─ public
-│  ├─ images
-│  │  ├─ logo.webp
-│  │  └─ preview.webp
-│  ├─ resume.pdf
-│  ├─ robots.txt
-│  └─ sitemap.xml
-├─ README.md
-├─ src
-│  ├─ App.jsx
-│  ├─ assets
-│  │  ├─ fonts
-│  │  │  ├─ inter-v20-latin-500.woff2
-│  │  │  ├─ inter-v20-latin-600.woff2
-│  │  │  └─ inter-v20-latin-regular.woff2
-│  │  └─ images
-│  │     ├─ about-image.webp
-│  │     ├─ blog
-│  │     │  ├─ blog-1.webp
-│  │     │  ├─ blog-2.webp
-│  │     │  ├─ blog-3.webp
-│  │     │  └─ blog-4.webp
-│  │     ├─ cta-vector.webp
-│  │     ├─ cta.webp
-│  │     ├─ footer.webp
-│  │     ├─ hero-image.webp
-│  │     ├─ logo.webp
-│  │     ├─ pages
-│  │     │  └─ about
-│  │     │     └─ about-hero.webp
-│  │     ├─ profile-filler.webp
-│  │     ├─ projects
-│  │     │  ├─ project-1.webp
-│  │     │  ├─ project-2.webp
-│  │     │  ├─ project-3.webp
-│  │     │  └─ project-4.webp
-│  │     ├─ services
-│  │     │  ├─ backend-learning.webp
-│  │     │  ├─ frontend-development.webp
-│  │     │  ├─ responsive-design.webp
-│  │     │  └─ ui-implementation.webp
-│  │     └─ skills
-│  │        ├─ adaptability.webp
-│  │        ├─ ant-design.webp
-│  │        ├─ attention-to-detail.webp
-│  │        ├─ bootstrap.webp
-│  │        ├─ canva.webp
-│  │        ├─ chrome.webp
-│  │        ├─ clickup.webp
-│  │        ├─ communication.webp
-│  │        ├─ css.webp
-│  │        ├─ discord.webp
-│  │        ├─ git.webp
-│  │        ├─ github.webp
-│  │        ├─ graphql.webp
-│  │        ├─ html.webp
-│  │        ├─ hygraph.png
-│  │        ├─ hygraph.webp
-│  │        ├─ javascript.webp
-│  │        ├─ laravel.webp
-│  │        ├─ lighthouse.webp
-│  │        ├─ php.webp
-│  │        ├─ problem-solving.webp
-│  │        ├─ react.webp
-│  │        ├─ REST.webp
-│  │        ├─ styled-components.webp
-│  │        ├─ tailwind.webp
-│  │        ├─ teamwork.webp
-│  │        ├─ time-management.webp
-│  │        ├─ vite.webp
-│  │        └─ vscode.webp
-│  ├─ components
-│  │  ├─ BreadCrumb
-│  │  │  ├─ BreadCrumb.jsx
-│  │  │  └─ BreadCrumb.styled.js
-│  │  ├─ Buttons
-│  │  │  └─ ViewAll
-│  │  │     ├─ index.js
-│  │  │     └─ ViewAll.jsx
-│  │  ├─ CallToAction
-│  │  │  ├─ CallToAction.jsx
-│  │  │  ├─ CallToAction.styled.js
-│  │  │  └─ index.js
-│  │  ├─ common
-│  │  │  └─ SEO.jsx
-│  │  ├─ Footer
-│  │  │  ├─ Footer.jsx
-│  │  │  ├─ Footer.styled.js
-│  │  │  └─ index.js
-│  │  ├─ ImageLightbox
-│  │  │  ├─ ImageLightbox.jsx
-│  │  │  ├─ ImageLightbox.styled.js
-│  │  │  └─ index.js
-│  │  ├─ Layout
-│  │  │  ├─ index.js
-│  │  │  ├─ Layout.jsx
-│  │  │  └─ Layout.styled.js
-│  │  ├─ Loading
-│  │  │  ├─ index.js
-│  │  │  ├─ Loading.jsx
-│  │  │  └─ Loading.styled.js
-│  │  ├─ Navbar
-│  │  │  ├─ index.js
-│  │  │  ├─ Navbar.jsx
-│  │  │  ├─ Navbar.styled.js
-│  │  │  └─ useActiveSection.js
-│  │  ├─ ProjectCard
-│  │  │  ├─ index.js
-│  │  │  ├─ ProjectCard.jsx
-│  │  │  └─ ProjectCard.styled.js
-│  │  ├─ ProjectLinkButton
-│  │  │  ├─ index.js
-│  │  │  ├─ ProjectLinkButton.jsx
-│  │  │  └─ ProjectLinkButton.styled.js
-│  │  ├─ RichText
-│  │  │  ├─ index.js
-│  │  │  ├─ RichText.jsx
-│  │  │  └─ RichText.styled.js
-│  │  └─ SectionHeading
-│  │     ├─ index.js
-│  │     ├─ SectionHeading.jsx
-│  │     └─ SectionHeading.styled.js
-│  ├─ data
-│  │  ├─ cta.js
-│  │  ├─ footer.js
-│  │  ├─ navbar.js
-│  │  ├─ pages
-│  │  │  ├─ About
-│  │  │  │  ├─ currentGoals.data.js
-│  │  │  │  ├─ hero.data.js
-│  │  │  │  ├─ myApproach.data.js
-│  │  │  │  ├─ quickFacts.data.js
-│  │  │  │  ├─ story.data.js
-│  │  │  │  └─ whatIDo.data.js
-│  │  │  ├─ Contact
-│  │  │  │  ├─ contactInfo.data.js
-│  │  │  │  ├─ faq.data.js
-│  │  │  │  └─ hero.data.js
-│  │  │  ├─ Home
-│  │  │  │  ├─ aboutData.js
-│  │  │  │  ├─ experienceData.js
-│  │  │  │  ├─ heroData.js
-│  │  │  │  ├─ serviceData.js
-│  │  │  │  ├─ skillsData.js
-│  │  │  │  └─ testimonialsData.js
-│  │  │  └─ Project
-│  │  │     ├─ hero.data.js
-│  │  │     └─ overview.data.js
-│  │  └─ project.js
-│  ├─ features
-│  │  ├─ About
-│  │  │  ├─ CurrentGoals
-│  │  │  │  ├─ CurrentGoals.jsx
-│  │  │  │  ├─ CurrentGoals.styled.js
-│  │  │  │  └─ index.js
-│  │  │  ├─ Hero
-│  │  │  │  ├─ Hero.jsx
-│  │  │  │  ├─ Hero.styled.js
-│  │  │  │  └─ index.js
-│  │  │  ├─ MyApproach
-│  │  │  │  ├─ index.js
-│  │  │  │  ├─ MyApproach.jsx
-│  │  │  │  └─ MyApproach.styled.js
-│  │  │  ├─ QuickFacts
-│  │  │  │  ├─ index.js
-│  │  │  │  ├─ QuickFacts.jsx
-│  │  │  │  └─ QuickFacts.styled.js
-│  │  │  ├─ Story
-│  │  │  │  ├─ index.js
-│  │  │  │  ├─ Story.jsx
-│  │  │  │  └─ Story.styled.js
-│  │  │  └─ WhatIDo
-│  │  │     ├─ index.js
-│  │  │     ├─ WhatIDo.jsx
-│  │  │     └─ WhatIDo.styled.js
-│  │  ├─ Blog
-│  │  │  ├─ BlogList
-│  │  │  │  ├─ BlogCard.jsx
-│  │  │  │  ├─ BlogList.jsx
-│  │  │  │  ├─ BlogList.styled.js
-│  │  │  │  └─ index.js
-│  │  │  ├─ Featured
-│  │  │  │  ├─ Featured.jsx
-│  │  │  │  ├─ Featured.styled.js
-│  │  │  │  └─ index.js
-│  │  │  └─ Hero
-│  │  │     ├─ Hero.jsx
-│  │  │     ├─ Hero.styled.js
-│  │  │     └─ index.js
-│  │  ├─ BlogDetail
-│  │  │  ├─ Author
-│  │  │  │  ├─ Author.jsx
-│  │  │  │  ├─ Author.styled.js
-│  │  │  │  └─ index.js
-│  │  │  ├─ Content
-│  │  │  │  ├─ Content.jsx
-│  │  │  │  ├─ Content.styled.js
-│  │  │  │  └─ index.js
-│  │  │  └─ Hero
-│  │  │     ├─ Hero.jsx
-│  │  │     ├─ Hero.styled.js
-│  │  │     └─ index.js
-│  │  ├─ Contact
-│  │  │  ├─ ContactForm
-│  │  │  │  ├─ ContactForm.jsx
-│  │  │  │  ├─ ContactForm.styled.js
-│  │  │  │  └─ index.js
-│  │  │  ├─ ContactInfo
-│  │  │  │  ├─ ContactInfo.jsx
-│  │  │  │  ├─ ContactInfo.styled.js
-│  │  │  │  └─ index.js
-│  │  │  ├─ FAQ
-│  │  │  │  ├─ FAQ.jsx
-│  │  │  │  ├─ FAQ.styled.js
-│  │  │  │  └─ index.js
-│  │  │  ├─ Hero
-│  │  │  │  ├─ Hero.jsx
-│  │  │  │  ├─ Hero.styled.js
-│  │  │  │  └─ index.js
-│  │  │  └─ index.js
-│  │  ├─ Home
-│  │  │  ├─ AboutSection
-│  │  │  │  ├─ AboutSection.jsx
-│  │  │  │  ├─ AboutSection.styled.js
-│  │  │  │  └─ index.js
-│  │  │  ├─ BlogSection
-│  │  │  │  ├─ BlogSection.jsx
-│  │  │  │  ├─ BlogSection.styled.js
-│  │  │  │  └─ index.js
-│  │  │  ├─ ExperienceSection
-│  │  │  │  ├─ ExperienceSection.jsx
-│  │  │  │  ├─ ExperienceSection.styled.js
-│  │  │  │  └─ index.js
-│  │  │  ├─ HeroSection
-│  │  │  │  ├─ HeroSection.jsx
-│  │  │  │  ├─ HeroSection.styled.js
-│  │  │  │  └─ index.js
-│  │  │  ├─ ProjectsSection
-│  │  │  │  ├─ index.js
-│  │  │  │  ├─ ProjectsSection.jsx
-│  │  │  │  └─ ProjectsSection.styled.js
-│  │  │  ├─ ServiceSection
-│  │  │  │  ├─ index.js
-│  │  │  │  ├─ ServiceSection.jsx
-│  │  │  │  └─ ServiceSection.styled.js
-│  │  │  ├─ SkillSection
-│  │  │  │  ├─ index.js
-│  │  │  │  ├─ SkillSection.jsx
-│  │  │  │  └─ SkillSection.styled.js
-│  │  │  └─ TestimonialSection
-│  │  │     ├─ index.js
-│  │  │     ├─ StarRating.jsx
-│  │  │     ├─ TestimonialCard.jsx
-│  │  │     ├─ TestimonialSection.jsx
-│  │  │     ├─ TestimonialSection.styled.js
-│  │  │     └─ useTestimonialSlider.js
-│  │  └─ Project
-│  │     ├─ Filter
-│  │     │  ├─ Filter.jsx
-│  │     │  ├─ Filter.styled.js
-│  │     │  └─ index.js
-│  │     ├─ Hero
-│  │     │  ├─ Hero.jsx
-│  │     │  ├─ Hero.styled.js
-│  │     │  └─ index.js
-│  │     ├─ Overview
-│  │     │  ├─ index.js
-│  │     │  ├─ Overview.jsx
-│  │     │  └─ Overview.styled.js
-│  │     ├─ ProjectDetail
-│  │     │  ├─ index.js
-│  │     │  ├─ ProjectDetail.jsx
-│  │     │  └─ ProjectDetail.styled.js
-│  │     ├─ ProjectGrid
-│  │     │  ├─ index.js
-│  │     │  ├─ ProjectGrid.jsx
-│  │     │  └─ ProjectGrid.styled.js
-│  │     └─ Screenshots
-│  │        ├─ index.js
-│  │        ├─ Screenshots.jsx
-│  │        └─ Screenshots.styled.js
-│  ├─ hooks
-│  │  └─ useSectionNavigation.js
-│  ├─ main.jsx
-│  ├─ pages
-│  │  ├─ AboutPage
-│  │  │  ├─ AboutPage.jsx
-│  │  │  └─ index.js
-│  │  ├─ BlogDetailPage
-│  │  │  ├─ BlogDetailPage.jsx
-│  │  │  ├─ BlogDetailPage.styled.js
-│  │  │  └─ index.js
-│  │  ├─ BlogPage
-│  │  │  ├─ BlogPage.jsx
-│  │  │  └─ index.js
-│  │  ├─ ComingSoon.jsx
-│  │  ├─ ContactPage
-│  │  │  ├─ ContactPage.jsx
-│  │  │  └─ index.js
-│  │  ├─ HomePage
-│  │  │  ├─ HomePage.jsx
-│  │  │  └─ index.js
-│  │  ├─ ProjectDetailPage
-│  │  │  ├─ index.js
-│  │  │  └─ ProjectDetailPage.jsx
-│  │  └─ ProjectPage
-│  │     ├─ index.js
-│  │     └─ ProjectPage.jsx
-│  ├─ routes
-│  │  └─ AppRoutes.jsx
-│  ├─ services
-│  │  ├─ emailService.js
-│  │  └─ hygraph.js
-│  ├─ styles
-│  │  ├─ fonts.css
-│  │  ├─ global.js
-│  │  ├─ theme.css
-│  │  └─ theme.js
-│  └─ utils
-│     ├─ categoryUtils.js
-│     ├─ convert-images.mjs
-│     ├─ githubUtils.js
-│     ├─ ScrollToTop.jsx
-│     └─ stringUtils.js
-├─ vercel.json
-├─ vite.config.js
-└─ yarn.lock
 
+Requires Node 20+ (developed on Node 24).
+
+## Environment variables
+
+Create `.env` in the repo root (never commit values):
+
+```bash
+VITE_HYGRAPH_ENDPOINT=https://...
+VITE_HYGRAPH_ACCESS_TOKEN=...
+VITE_EMAILJS_PUBLIC_KEY=...
+VITE_EMAILJS_SERVICE_ID=...
+VITE_EMAILJS_TEMPLATE_ID=...
 ```
+
+- Missing Hygraph vars → `src/services/hygraph.js` throws at import.
+- Missing EmailJS vars → `sendContactEmail()` throws; contact form shows an error.
+
+## Project structure
+
+```text
+src/
+  main.jsx            # HelmetProvider + BrowserRouter + GlobalStyle
+  App.jsx             # Global shell: Navbar + AppRoutes + CallToAction + Footer
+  routes/AppRoutes.jsx
+  pages/              # Home, About, Project, ProjectDetail, Blog, BlogDetail, Contact
+  features/           # Page sections (Home/*, About/*, Project/*, Blog/*, Contact/*)
+  components/         # Navbar, Footer, CallToAction, ProjectCard, RichText, SEO, ...
+  data/               # Static content (hero/about/services/experience/testimonials/faq/...)
+  services/           # hygraph.js (CMS queries), emailService.js
+  styles/             # theme.js + theme.css (mirrored tokens), global.js, fonts.css
+  animations/         # variants.js, transitions.js, viewport.js
+  hooks/useSectionNavigation.js
+  utils/              # ScrollToTop, categoryUtils, githubUtils, stringUtils
+public/
+  images/logo.webp, images/preview.webp (OG), resume.pdf, robots.txt, sitemap.xml
+```
+
+Conventions:
+
+- Each feature/component: `Name.jsx + Name.styled.js + index.js` re-export.
+- Static data: `*.data.js` default-export plain objects (`{ pretitle, heading: { main, highlight }, stats/cards/items }`).
+- CMS is source of truth for projects, blog posts, technologies. Static `src/data/` covers hero/about/services/experience/testimonials/FAQ/CTA/footer/navbar.
+- Images are WebP-only. Run `yarn convert-images` after adding raster assets.
+
+## CMS & content
+
+Hygraph models queried in `src/services/hygraph.js`:
+
+- `projects` (featured, all, by slug, categories)
+- `blogPosts` (featured, all, by slug)
+- `technologies` (with categories)
+
+Rich-text fields (`overview/highlights/challenges/content.raw`) render via
+`@graphcms/rich-text-react-renderer` in `src/components/RichText/`.
+
+## SEO & deployment
+
+- Per-route `<SEO>` (title, description, canonical, OG, Twitter) on `/`, `/about`, `/projects`, `/projects/:slug`, `/blogs`, `/blogs/:slug`, `/contact`. `SEO.jsx` accepts relative or absolute `image` URLs.
+- `index.html` holds fallback meta + JSON-LD Person schema.
+- `public/sitemap.xml` lists the 5 static routes; dynamic slugs are intentionally omitted. `vercel.json` rewrites all routes to `/index.html` for SPA routing.
+- Deployed on Vercel from `main`.
+
+## Routes
+
+| Path | Page |
+|---|---|
+| `/` | Home (hero → about → projects → skills → services → experience → testimonials → blog → contact + FAQ) |
+| `/about` | Story, facts, approach, goals |
+| `/projects` | CMS grid + filter + search |
+| `/projects/:slug` | CMS case study |
+| `/blogs` | CMS featured + list |
+| `/blogs/:slug` | CMS article |
+| `/contact` | Form (EmailJS) + info + FAQ |
